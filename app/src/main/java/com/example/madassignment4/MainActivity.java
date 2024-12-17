@@ -1,5 +1,6 @@
 package com.example.madassignment4;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -7,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.madassignment4.Database.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,5 +23,13 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        // Initialize DatabaseHelper to trigger table creation
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+
+        // Get a writable database to ensure onCreate() is called
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        // Close database after creating
+        db.close();
     }
 }
