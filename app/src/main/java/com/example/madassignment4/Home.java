@@ -1,0 +1,151 @@
+package com.example.madassignment4;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CalendarView;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.example.madassignment4.Database.DatabaseHelper;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+
+public class Home extends Fragment {
+
+
+    private CalendarView calendarView;
+    private TextView feeling;
+    private ImageButton feelingAddBtn, journalAddBtn, mindfulnessExerciseBtn;
+    private ImageView defaultEmoji, defaultPhoto;
+    private String selectedDate;
+    private DatabaseHelper databaseHelper;
+
+    public Home() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        calendarView = view.findViewById(R.id.calendarView);
+        feeling = view.findViewById(R.id.Feeling_tv);
+        feelingAddBtn = view.findViewById(R.id.feelingAdd_btn);
+        journalAddBtn = view.findViewById(R.id.journalAdd_btn);
+        mindfulnessExerciseBtn = view.findViewById(R.id.mindfulness_btn);
+        defaultEmoji = view.findViewById(R.id.defaultemoji);
+        defaultPhoto = view.findViewById(R.id.defaultphoto);
+
+        databaseHelper = new DatabaseHelper(getContext());
+
+        // Set the selected date
+        selectedDate = getArguments() != null ? getArguments().getString("selectedDate") :
+                new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+
+        // Set the calendar view to the selected date
+        setCalendarViewToSelectedDate();
+
+        // Calendar view date change listener
+        calendarView.setOnDateChangeListener((view1, year, month, dayOfMonth) -> {
+            selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
+            updateEmoji();
+            updatePhoto();
+        });
+
+        feelingAddBtn.setOnClickListener(v -> navigateToSelectMood(v));
+        journalAddBtn.setOnClickListener(v -> navigateToJournal(v));
+        mindfulnessExerciseBtn.setOnClickListener(v -> navigateToMindfulnessExercise(v));
+
+        updateEmoji();  // Update the mood based on the current date
+        updatePhoto();  // Update the photo based on the current date
+
+        return view;
+    }
+
+    // Set calendar to the selected date
+    private void setCalendarViewToSelectedDate() {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            Date date = sdf.parse(selectedDate);
+            if (date != null) {
+                calendarView.setDate(date.getTime(), true, true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Update the emoji based on the mood of the selected date
+    private void updateEmoji() {
+        String mood = databaseHelper.getMood("testUser", selectedDate);
+        if (mood == null) {
+            defaultEmoji.setImageResource(R.drawable.transparentsquare); // Default emoji
+            feeling.setText("Feeling");
+        } else {
+            defaultEmoji.setImageResource(getEmojiResource(mood));
+            feeling.setText(mood);
+        }
+    }
+
+    private void updatePhoto() {
+        byte[] photo = databaseHelper.getPhoto("testUser", selectedDate);
+        if (photo == null) {
+            defaultPhoto.setImageResource(R.drawable.transparentrectangle); // Default emoji
+        } else {
+            // Convert byte[] to Bitmap
+            Bitmap bitmap = BitmapFactory.decodeByteArray(photo, 0, photo.length);
+            defaultPhoto.setImageBitmap(bitmap); // Set the decoded image
+        }
+    }
+
+    // Map mood string to emoji resource
+    private int getEmojiResource(String mood) {
+        switch (mood) {
+            case "Excited":
+                return R.drawable.excited_stk;
+            case "Happy":
+                return R.drawable.happy_stk;
+            case "Sad":
+                return R.drawable.sad_stk;
+            case "Neutral":
+                return R.drawable.neutral_stk;
+            case "Anxious":
+                return R.drawable.anxious_stk;
+            case "Angry":
+                return R.drawable.angry_stk;
+            default:
+                return R.drawable.transparentsquare;
+        }
+    }
+
+    // Navigation to Select Mood Fragment
+    private void navigateToSelectMood(View v) {
+        Bundle bundle = new Bundle();
+        bundle.putString("selectedDate", selectedDate);
+        Navigation.findNavController(v).navigate(R.id.DestSelectMood, bundle);
+    }
+
+    // Navigation to Journal Fragment
+    private void navigateToJournal(View v) {
+        Bundle bundle = new Bundle();
+        bundle.putString("selectedDate", selectedDate);
+        Navigation.findNavController(v).navigate(R.id.DestJournal, bundle);
+    }
+
+    // Navigation to Mindfulness Exercise Fragment
+    private void navigateToMindfulnessExercise(View v) {
+        Navigation.findNavController(v).navigate(R.id.DestMindfulnessExercise);
+    }
+}
