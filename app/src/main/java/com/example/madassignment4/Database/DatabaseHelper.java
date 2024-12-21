@@ -96,12 +96,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_STEP_TRACK_DATE = "Date";
 
     // Mood Log Columns
-    //public static final String COLUMN_MOOD_ID = "MoodID";
     public static final String COLUMN_MOOD_DATE = "MoodDate";
     public static final String COLUMN_MOOD_TYPE = "MoodType";
 
     // Journal Columns
-    //public static final String COLUMN_JOURNAL_ID = "JournalID";
     public static final String COLUMN_JOURNAL_DATE = "JournalDate";
     public static final String COLUMN_JOURNAL_PHOTO_PATH = "PhotoPath";
     public static final String COLUMN_JOURNAL_WEATHER = "Weather";

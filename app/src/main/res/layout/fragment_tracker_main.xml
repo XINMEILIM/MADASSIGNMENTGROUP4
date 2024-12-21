@@ -5,19 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF0E1"
-    tools:context=".DailyWellnessModule.DailyWellnessMain">
+    tools:context=".TrackerMain">
 
     <TextView
         android:id="@+id/TrackerTittle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="Wellness Tracker"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Tracker"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textColor="#ffae43"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,19 +37,19 @@
 
     <ImageView
         android:id="@+id/tracker_background"
-        android:layout_width="328dp"
-        android:layout_height="592dp"
+        android:layout_width="342dp"
+        android:layout_height="598dp"
         android:layout_gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/TrackerTittle"
-        app:layout_constraintVertical_bias="0.37"
-        app:srcCompat="@drawable/background" />
+        app:layout_constraintVertical_bias="0.467"
+        app:srcCompat="@drawable/tracker_background" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/BtnHydrationTracker"
+        android:id="@+id/BtnMoodTracker"
         android:layout_width="155dp"
         android:layout_height="43dp"
         android:layout_gravity="start|top"
@@ -64,7 +64,7 @@
         app:layout_constraintTop_toTopOf="@+id/tracker_background" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/BtnStepTracking"
+        android:id="@+id/BtnWorkoutTracker"
         android:layout_width="155dp"
         android:layout_height="43dp"
         android:layout_gravity="start|top"
@@ -73,13 +73,13 @@
         android:fontFamily="@font/poppins_semibold"
         android:text="Get Started"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/BtnHydrationTracker"
+        app:layout_constraintEnd_toEndOf="@+id/BtnMoodTracker"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/BtnHydrationTracker"
-        app:layout_constraintTop_toBottomOf="@+id/BtnHydrationTracker" />
+        app:layout_constraintStart_toStartOf="@+id/BtnMoodTracker"
+        app:layout_constraintTop_toBottomOf="@+id/BtnMoodTracker" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/BtnBMICalculator"
+        android:id="@+id/BtnWellnessTracker"
         android:layout_width="155dp"
         android:layout_height="43dp"
         android:layout_gravity="start|top"
@@ -88,9 +88,7 @@
         android:fontFamily="@font/poppins_semibold"
         android:text="Get Started"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/BtnStepTracking"
-        app:layout_constraintTop_toBottomOf="@+id/BtnStepTracking" />
-
-
+        app:layout_constraintStart_toStartOf="@+id/BtnWorkoutTracker"
+        app:layout_constraintTop_toBottomOf="@+id/BtnWorkoutTracker" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

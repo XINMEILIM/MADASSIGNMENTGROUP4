@@ -1,16 +1,18 @@
 package com.example.madassignment4.DailyWellnessModule;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.madassignment4.R;
 
@@ -31,18 +33,24 @@ public class DailyWellnessMain extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Find buttons in the layout
         Button BtnHydrationTracking = view.findViewById(R.id.BtnHydrationTracker);
+        Button BtnStepTracking = view.findViewById(R.id.BtnStepTracking);
+        Button BtnBMICalculator = view.findViewById(R.id.BtnBMICalculator);
+        ImageButton BtnBack = view.findViewById(R.id.back_btn);
+        BtnBack.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
+
+        // Set click listeners for navigation
         BtnHydrationTracking.setOnClickListener(v ->
                 Navigation.findNavController(view).navigate(R.id.HydrationTracking));
 
-        Button BtnStepTracking = view.findViewById(R.id.BtnStepTracking);
         BtnStepTracking.setOnClickListener(v ->
                 Navigation.findNavController(view).navigate(R.id.StepTracking));
 
-        Button BtnBMICalculator = view.findViewById(R.id.BtnBMICalculator);
         BtnBMICalculator.setOnClickListener(v ->
                 Navigation.findNavController(view).navigate(R.id.BMICalculator));
     }
+
 
 
 }

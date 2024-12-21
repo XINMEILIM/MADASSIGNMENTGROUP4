@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_tracker"
+    app:startDestination="@id/trackerMain">
+
+    <fragment
+        android:id="@+id/trackerMain"
+        android:name="com.example.madassignment4.TrackerMain"
+        android:label="fragment_tracker_main"
+        tools:layout="@layout/fragment_tracker_main" >
+        <action
+            android:id="@+id/action_trackerMain_to_dailyWellnessMain2"
+            app:destination="@id/dailyWellnessMain2" />
+        <action
+            android:id="@+id/action_trackerMain_to_home2"
+            app:destination="@id/home2" />
+    </fragment>
+    <fragment
+        android:id="@+id/dailyWellnessMain2"
+        android:name="com.example.madassignment4.DailyWellnessModule.DailyWellnessMain"
+        android:label="fragment_daily_wellness_main"
+        tools:layout="@layout/fragment_daily_wellness_main" />
+    <fragment
+        android:id="@+id/home2"
+        android:name="com.example.madassignment4.Home"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+</navigation>
