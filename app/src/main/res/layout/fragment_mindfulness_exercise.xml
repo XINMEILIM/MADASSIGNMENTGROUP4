@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff0e1"
-    tools:context=".MindfulnessExercise">
+    tools:context=".MoodModule.MindfulnessExercise">
 
     <Button
         android:id="@+id/M15_btn"

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff0e1"
-    tools:context=".BreathingExercise">
+    tools:context=".MoodModule.BreathingExercise">
 
     <ImageButton
         android:id="@+id/beback_btn"

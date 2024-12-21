@@ -1,4 +1,4 @@
-package com.example.madassignment4;
+package com.example.madassignment4.MoodModule;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.madassignment4.Database.DatabaseHelper;
+import com.example.madassignment4.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

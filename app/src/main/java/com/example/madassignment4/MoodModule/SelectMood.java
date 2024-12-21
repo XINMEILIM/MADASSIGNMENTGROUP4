@@ -1,4 +1,4 @@
-package com.example.madassignment4;
+package com.example.madassignment4.MoodModule;
 
 import android.os.Bundle;
 
@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.madassignment4.Database.DatabaseHelper;
-
+import com.example.madassignment4.R;
 
 
 public class SelectMood extends Fragment {

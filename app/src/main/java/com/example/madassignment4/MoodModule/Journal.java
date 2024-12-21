@@ -1,4 +1,4 @@
-package com.example.madassignment4;
+package com.example.madassignment4.MoodModule;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.madassignment4.Database.DatabaseHelper;
+import com.example.madassignment4.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

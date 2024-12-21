@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff0e1"
-    tools:context=".MeditationExercise">
+    tools:context=".MoodModule.MeditationExercise">
 
     <ImageButton
         android:id="@+id/mmeback_btn"

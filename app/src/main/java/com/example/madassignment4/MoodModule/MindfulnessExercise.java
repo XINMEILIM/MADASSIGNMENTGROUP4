@@ -1,4 +1,4 @@
-package com.example.madassignment4;
+package com.example.madassignment4.MoodModule;
 
 import android.app.Dialog;
 import android.graphics.Color;
@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+
+import com.example.madassignment4.R;
 
 
 public class MindfulnessExercise extends Fragment {

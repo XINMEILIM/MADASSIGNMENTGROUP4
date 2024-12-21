@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_daily_wellness_main" />
     <fragment
         android:id="@+id/home2"
-        android:name="com.example.madassignment4.Home"
+        android:name="com.example.madassignment4.MoodModule.Home"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
 </navigation>

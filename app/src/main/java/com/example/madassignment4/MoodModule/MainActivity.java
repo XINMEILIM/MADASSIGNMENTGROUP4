@@ -1,4 +1,4 @@
-package com.example.madassignment4;
+package com.example.madassignment4.MoodModule;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import androidx.navigation.fragment.NavHostFragment;
 
 
 import com.example.madassignment4.Database.DatabaseHelper;
+import com.example.madassignment4.R;
+
 import androidx.core.graphics.Insets;
 
 

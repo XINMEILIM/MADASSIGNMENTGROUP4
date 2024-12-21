@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.madassignment4.DailyWellnessModule.DailyWellnessActivity;
+import com.example.madassignment4.MoodModule.MoodMainActivity;
 
 public class TrackerMain extends Fragment {
 

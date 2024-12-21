@@ -1,15 +1,10 @@
-package com.example.madassignment4;
+package com.example.madassignment4.MoodModule;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.madassignment4.Database.DatabaseHelper;
+import com.example.madassignment4.R;
 
 public class MoodMainActivity extends AppCompatActivity {
 

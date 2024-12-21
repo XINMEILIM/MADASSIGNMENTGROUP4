@@ -1,4 +1,4 @@
-package com.example.madassignment4;
+package com.example.madassignment4.MoodModule;
 
 import android.app.Dialog;
 import android.graphics.Color;
@@ -16,47 +16,39 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-public class BreathingExercise extends Fragment {
+import com.example.madassignment4.R;
+
+public class MeditationExercise extends Fragment {
 
 
-    private TextView timerText, cycleText;
+    private TextView timerText;
     private ImageButton playButton;
-    private CountDownTimer countDownTimer, cycleCountDownTimer;
+    private CountDownTimer countDownTimer;
     private boolean isTimerRunning = false;
     private long timeLeftInMillis;  // Variable to hold the selected time
-    private MediaPlayer mediaPlayer4, mediaPlayer8;
-    private Dialog dialogDone, dialogConfirmation;
-    private Button no_btn,yes_btn;
-    private int cycleState = 0; // 0 for inhale, 1 for hold, 2 for exhale
-    private TextView action;
-    private ImageView action_img;
+    private MediaPlayer mediaPlayer;
+    private Dialog dialogDone,dialogConfirmation;
+    private Button no_btn, yes_btn;
 
-    public BreathingExercise() {
+    public MeditationExercise() {
         // Required empty public constructor
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_meditation_exercise, container, false);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_breathing_exercise, container, false);
-
+        // Retrieve the time passed from the previous fragment
         if (getArguments() != null) {
-            timeLeftInMillis = getArguments().getLong("timeInMillis", 50000); // Default to 1 minute if no time is passed
+            timeLeftInMillis = getArguments().getLong("timeInMillis", 60000); // Default to 1 minute if no time is passed
         }
 
-        timerText = view.findViewById(R.id.be_timer);
-        cycleText = view.findViewById(R.id.be_timer2);
+        timerText = view.findViewById(R.id.me_timer);
         playButton = view.findViewById(R.id.play_btn);
-        action = view.findViewById(R.id.betv3);
-        action_img = view.findViewById(R.id.beiv);
+
 
         dialogDone = new Dialog(getContext());
         dialogDone.setContentView(R.layout.fragment_done_dialog_box);
@@ -77,15 +69,19 @@ public class BreathingExercise extends Fragment {
 
         updateTimerText(timeLeftInMillis);
 
-        mediaPlayer4 = MediaPlayer.create(getContext(), R.raw.four);
-        mediaPlayer8 = MediaPlayer.create(getContext(), R.raw.eight);
+        mediaPlayer = MediaPlayer.create(getContext(), R.raw.meditation_music);
+
+        // Set an OnCompletionListener to restart the music once it finishes
+        mediaPlayer.setOnCompletionListener(mp -> {
+            mp.seekTo(0);  // Reset the music to the beginning
+            mp.start();    // Restart the music
+        });
 
         playButton.setOnClickListener(v -> {
             if (isTimerRunning) {
                 pauseTimer();
             } else {
                 startTimer();
-                startCycleTimer();
             }
         });
 
@@ -94,19 +90,17 @@ public class BreathingExercise extends Fragment {
             Navigation.findNavController(view).navigate(R.id.DestMindfulnessExercise);
         });
 
-        ImageButton backButton = view.findViewById(R.id.beback_btn);
+        ImageButton backButton = view.findViewById(R.id.mmeback_btn);
         backButton.setOnClickListener(v -> {
             dialogConfirmation.show();
             pauseTimer();
-
             yes_btn.setOnClickListener(v1 -> {
                 dialogConfirmation.dismiss();
                 Navigation.findNavController(requireView()).navigate(R.id.DestMindfulnessExercise);
             });
-
             no_btn.setOnClickListener(v1 -> dialogConfirmation.dismiss());
-
         });
+
 
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
@@ -139,7 +133,6 @@ public class BreathingExercise extends Fragment {
                 updateTimerText(0);
                 playButton.setImageResource(R.drawable.play_btn);  // Set to "Start" icon
                 stopMusic();
-                cycleCountDownTimer.cancel();
                 dialogDone.show();
             }
         };
@@ -147,89 +140,18 @@ public class BreathingExercise extends Fragment {
         countDownTimer.start();
         isTimerRunning = true;
 
-        mediaPlayer4.start();
+        mediaPlayer.start();
 
         // Update button to "Pause" icon
         playButton.setImageResource(R.drawable.stop_btn);  // Set to "Pause" icon
     }
 
-    private void startCycleTimer() {
-        int phaseDuration = getPhaseDuration(cycleState);
-
-        cycleCountDownTimer = new CountDownTimer(phaseDuration, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                int secondsRemaining = (int) (millisUntilFinished / 1000);
-
-                if (cycleState == 0 && secondsRemaining == 5) {
-                    cycleText.setText("4");
-                    action.setText("INHALE");
-                    action_img.setImageResource(R.drawable.inhale_stk);
-                    mediaPlayer4.start();
-                } else if (cycleState == 1 && secondsRemaining == 8) {
-                    cycleText.setText("7");
-                    action.setText("HOLD");
-                    action_img.setImageResource(R.drawable.hold_stk);
-                } else if (cycleState == 2 && secondsRemaining == 9) {
-                    cycleText.setText("8");
-                    action.setText("EXHALE");
-                    action_img.setImageResource(R.drawable.exhale_stk);
-                    mediaPlayer8.start();
-                } else {
-                    cycleText.setText(String.valueOf(secondsRemaining));
-
-                }
-            }
-
-            @Override
-            public void onFinish() {
-                updateCycleState();
-                startCycleTimer();
-            }
-        };
-
-        cycleCountDownTimer.start();
-    }
-
-    private int getPhaseDuration(int state) {
-        switch (state) {
-            case 0:
-                return 5000;
-            case 1:
-                return 8000;
-            case 2:
-                return 9000;
-            default:
-                return 0;
-        }
-    }
-
-    private void updateCycleState() {
-        switch (cycleState) {
-            case 0:
-                cycleState = 1;
-                break;
-            case 1:
-                cycleState = 2;
-                break;
-            case 2:
-                cycleState = 0;
-                break;
-        }
-    }
-
     private void pauseTimer() {
         if (!isTimerRunning) return;  // If timer is not running, do nothing
 
-        if (cycleCountDownTimer != null) {
-            cycleCountDownTimer.cancel();  // Pause cycle countdown
-        }
-
-        if (countDownTimer != null) {
-            countDownTimer.cancel();  // Pause main countdown
-        }
-
+        countDownTimer.cancel();
         isTimerRunning = false;
+
         stopMusic();
 
         // Update button to "Start" icon
@@ -237,11 +159,8 @@ public class BreathingExercise extends Fragment {
     }
 
     private void stopMusic() {
-        if (mediaPlayer4 != null && mediaPlayer4.isPlaying()) {
-            mediaPlayer4.pause();  // Pause the music
-        }
-        if (mediaPlayer8 != null && mediaPlayer8.isPlaying()) {
-            mediaPlayer8.pause();  // Pause the music
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();  // Pause the music
         }
     }
 
@@ -255,11 +174,10 @@ public class BreathingExercise extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        if (mediaPlayer4 != null) {
-            mediaPlayer4.release();  // Release the media player resources when the fragment stops
-        }
-        if (mediaPlayer8 != null) {
-            mediaPlayer8.release();  // Release the media player resources when the fragment stops
+        if (mediaPlayer != null) {
+            mediaPlayer.release();  // Release the media player resources when the fragment stops
         }
     }
+
+
 }
