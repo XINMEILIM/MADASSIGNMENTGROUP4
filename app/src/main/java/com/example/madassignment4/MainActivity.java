@@ -1,15 +1,23 @@
 package com.example.madassignment4;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsCompat.Type;
+import androidx.activity.EdgeToEdge;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
+
 
 import com.example.madassignment4.Database.DatabaseHelper;
+import androidx.core.graphics.Insets;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,9 +35,16 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHelper dbHelper = new DatabaseHelper(this);
 
         // Get a writable database to ensure onCreate() is called
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        // Close database after creating
-        db.close();
+        // Close the database after ensuring table creation
+        // db.close();
+
+        // Obtain the NavController from the NavHostFragment
+        // Set up Navigation Component
+        NavHostFragment navHostFragment =
+        (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        NavController navController = navHostFragment.getNavController();
+
     }
 }

@@ -40,4 +40,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation(libs.circularprogressbar)
+    implementation(libs.mpandroidchart)
+    implementation(libs.navigation.runtime)
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
 }

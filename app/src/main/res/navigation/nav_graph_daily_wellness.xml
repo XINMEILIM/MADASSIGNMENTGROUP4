@@ -1,0 +1,68 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/nav_graph_daily_wellness"
+app:startDestination="@id/dailyWellnessMain">
+
+
+<!-- Daily Wellness Main Fragment -->
+<fragment
+        android:id="@+id/dailyWellnessMain"
+        android:name="com.example.madassignment4.DailyWellnessModule.DailyWellnessMain"
+        android:label="fragment_daily_wellness_main"
+        tools:layout="@layout/fragment_daily_wellness_main">
+    <action
+        android:id="@+id/action_dailyWellnessMain_to_hydrationTracking"
+        app:destination="@id/HydrationTracking" />
+    <action
+        android:id="@+id/action_dailyWellnessMain_to_stepTracking"
+        app:destination="@id/StepTracking" />
+    <action
+        android:id="@+id/action_dailyWellnessMain_to_bmiCalculator"
+        app:destination="@id/BMICalculator" />
+</fragment>
+
+<!-- Hydration Tracking Fragment -->
+<fragment
+    android:id="@+id/HydrationTracking"
+    android:name="com.example.madassignment4.DailyWellnessModule.HydrationTracking"
+    android:label="fragment_hydration_tracking"
+    tools:layout="@layout/fragment_hydration_tracking">
+    <action
+        android:id="@+id/action_hydrationTracking_to_hydrationHistory"
+        app:destination="@id/hydrationHistory" />
+</fragment>
+
+<!-- Step Tracking Fragment -->
+<fragment
+    android:id="@+id/StepTracking"
+    android:name="com.example.madassignment4.DailyWellnessModule.StepTracking"
+    android:label="fragment_step_tracking"
+    tools:layout="@layout/fragment_step_tracking" >
+    <action
+        android:id="@+id/action_StepTracking_to_stepHistory"
+        app:destination="@id/stepHistory" />
+</fragment>
+
+<!-- BMI Calculator Fragment -->
+<fragment
+    android:id="@+id/BMICalculator"
+    android:name="com.example.madassignment4.DailyWellnessModule.bmiCalculator"
+    android:label="fragment_bmi_calculator"
+    tools:layout="@layout/fragment_bmi_calculator" />
+
+
+
+<!-- Hydration History Fragment -->
+<fragment
+    android:id="@+id/hydrationHistory"
+    android:name="com.example.madassignment4.DailyWellnessModule.HydrationHistory"
+    android:label="Hydration History" />
+
+
+    <!--Step History Fragment -->
+<fragment
+    android:id="@+id/stepHistory"
+    android:name="com.example.madassignment4.DailyWellnessModule.StepHistory"
+    android:label="StepHistory" />
+</navigation>

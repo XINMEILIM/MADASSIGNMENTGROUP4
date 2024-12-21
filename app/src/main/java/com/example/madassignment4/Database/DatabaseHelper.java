@@ -1,8 +1,18 @@
 package com.example.madassignment4.Database;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.madassignment4.DailyWellnessModule.HydrationIntakeModel;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -319,4 +329,321 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_FITNESS_SETTING);
         onCreate(db);
     }
+    public void saveHydrationGoal(String userId, String date, int hydrationGoal) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("UserID", userId);  // Replace with actual user ID
+        values.put("Date", date);
+        values.put("HydrationGoal", hydrationGoal);
+
+        // Insert or update the goal
+        db.replace(TABLE_HYDRATION_GOAL, null, values);
+        db.close();
+    }
+
+    public int getHydrationGoal(String userId, String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_HYDRATION_GOAL, new String[]{"HydrationGoal"},
+                "UserID = ? AND Date = ?", new String[]{userId, date}, null, null, null);
+
+        int goal = -1; // Default value if no goal is found
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                int columnIndex = cursor.getColumnIndex("HydrationGoal");
+                if (columnIndex != -1) {
+                    goal = cursor.getInt(columnIndex);
+                }
+            }
+            cursor.close();
+        }
+
+        return goal;
+    }
+
+    // Method to save hydration intake
+    public boolean saveHydrationIntake(String userId, String date, String timeStamp, int quantity) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("UserID", userId);
+        values.put("Date", date);
+        values.put("IntakeTimeStamp", timeStamp);
+        values.put("QuantityofWater", quantity);
+
+        long result = db.insert(TABLE_HYDRATION_INTAKE, null, values);
+        db.close();
+        return result != -1;
+    }
+
+    // Method to fetch hydration intake data
+    public List<HydrationIntakeModel> getTodayHydrationRecords(String userId, String todayDate) {
+        List<HydrationIntakeModel> intakeList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Query only today's hydration intake
+        Cursor cursor = db.query(TABLE_HYDRATION_INTAKE, new String[]{"IntakeTimeStamp", "QuantityofWater"},
+                "UserID = ? AND Date = ?", new String[]{userId, todayDate}, null, null, "IntakeTimeStamp ASC");
+
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                int intakeIimeStampIndex= cursor.getColumnIndex("IntakeTimeStamp");
+                int quantityOfWaterIndex = cursor.getColumnIndex("QuantityofWater");
+                String intakeTimestamp = cursor.getString(intakeIimeStampIndex);
+                int quantityOfWater = cursor.getInt(quantityOfWaterIndex);
+                HydrationIntakeModel intake = new HydrationIntakeModel(intakeTimestamp, quantityOfWater);
+                intakeList.add(intake);
+            }
+            cursor.close();
+        }
+
+        return intakeList;
+    }
+
+    public int getTotalWaterIntake(String userId, String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_HYDRATION_INTAKE, new String[]{"QuantityofWater"},
+                "UserID = ? AND Date = ?", new String[]{userId, date}, null, null, null);
+
+        int totalIntake = 0;
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                int quantityOfWaterIndex = cursor.getColumnIndex("QuantityofWater");
+                int quantityOfWater = cursor.getInt(quantityOfWaterIndex);
+                totalIntake += quantityOfWater;
+            }
+            cursor.close();
+        }
+
+        return totalIntake;
+    }
+
+    public Map<String, Integer> getTotalWaterIntakeByDay(String userId, String startDate, String endDate) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Map<String, Integer> dailyIntake = new LinkedHashMap<>();
+
+        // Query to sum water intake grouped by Date
+        String query = "SELECT Date, SUM(QuantityofWater) AS TotalIntake " +
+                "FROM " + TABLE_HYDRATION_INTAKE +
+                " WHERE UserID = ? AND Date BETWEEN ? AND ? " +
+                "GROUP BY Date ORDER BY Date";
+
+        // Execute the query
+        Cursor cursor = db.rawQuery(query, new String[]{userId, startDate, endDate});
+
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                int DateIndex=cursor.getColumnIndex("Date");
+                int TotalIntakeIndex=cursor.getColumnIndex("TotalIntake");
+                String date = cursor.getString(DateIndex);
+                int totalIntake = cursor.getInt(TotalIntakeIndex);
+                dailyIntake.put(date, totalIntake); // Store date and total intake in the map
+            }
+            cursor.close();
+        }
+
+        return dailyIntake; // Return totals grouped by date
+    }
+    public void saveStepData(String userId, int stepGoal, int stepCount, float distanceWalked, float caloriesBurned, String date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_ID, userId);
+        values.put(COLUMN_STEP_GOAL, stepGoal);
+        values.put(COLUMN_STEP_COUNT, stepCount);
+        values.put(COLUMN_DISTANCE_WALKED, distanceWalked);
+        values.put(COLUMN_CALORIES_BURNED, caloriesBurned);
+        values.put(COLUMN_STEP_TRACK_DATE, date);
+
+        db.insert(TABLE_STEP_TRACKING, null, values);
+        db.close();
+    }
+
+    // Method to load the last saved data
+    public Cursor loadLastStepData(String userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.query(TABLE_STEP_TRACKING, null, COLUMN_USER_ID + "=?", new String[]{String.valueOf(userId)}, null, null, COLUMN_STEP_TRACK_DATE + " DESC", "1");
+    }
+
+
+    public void saveDailyStepTracking(String userId, String date, int stepCount, float distanceWalked, float caloriesBurned) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("UserID", userId);
+        values.put("Date", date);
+        values.put("StepCount", stepCount);
+        values.put("DistanceWalked", distanceWalked);
+        values.put("CaloriesBurned", caloriesBurned);
+
+        // Insert or replace the record for the given date
+        db.insertWithOnConflict(TABLE_STEP_TRACKING, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+    }
+
+    public Map<String, Map<String, Object>> getTotalStepCount(String userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Map<String, Map<String, Object>> history = new LinkedHashMap<>();
+
+        String query = "SELECT Date, StepCount, DistanceWalked, CaloriesBurned FROM " + TABLE_STEP_TRACKING +
+                " WHERE UserID = ? ORDER BY Date DESC";
+
+        Cursor cursor = db.rawQuery(query, new String[]{userId});
+
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                int DateIndex=cursor.getColumnIndex("Date");
+                int StepsCountIndex=cursor.getColumnIndex("StepCount");
+                String date = cursor.getString(DateIndex);
+                int steps = cursor.getInt(StepsCountIndex);
+
+                Map<String, Object> dailyData = new HashMap<>();
+                dailyData.put("Steps", steps);
+                history.put(date, dailyData);
+            }
+            cursor.close();
+        }
+
+        return history;
+    }
+
+    public int getStepGoalId(String userId, String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query("StepTracking", new String[]{"StepGoalID"}, "UserID = ? AND Date = ?", new String[]{userId, date}, null, null, null);
+        int stepGoalId = -1;
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int StepGoalIDIndex=cursor.getColumnIndex("StepGoalID");
+            stepGoalId = cursor.getInt(StepGoalIDIndex);
+            cursor.close();
+        }
+
+        return stepGoalId;
+    }
+
+    public void saveStepGoal(String userId, String date, int goal) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int existingGoal = getStepGoal(userId, date);
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_ID, userId);
+        values.put(COLUMN_STEP_TRACK_DATE, date);
+        values.put(COLUMN_STEP_GOAL, goal);
+
+        if (existingGoal == -1) {
+            db.insert(TABLE_STEP_TRACKING, null, values);
+        } else {
+            db.update(TABLE_STEP_TRACKING, values, COLUMN_USER_ID + " = ? AND " + COLUMN_STEP_TRACK_DATE + " = ?",
+                    new String[]{userId, date});
+        }
+    }
+
+    public int getStepGoal(String userId, String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int goal = -1;
+
+        // Query the database for the user's goal on the given date
+        String query = "SELECT " + COLUMN_STEP_GOAL + " FROM " + TABLE_STEP_TRACKING +
+                " WHERE " + COLUMN_USER_ID + " = ? AND " + COLUMN_STEP_TRACK_DATE + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{userId, date});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            // If a record exists, get the goal value
+            int goalIndex = cursor.getColumnIndex(COLUMN_STEP_GOAL);
+            goal = cursor.getInt(goalIndex);
+            cursor.close();
+        }
+
+        return goal;
+    }
+
+    public void saveOrUpdateStepTrackingData(String userId, int stepGoal, int stepCount, float distanceWalked, float caloriesBurned, String date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_ID, userId);
+        values.put(COLUMN_STEP_COUNT, stepCount);
+        values.put(COLUMN_DISTANCE_WALKED, distanceWalked);
+        values.put(COLUMN_CALORIES_BURNED, caloriesBurned);
+        values.put(COLUMN_STEP_TRACK_DATE, date);
+
+        // Check if a goal is already set for this user and date
+        int existingGoal = getStepGoal(userId, date);
+
+        // If no goal is set for the day, insert the step goal
+        if (existingGoal == -1) {
+            // If there is no goal set for the day, insert the goal along with the other tracking data
+            values.put(COLUMN_STEP_GOAL, stepGoal);  // Add step goal if it doesn't exist
+            db.insert(TABLE_STEP_TRACKING, null, values);
+        } else {
+            // If a goal is already set for the day, don't update the goal, just update the other tracking data
+            db.update(TABLE_STEP_TRACKING, values, COLUMN_USER_ID + " = ? AND " + COLUMN_STEP_TRACK_DATE + " = ?",
+                    new String[]{userId, date});
+        }
+    }
+
+    public int getTotalStepsForDay(String userId, String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_STEP_TRACKING, new String[]{COLUMN_STEP_COUNT}, COLUMN_USER_ID + " = ? AND " + COLUMN_STEP_TRACK_DATE + " = ?",
+                new String[]{userId, date}, null, null, null);
+
+        int totalSteps = 0;
+        if (cursor != null && cursor.moveToFirst()) {
+            int StepCountIndex=cursor.getColumnIndex(COLUMN_STEP_COUNT);
+            totalSteps = cursor.getInt(StepCountIndex);
+            cursor.close();
+        }
+
+        return totalSteps;
+    }
+
+    public float getDistanceWalkedForDay(String userId, String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        float distanceWalked = 0.0f;
+
+        // Query the database for the user's distance walked on the given date
+        String query = "SELECT " + COLUMN_DISTANCE_WALKED +
+                " FROM " + TABLE_STEP_TRACKING +
+                " WHERE " + COLUMN_USER_ID + " = ? AND " + COLUMN_STEP_TRACK_DATE + " = ?";
+
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery(query, new String[]{userId, date});
+
+            if (cursor != null && cursor.moveToFirst()) {
+                int distanceWalkedIndex = cursor.getColumnIndex(COLUMN_DISTANCE_WALKED);
+                distanceWalked = cursor.getFloat(distanceWalkedIndex);
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close(); // Ensure the cursor is closed
+            }
+        }
+
+        return distanceWalked;
+    }
+
+
+    public float getCaloriesBurnedForDay(String userId, String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        float caloriesBurned = 0.0f;
+
+        // Query the database for the user's calories burned on the given date
+        String query = "SELECT " + COLUMN_CALORIES_BURNED +
+                " FROM " + TABLE_STEP_TRACKING +
+                " WHERE " + COLUMN_USER_ID + " = ? AND " + COLUMN_STEP_TRACK_DATE + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{userId, date});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int caloriesBurnedIndex = cursor.getColumnIndex(COLUMN_CALORIES_BURNED);
+            caloriesBurned = cursor.getFloat(caloriesBurnedIndex);
+            cursor.close();
+        }
+
+        return caloriesBurned;
+    }
+
+
+
+
 }
+
+
+
+
