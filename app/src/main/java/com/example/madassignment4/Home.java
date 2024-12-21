@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -34,6 +35,18 @@ public class Home extends Fragment {
 
     public Home() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Navigation.findNavController(requireView()).navigate(R.id.DestTrackerMain);
+                remove();
+            }
+        });
     }
 
     @Override
@@ -70,6 +83,11 @@ public class Home extends Fragment {
 
         updateEmoji();  // Update the mood based on the current date
         updatePhoto();  // Update the photo based on the current date
+
+        ImageButton backButton = view.findViewById(R.id.homeback_btn);
+        backButton.setOnClickListener(v -> {
+            Navigation.findNavController(requireView()).navigate(R.id.DestTrackerMain);
+        });
 
         return view;
     }

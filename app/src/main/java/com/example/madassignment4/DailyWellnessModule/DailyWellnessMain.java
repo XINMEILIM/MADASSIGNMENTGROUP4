@@ -4,9 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +20,7 @@ public class DailyWellnessMain extends Fragment {
     public DailyWellnessMain() {
         // Required empty public constructor
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,7 +37,9 @@ public class DailyWellnessMain extends Fragment {
         Button BtnStepTracking = view.findViewById(R.id.BtnStepTracking);
         Button BtnBMICalculator = view.findViewById(R.id.BtnBMICalculator);
         ImageButton BtnBack = view.findViewById(R.id.back_btn);
-        BtnBack.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
+        BtnBack.setOnClickListener(v -> {
+            Navigation.findNavController(requireView()).navigate(R.id.trackerMain2);
+        });
 
         // Set click listeners for navigation
         BtnHydrationTracking.setOnClickListener(v ->
@@ -50,7 +51,6 @@ public class DailyWellnessMain extends Fragment {
         BtnBMICalculator.setOnClickListener(v ->
                 Navigation.findNavController(view).navigate(R.id.BMICalculator));
     }
-
 
 
 }

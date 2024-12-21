@@ -44,7 +44,11 @@
         android:id="@+id/DestMindfulnessExercise"
         android:name="com.example.madassignment4.MindfulnessExercise"
         android:label="fragment_mindfulness_exercise"
-        tools:layout="@layout/fragment_mindfulness_exercise" />
+        tools:layout="@layout/fragment_mindfulness_exercise" >
+        <action
+            android:id="@+id/action_mindfulnessExercise_to_home"
+            app:destination="@id/DestHome" />
+    </fragment>
 
     <fragment
         android:id="@+id/breathingExercise"
@@ -56,5 +60,10 @@
         android:name="com.example.madassignment4.MeditationExercise"
         android:label="fragment_meditation_exercise"
         tools:layout="@layout/fragment_meditation_exercise" />
+    <fragment
+        android:id="@+id/DestTrackerMain"
+        android:name="com.example.madassignment4.TrackerMain"
+        android:label="fragment_tracker_main"
+        tools:layout="@layout/fragment_tracker_main" />
 
 </navigation>
