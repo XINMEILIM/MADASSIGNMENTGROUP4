@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_mood_tracker"
+    app:startDestination="@id/DestHome">
+
+    <fragment
+        android:id="@+id/DestHome"
+        android:name="com.example.madassignment4.Home"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_to_selectMood"
+            app:destination="@id/DestSelectMood" />
+
+        <action
+            android:id="@+id/action_home_to_journal"
+            app:destination="@id/DestJournal" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/DestSelectMood"
+        android:name="com.example.madassignment4.SelectMood"
+        android:label="fragment_select_mood"
+        tools:layout="@layout/fragment_select_mood">
+        <action
+            android:id="@+id/action_selectMood_to_home"
+            app:destination="@id/DestHome" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/DestJournal"
+        android:name="com.example.madassignment4.Journal"
+        android:label="fragment_journal"
+        tools:layout="@layout/fragment_journal">
+        <action
+            android:id="@+id/action_journal_to_home"
+            app:destination="@id/DestHome" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/DestMindfulnessExercise"
+        android:name="com.example.madassignment4.MindfulnessExercise"
+        android:label="fragment_mindfulness_exercise"
+        tools:layout="@layout/fragment_mindfulness_exercise" />
+
+    <fragment
+        android:id="@+id/breathingExercise"
+        android:name="com.example.madassignment4.BreathingExercise"
+        android:label="fragment_breathing_exercise"
+        tools:layout="@layout/fragment_breathing_exercise" />
+    <fragment
+        android:id="@+id/meditationExercise"
+        android:name="com.example.madassignment4.MeditationExercise"
+        android:label="fragment_meditation_exercise"
+        tools:layout="@layout/fragment_meditation_exercise" />
+
+</navigation>

@@ -1,11 +1,8 @@
 package com.example.madassignment4.Database;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import com.example.madassignment4.DailyWellnessModule.HydrationIntakeModel;
 
 import java.util.ArrayList;
@@ -13,6 +10,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import android.content.ContentValues;
+import android.database.Cursor;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -96,12 +96,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_STEP_TRACK_DATE = "Date";
 
     // Mood Log Columns
-    public static final String COLUMN_MOOD_ID = "MoodID";
+    //public static final String COLUMN_MOOD_ID = "MoodID";
     public static final String COLUMN_MOOD_DATE = "MoodDate";
     public static final String COLUMN_MOOD_TYPE = "MoodType";
 
     // Journal Columns
-    public static final String COLUMN_JOURNAL_ID = "JournalID";
+    //public static final String COLUMN_JOURNAL_ID = "JournalID";
     public static final String COLUMN_JOURNAL_DATE = "JournalDate";
     public static final String COLUMN_JOURNAL_PHOTO_PATH = "PhotoPath";
     public static final String COLUMN_JOURNAL_WEATHER = "Weather";
@@ -228,22 +228,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // SQL for creating Mood Log Table
     private static final String CREATE_MOOD_LOG_TABLE =
             "CREATE TABLE " + TABLE_MOOD_LOG + " (" +
-                    COLUMN_MOOD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_USER_ID + " TEXT, " +
                     COLUMN_MOOD_DATE + " TEXT, " +
+                    COLUMN_USER_ID + " TEXT, " +
                     COLUMN_MOOD_TYPE + " TEXT, " +
-                    "FOREIGN KEY (" + COLUMN_USER_ID + ") REFERENCES " + TABLE_USER + "(" + COLUMN_USER_ID + "));";
+                    "PRIMARY KEY(" + COLUMN_MOOD_DATE + ", " + COLUMN_USER_ID + "), " +
+                    "FOREIGN KEY(" + COLUMN_USER_ID + ") REFERENCES " + TABLE_USER + "(" + COLUMN_USER_ID + "))";
 
     // SQL for creating Journal Table
     private static final String CREATE_JOURNAL_TABLE =
             "CREATE TABLE " + TABLE_JOURNAL + " (" +
-                    COLUMN_JOURNAL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_USER_ID + " TEXT, " +
                     COLUMN_JOURNAL_DATE + " TEXT, " +
-                    COLUMN_JOURNAL_PHOTO_PATH + " TEXT, " +
+                    COLUMN_USER_ID + " TEXT, " +
+                    COLUMN_JOURNAL_PHOTO_PATH + " BLOB, " +
                     COLUMN_JOURNAL_WEATHER + " TEXT, " +
                     COLUMN_JOURNAL_NOTE + " TEXT, " +
-                    "FOREIGN KEY (" + COLUMN_USER_ID + ") REFERENCES " + TABLE_USER + "(" + COLUMN_USER_ID + "));";
+                    "PRIMARY KEY(" + COLUMN_JOURNAL_DATE + ", " + COLUMN_USER_ID + "), " +
+                    "FOREIGN KEY(" + COLUMN_USER_ID + ") REFERENCES " + TABLE_USER + "(" + COLUMN_USER_ID + "))";
 
     // SQL for creating Mindfulness Exercise Table
     private static final String CREATE_MINDFULNESS_EXERCISE_TABLE =
@@ -638,6 +638,100 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return caloriesBurned;
     }
+    public void saveMood(String userId, String date, String mood) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_ID, userId);
+        values.put(COLUMN_MOOD_DATE, date);
+        values.put(COLUMN_MOOD_TYPE, mood);
+        db.insertWithOnConflict(TABLE_MOOD_LOG, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+    }
+
+    public String getMood(String userId, String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_MOOD_LOG,
+                new String[]{COLUMN_MOOD_TYPE},
+                COLUMN_USER_ID + "=? AND " + COLUMN_MOOD_DATE + "=?",
+                new String[]{userId, date},
+                null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            String mood = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_MOOD_TYPE));
+            cursor.close();
+            return mood;
+        }
+
+        return null;
+    }
+
+    public void saveJournal(String userID, String date, byte[] newPhoto, String newWeather, String newNote) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Retrieve existing data for the date
+        Cursor cursor = getJournal(userID, date);
+        byte[] existingPhoto = null;
+        String existingWeather = null;
+        String existingNote = null;
+
+        if (cursor != null && cursor.moveToFirst()) {
+            existingPhoto = cursor.getBlob(cursor.getColumnIndexOrThrow(COLUMN_JOURNAL_PHOTO_PATH));
+            existingWeather = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_JOURNAL_WEATHER));
+            existingNote = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_JOURNAL_NOTE));
+            cursor.close();
+        }
+
+        // Use new data if provided; otherwise, use existing data
+        byte[] finalPhoto = (newPhoto != null) ? newPhoto : existingPhoto;
+        String finalWeather = (newWeather != null && !newWeather.isEmpty()) ? newWeather : existingWeather;
+        String finalNote = (newNote != null && !newNote.isEmpty()) ? newNote : existingNote;
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_ID, userID);
+        values.put(COLUMN_JOURNAL_DATE, date);
+        values.put(COLUMN_JOURNAL_PHOTO_PATH, finalPhoto);
+        values.put(COLUMN_JOURNAL_WEATHER, finalWeather);
+        values.put(COLUMN_JOURNAL_NOTE, finalNote);
+
+        db.insertWithOnConflict(TABLE_JOURNAL, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+    }
+
+    public Cursor getJournal(String userId, String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.query(
+                TABLE_JOURNAL,
+                null,
+                COLUMN_USER_ID + "=? AND " + COLUMN_JOURNAL_DATE + "=?",
+                new String[]{userId, date},
+                null, null, null
+        );
+    }
+
+
+    public byte[] getPhoto(String userId, String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        byte[] photo = null;
+
+        // Query to get the photo column for the given userId and date
+        Cursor cursor = db.query(
+                TABLE_JOURNAL,
+                new String[]{COLUMN_JOURNAL_PHOTO_PATH}, // Only retrieve the photo column
+                COLUMN_USER_ID + "=? AND " + COLUMN_JOURNAL_DATE + "=?", // Where clause
+                new String[]{userId, date},         // Arguments for the where clause
+                null,                               // Group by
+                null,                               // Having
+                null                                // Order by
+        );
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                photo = cursor.getBlob(cursor.getColumnIndexOrThrow(COLUMN_JOURNAL_PHOTO_PATH));
+            }
+            cursor.close();
+        }
+
+        return photo; // Returns null if no photo is found
+    }
+
 
 
 
