@@ -15,7 +15,7 @@
 
         <!-- MainActivity is now the launcher activity -->
         <activity
-            android:name=".MoodModule.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
