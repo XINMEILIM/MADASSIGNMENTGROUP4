@@ -1,18 +1,114 @@
 package com.example.madassignment4;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import java.util.HashMap;
 
 public class HistorySummaryFragment extends Fragment {
 
+    private FitnessDatabaseHelper databaseHelper;
+
+    private TextView tvSummaryRun, tvSummaryWalk, tvSummaryCycle, tvSummarySwim, tvSummaryOtherCardio;
+    private TextView tvSummaryWorkout, tvSummaryWeightlift, tvSummaryOtherWeightTraining;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_history_summary, container, false);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        databaseHelper = new FitnessDatabaseHelper(getContext());
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_history_summary, container, false);
+
+        // Initialize TextViews
+        tvSummaryRun = view.findViewById(R.id.TVSummaryRun);
+        tvSummaryWalk = view.findViewById(R.id.TVSummaryWalk);
+        tvSummaryCycle = view.findViewById(R.id.TVSummaryCycle);
+        tvSummarySwim = view.findViewById(R.id.TVSummarySwim);
+        tvSummaryOtherCardio = view.findViewById(R.id.TVSummaryOtherCardio);
+        tvSummaryWorkout = view.findViewById(R.id.TVSummaryWorkout);
+        tvSummaryWeightlift = view.findViewById(R.id.TVSummaryWeightlift);
+        tvSummaryOtherWeightTraining = view.findViewById(R.id.TVSummaryOtherWeightTraining);
+
+        // Back button functionality
+        Button btnBack = view.findViewById(R.id.BtnHistorySummaryBack);
+        btnBack.setOnClickListener(v -> openFragment(new HistoryFragment()));
+
+        // Load summary data from database
+        loadSummaryData();
+
+        return view;
+    }
+
+    private void loadSummaryData() {
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            String query = "SELECT ExerciseType, SUM(CAST(Attributes AS INTEGER)) AS Total FROM "
+                    + FitnessDatabaseHelper.TABLE_EXERCISE_LOG + " GROUP BY ExerciseType;";
+            cursor = db.rawQuery(query, null);
+
+            // Map TextView IDs to exercise types
+            HashMap<String, TextView> exerciseMapping = new HashMap<>();
+            exerciseMapping.put("Run", tvSummaryRun);
+            exerciseMapping.put("Walk", tvSummaryWalk);
+            exerciseMapping.put("Cycle", tvSummaryCycle);
+            exerciseMapping.put("Swim", tvSummarySwim);
+            exerciseMapping.put("Others", tvSummaryOtherCardio);
+            exerciseMapping.put("Workout", tvSummaryWorkout);
+            exerciseMapping.put("Weight-lift", tvSummaryWeightlift);
+            exerciseMapping.put("WeightTrainingOthers", tvSummaryOtherWeightTraining);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    String exerciseType = cursor.getString(0);
+                    int total = cursor.getInt(1);
+
+                    // Update corresponding TextView
+                    if (exerciseMapping.containsKey(exerciseType)) {
+                        TextView targetView = exerciseMapping.get(exerciseType);
+                        if (targetView != null) {
+                            targetView.setText(String.valueOf(total) + (exerciseType.equals("Workout") || exerciseType.contains("Weight") ? " min" : " km"));
+                        }
+                    }
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "Error loading summary: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        databaseHelper.close();
+        super.onDestroy();
+    }
+
+    private void openFragment(Fragment fragment) {
+        if (getActivity() != null) {
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragmentContainer, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
     }
 }
-
-
