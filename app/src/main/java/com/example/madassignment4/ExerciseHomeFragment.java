@@ -32,6 +32,7 @@ public class ExerciseHomeFragment extends Fragment {
         Cursor cursor = dbHelper.getLatestFitnessSettingAndGoals(db);
 
         StringBuilder descriptionBuilder = new StringBuilder();
+        descriptionBuilder.append("Your TODO List : \n");
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -80,9 +81,8 @@ public class ExerciseHomeFragment extends Fragment {
     // Method to calculate and set progress
     private void calculateAndSetProgress() {
         FitnessDatabaseHelper dbHelper = new FitnessDatabaseHelper(getContext());
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        try {
+        try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
             // Retrieve the latest fitnessID
             Cursor latestFitnessCursor = db.rawQuery(
                     "SELECT MAX(fitnessID) AS latestFitnessID FROM " + FitnessDatabaseHelper.TABLE_FITNESS_SETTING,
@@ -101,7 +101,7 @@ public class ExerciseHomeFragment extends Fragment {
 
             // Query total sum of attributes in TABLE_EXERCISE_LOG for the latest fitnessID
             Cursor logCursor = db.rawQuery(
-                    "SELECT SUM(CAST(attributes AS INTEGER)) AS totalAttributes " +
+                    "SELECT SUM(CAST(REPLACE(attributes, SUBSTR(attributes, INSTR(attributes, ' '), LENGTH(attributes)), '') AS INTEGER)) AS totalAttributes " +
                             "FROM " + FitnessDatabaseHelper.TABLE_EXERCISE_LOG + " " +
                             "WHERE fitnessID = ?",
                     new String[]{String.valueOf(latestFitnessID)}
@@ -114,7 +114,7 @@ public class ExerciseHomeFragment extends Fragment {
 
             // Query total sum of attributes in TABLE_GOAL_SETTING for the latest fitnessID
             Cursor goalCursor = db.rawQuery(
-                    "SELECT SUM(CAST(attributes AS INTEGER)) AS totalAttributes " +
+                    "SELECT SUM(CAST(REPLACE(attributes, SUBSTR(attributes, INSTR(attributes, ' '), LENGTH(attributes)), '') AS INTEGER)) AS totalAttributes " +
                             "FROM " + FitnessDatabaseHelper.TABLE_GOAL_SETTING + " " +
                             "WHERE fitnessID = ?",
                     new String[]{String.valueOf(latestFitnessID)}
@@ -130,9 +130,6 @@ public class ExerciseHomeFragment extends Fragment {
             progressBar.setProgress(progress); // Update the progress bar
         } catch (Exception e) {
             Toast.makeText(getContext(), "Error calculating progress: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        } finally {
-            db.close();
         }
     }
-
 }

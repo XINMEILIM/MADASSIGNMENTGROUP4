@@ -136,7 +136,7 @@
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="@+id/BtnProgressGoal"
         app:layout_constraintTop_toTopOf="@+id/BtnProgressGoal"
-        app:layout_constraintVertical_bias="0.848" />
+        app:layout_constraintVertical_bias="0.892" />
 
     <ImageView
         android:id="@+id/imageView"
