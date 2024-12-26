@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF0E1"
+    tools:context=".LanguageFragment">
+
+    <RadioGroup
+        android:id="@+id/radioGroupLanguages"
+        android:layout_width="200dp"
+        android:layout_height="234dp"
+        android:layout_margin="16dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.757"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLanguageTitle">
+
+        <RadioButton
+            android:id="@+id/radioButtonEnglish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="English"
+            android:textColor="#FFAE43" />
+
+        <RadioButton
+            android:id="@+id/radioButtonMalay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Malay"
+            android:textColor="#FFAE43" />
+
+        <RadioButton
+            android:id="@+id/radioButtonChinese"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chinese"
+            android:textColor="#FFAE43" />
+
+        <RadioButton
+            android:id="@+id/radioButtonHindi"
+            android:layout_width="98dp"
+            android:layout_height="wrap_content"
+            android:text="Hindi"
+            android:textColor="#FFAE43" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tvLanguageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="140dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Language"
+        android:textColor="#FFAE43"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnConfirmLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#FFAE43"
+        android:text="Confirm"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupLanguages" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

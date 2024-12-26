@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/openingFragment">
+
+    <fragment
+        android:id="@+id/openingFragment"
+        android:name="com.example.real.OpeningFragment"
+        android:label="Opening Fragment"
+        tools:layout="@layout/fragment_opening">
+        <action
+            android:id="@+id/action_openingFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.real.HomeFragment"
+        android:label="Home Fragment"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.example.real.userProfileFragment"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" />
+    <fragment
+        android:id="@+id/languageFragment"
+        android:name="com.example.real.LanguageFragment"
+        android:label="fragment_language"
+        tools:layout="@layout/fragment_language" >
+        <action
+            android:id="@+id/action_languageFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="com.example.real.PrivacyPolicyFragment"
+        android:label="fragment_privacy_policy"
+        tools:layout="@layout/fragment_privacy_policy" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.real.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_languageFragment"
+            app:destination="@id/languageFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_privacyPolicyFragment"
+            app:destination="@id/privacyPolicyFragment" />
+    </fragment>
+</navigation>

@@ -1,0 +1,52 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF0E1"
+    tools:context=".PrivacyPolicyFragment">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="104dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Privacy Policy"
+        android:textColor="#ffae43"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="329dp"
+        android:layout_height="503dp"
+        android:layout_margin="16dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:justificationMode="inter_word"
+        android:text="At Tracker, we prioritize your privacy by protecting your personal information and explaining our practices clearly. We collect data like personal details, health metrics, location (if enabled), and device information to improve our services, personalize your experience, and track your fitness progress. We may share information with trusted third-party providers to enhance app functionality, and we only disclose data as legally required. We implement strong security measures to protect your data but note that no online system is entirely secure. You can access, update, or delete your data, and manage notification preferences within the app. Our app is not intended for children under 13, and we retain data only as needed. Updates to this policy will be communicated through the app, and you can reach us with any questions at tracker@gmail.com"
+        android:textColor="#ffae43"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView1"
+        app:layout_constraintVertical_bias="0.112" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Last Updated: Loading..."
+        android:textSize="14sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

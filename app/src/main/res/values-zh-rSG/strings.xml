@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="welcome" >欢迎使用 Fitjourney 应用程序</string>
+        <string name="go_to_profile">转到个人资料</string>
+        <string name="language">语言</string>
+        <string name="confirm">确认</string>
+        <string name="hi_welcome">你好，欢迎</string>
+        <string name="enter_name">输入您的名字</string>
+        <string name="privacy_policy">隐私政策</string>
+        <string name="about_us">关于我们</string>
+        <string name="my_wellness">我的健康</string>
+        <string name="support_us">支持我们</string>
+        <string name="settings">设置</string>
+        <string name="tracker">跟踪器</string>
+        <string name="mood_tracker">心情跟踪器</string>
+        <string name="workout_tracker">锻炼跟踪器</string>
+        <string name="wellness_tracker">健康跟踪器</string>
+        <string name="user_name">用户名</string>
+        <string name="enter_gender">输入性别</string>
+        <string name="enter_age">输入年龄</string>
+        <string name="enter_height">输入身高（厘米）</string>
+        <string name="enter_weight">输入体重（公斤）</string>
+        <string name="enter_year_of_birth">输入出生年份</string>
+        <string name="get_started">开始</string>
+        <string name="check_health_status">检查您的健康状况</string>
+        <string name="take_a_break">休息一下</string>
+        <string name="ready_for_new_wins">准备迎接新胜利了吗？</string>
+        <string name="sick">生病</string>
+        <string name="recommended_recipe">推荐食谱</string>
+        <string name="fuel_your_fitness">用这个\n高能量、高蛋白的\n食谱为您的健身加油！</string>
+        <string name="save">保存</string>
+        <string name="injured">受伤</string>
+        <string name="hi_user">嗨，用户！</string>
+        <string name="active">活跃</string>
+        <string name="crush_it">打破它。</string>
+
+
+</resources>

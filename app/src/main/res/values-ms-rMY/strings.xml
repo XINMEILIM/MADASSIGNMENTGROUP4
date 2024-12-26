@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- TODO: Remove or change this placeholder text -->
+        <string name="welcome" >Selamat Datang ke applikasi Fitjourney</string>
+        <string name="go_to_profile">Pergi ke Profil</string>
+        <string name="language">Bahasa</string>
+        <string name="confirm">Sahkan</string>
+        <string name="hi_welcome">Hai, Selamat Datang</string>
+        <string name="enter_name">Masukkan nama anda</string>
+        <string name="privacy_policy">Dasar Privasi</string>
+        <string name="about_us">Mengenai Kami</string>
+        <string name="my_wellness">Kesihatan Saya</string>
+        <string name="support_us">Sokong Kami</string>
+        <string name="settings">Tetapan</string>
+        <string name="tracker">Penjejak</string>
+        <string name="mood_tracker">Penjejak Mood</string>
+        <string name="workout_tracker">Penjejak Senaman</string>
+        <string name="wellness_tracker">Penjejak Kesihatan</string>
+        <string name="user_name">Nama Pengguna</string>
+        <string name="enter_gender">Masukkan Jantina</string>
+        <string name="enter_age">Masukkan Umur</string>
+        <string name="enter_height">Masukkan Ketinggian (cm)</string>
+        <string name="enter_weight">Masukkan Berat (kg)</string>
+        <string name="enter_year_of_birth">Masukkan Tahun Lahir</string>
+        <string name="get_started">Mula</string>
+        <string name="check_health_status">Periksa Status Kesihatan Anda</string>
+        <string name="take_a_break">Berehat sebentar</string>
+        <string name="ready_for_new_wins">Bersedia untuk kemenangan baru?</string>
+        <string name="sick">Sakit</string>
+        <string name="recommended_recipe">Resepi Disyorkan</string>
+        <string name="fuel_your_fitness">Beri tenaga kepada kecergasan anda dengan\nresepi kaya protein yang penuh kuasa ini!</string>
+        <string name="save">Simpan</string>
+        <string name="injured">Cedera</string>
+        <string name="hi_user">Hai, Pengguna!</string>
+        <string name="active">Aktif</string>
+        <string name="crush_it">Hancurkannya.</string>
+
+
+
+
+</resources>

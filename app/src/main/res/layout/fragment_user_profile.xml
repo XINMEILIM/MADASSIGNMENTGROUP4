@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".userProfileFragment"
+    android:background="#FFF0E1">
+
+    <!-- Add EditTexts for user input -->
+
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="148dp"
+        android:layout_height="40dp"
+        android:text="User's Name"
+        android:textColor="#ffae43"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView7"
+        app:layout_constraintHorizontal_bias="0.42"
+        app:layout_constraintStart_toStartOf="@+id/imageView7"
+        app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="My Profile"
+        android:textColor="#ffae43"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="98dp"
+        android:layout_height="106dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/iconprofile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/editTextGender"
+        android:layout_width="201dp"
+        android:layout_height="64dp"
+        android:hint="Enter Gender"
+        android:textColor="#ffae43"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextYearOfBirth"
+        app:layout_constraintEnd_toEndOf="@+id/editTextWeight"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/editTextWeight" />
+
+    <EditText
+        android:id="@+id/editTextAge"
+        android:layout_width="199dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="4dp"
+        android:hint="Enter Age"
+        android:textColor="#ffae43"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextHeight"
+        app:layout_constraintEnd_toEndOf="@+id/textViewName"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="@+id/textViewName" />
+
+    <EditText
+        android:id="@+id/editTextWeight"
+        android:layout_width="196dp"
+        android:layout_height="57dp"
+        android:hint="Enter Weight (kg)"
+        android:textColor="#ffae43"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextGender"
+        app:layout_constraintEnd_toEndOf="@+id/editTextHeight"
+        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintStart_toStartOf="@+id/editTextHeight" />
+
+    <EditText
+        android:id="@+id/editTextYearOfBirth"
+        android:layout_width="254dp"
+        android:layout_height="62dp"
+        android:layout_marginBottom="12dp"
+        android:hint="Enter Year of Birth"
+        android:textColor="#ffae43"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
+        app:layout_constraintEnd_toEndOf="@+id/editTextGender"
+        app:layout_constraintHorizontal_bias="0.528"
+        app:layout_constraintStart_toStartOf="@+id/editTextGender" />
+
+    <EditText
+        android:id="@+id/editTextHeight"
+        android:layout_width="205dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="8dp"
+        android:hint="Enter Height (cm)"
+        android:textColor="#ffae43"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextWeight"
+        app:layout_constraintEnd_toEndOf="@+id/editTextAge"
+        app:layout_constraintStart_toStartOf="@+id/editTextAge" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FFAE43"
+        android:text="Save"
+        app:layout_constraintBottom_toTopOf="@+id/textViewDisplayDetails"
+        app:layout_constraintEnd_toEndOf="@+id/editTextYearOfBirth"
+        app:layout_constraintHorizontal_bias="0.536"
+        app:layout_constraintStart_toStartOf="@+id/editTextYearOfBirth" />
+
+    <TextView
+        android:id="@+id/textViewDisplayDetails"
+        android:layout_width="291dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="284dp"
+        android:gravity="center"
+        android:text="'Your saved details will appear here'"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
