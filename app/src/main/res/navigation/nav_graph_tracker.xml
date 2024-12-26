@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_trackerMain_to_home2"
             app:destination="@id/home2" />
+        <action
+            android:id="@+id/action_trackerMain_to_exerciseHomeFragment"
+            app:destination="@id/exerciseHomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/dailyWellnessMain2"
@@ -27,4 +30,9 @@
         android:name="com.example.madassignment4.MoodModule.Home"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/exerciseHomeFragment"
+        android:name="com.example.madassignment4.ExerciseModule.ExerciseHomeFragment"
+        android:label="ExerciseHomeFragment"
+        tools:layout="@layout/fragment_exercise_home"/>
 </navigation>

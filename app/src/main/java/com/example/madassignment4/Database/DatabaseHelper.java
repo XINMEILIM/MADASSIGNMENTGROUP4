@@ -18,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Database Name and Version
     private static final String DATABASE_NAME = "FitJourney.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 6;
 
     // Table Names
     public static final String TABLE_USER = "User";
@@ -34,9 +34,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_MOOD_LOG = "MoodLog";
     public static final String TABLE_JOURNAL = "Journal";
     public static final String TABLE_MIND_FULNESS_EXERCISE = "MindfulnessExercise";
-    public static final String TABLE_EXERCISE = "Exercise";
-    public static final String TABLE_ACTIVITY = "Activity";
     public static final String TABLE_FITNESS_SETTING = "FitnessSetting";
+    public static final String TABLE_GOAL_SETTING = "GoalSetting";
+    public static final String TABLE_EXERCISE_LOG = "ExerciseLog";
 
 
     // User Table Columns
@@ -111,21 +111,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_MINDFULNESS_DURATION = "Duration";
     public static final String COLUMN_MINDFULNESS_DATE = "MindfulnessDate";
 
-    // Exercise Columns
-    public static final String COLUMN_EXERCISE_ID = "ExerciseID";
-    public static final String COLUMN_EXERCISE_DATE = "Date";
-    public static final String COLUMN_EXERCISE_TIME = "Time";
-    public static final String COLUMN_EXERCISE_TYPE = "ExerciseType";
-    public static final String COLUMN_EXERCISE_ATTRIBUTE = "Attribute";
+    //Fitness Settings Columns
+    public static final String COLUMN_FITNESS_ID = "FitnessID";
+    public static final String COLUMN_TIME_FRAME = "TimeFrame";
+    public static final String COLUMN_FITNESS_CREATED_AT = "Created_At";
 
-    // Activity Columns
-    public static final String COLUMN_ACTIVITY_ID = "ActivityID";
-    public static final String COLUMN_ACTIVITY_TYPE = "ExerciseType";
-    public static final String COLUMN_ACTIVITY_ATTRIBUTE = "Attribute";
+    //Goal Setting Columns
+    public static final String COLUMN_FITNESS_GOAL_ID = "GoalID";
+    public static final String COLUMN_GOAL_FITNESS_ID = "FitnessID";
+    public static final String COLUMN_GOAL_EXERCISE_TYPE = "ExerciseType";
+    public static final String COLUMN_GOAL_ATTRIBUTES = "Attributes";
+    public static final String COLUMN_GOAL_CREATED_AT = "Created_At";
 
-    // Fitness Setting Columns
-    public static final String COLUMN_FITNESS_SETTING_ID = "FitnessSettingID";
-    public static final String COLUMN_FITNESS_SETTING_TIMELINE = "Timeline";
+    //Exercise Log Columns
+    public static final String COLUMN_LOG_ID = "LogID";
+    public static final String COLUMN_LOG_DATE = "Date";
+    public static final String COLUMN_LOG_EXERCISE_TYPE = "ExerciseType";
+    public static final String COLUMN_LOG_ATTRIBUTES = "Attributes";
+    public static final String COLUMN_LOG_FITNESS_ID = "FitnessID";
+    public static final String COLUMN_LOG_CREATED_AT = "Created_At";
+
 
 
     // SQL for creating User Table
@@ -253,33 +258,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     COLUMN_MINDFULNESS_DATE + " TEXT, " +
                     "FOREIGN KEY (" + COLUMN_USER_ID + ") REFERENCES " + TABLE_USER + "(" + COLUMN_USER_ID + "));";
 
-    // SQL for creating Exercise Table
-    private static final String CREATE_EXERCISE_TABLE =
-            "CREATE TABLE " + TABLE_EXERCISE + " (" +
-                    COLUMN_EXERCISE_ID + " TEXT PRIMARY KEY, " +
-                    COLUMN_USER_ID + " TEXT, " +
-                    COLUMN_EXERCISE_DATE + "TEXT," +
-                    COLUMN_EXERCISE_TIME + "TEXT," +
-                    COLUMN_EXERCISE_TYPE + " TEXT, " +
-                    COLUMN_EXERCISE_ATTRIBUTE + " DOUBLE, " +
-                    "FOREIGN KEY (" + COLUMN_USER_ID + ") REFERENCES " + TABLE_USER + "(" + COLUMN_USER_ID + "));";
-
-    // SQL for creating Activity Table
-    private static final String CREATE_ACTIVITY_TABLE =
-            "CREATE TABLE " + TABLE_ACTIVITY + " (" +
-                    COLUMN_ACTIVITY_ID + " TEXT PRIMARY KEY, " +
-                    COLUMN_ACTIVITY_TYPE + " TEXT, " +
-                    COLUMN_ACTIVITY_ATTRIBUTE + " DOUBLE);";
-
-    // SQL for creating Fitness Setting Table
+    //SQL for creating Fitness Setting Table
     private static final String CREATE_FITNESS_SETTING_TABLE =
             "CREATE TABLE " + TABLE_FITNESS_SETTING + " (" +
-                    COLUMN_FITNESS_SETTING_ID + " TEXT PRIMARY KEY, " +
+                    COLUMN_FITNESS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_USER_ID + " TEXT, " +
-                    COLUMN_FITNESS_SETTING_TIMELINE + " INTEGER, " +
-                    COLUMN_ACTIVITY_ID + " TEXT, " +
-                    "FOREIGN KEY (" + COLUMN_USER_ID + ") REFERENCES " + TABLE_USER + "(" + COLUMN_USER_ID + "), " +
-                    "FOREIGN KEY (" + COLUMN_ACTIVITY_ID + ") REFERENCES " + TABLE_ACTIVITY + "(" + COLUMN_ACTIVITY_ID + "));";
+                    COLUMN_TIME_FRAME + " TEXT NOT NULL CHECK(" + COLUMN_TIME_FRAME + " IN ('Daily', 'Weekly', 'Monthly')), " +
+                    COLUMN_FITNESS_CREATED_AT + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+                    "FOREIGN KEY (" + COLUMN_USER_ID + ") REFERENCES " + TABLE_USER + "(" + COLUMN_USER_ID + "));";
+
+    //SQL for creating Goal Settings Table
+    // SQL for creating Goal Settings Table
+    private static final String CREATE_GOAL_SETTING_TABLE =
+            "CREATE TABLE " + TABLE_GOAL_SETTING + " (" +
+                    COLUMN_FITNESS_GOAL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_GOAL_FITNESS_ID + " INTEGER NOT NULL, " +
+                    COLUMN_USER_ID + " TEXT, " +
+                    COLUMN_GOAL_EXERCISE_TYPE + " TEXT NOT NULL, " +
+                    COLUMN_GOAL_ATTRIBUTES + " TEXT, " +
+                    COLUMN_GOAL_CREATED_AT + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+                    "FOREIGN KEY (" + COLUMN_GOAL_FITNESS_ID + ") REFERENCES " + TABLE_FITNESS_SETTING + "(" + COLUMN_FITNESS_ID + "), " +
+                    "FOREIGN KEY (" + COLUMN_USER_ID + ") REFERENCES " + TABLE_USER + "(" + COLUMN_USER_ID + "));";
+
+    // SQL to create Exercise Log Table
+    private static final String CREATE_EXERCISE_LOG_TABLE =
+            "CREATE TABLE " + TABLE_EXERCISE_LOG + " (" +
+                    COLUMN_LOG_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_USER_ID + " TEXT, " +
+                    COLUMN_LOG_DATE + " TEXT NOT NULL, " +
+                    COLUMN_LOG_EXERCISE_TYPE + " TEXT NOT NULL, " +
+                    COLUMN_LOG_ATTRIBUTES + " TEXT, " +
+                    COLUMN_LOG_FITNESS_ID + " INTEGER NOT NULL, " +
+                    COLUMN_LOG_CREATED_AT + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+                    "FOREIGN KEY (" + COLUMN_LOG_FITNESS_ID + ") REFERENCES " + TABLE_FITNESS_SETTING + "(" + COLUMN_FITNESS_ID + "), " +
+                    "FOREIGN KEY (" + COLUMN_USER_ID + ") REFERENCES " + TABLE_USER + "(" + COLUMN_USER_ID + "));";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -287,6 +299,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL("PRAGMA foreign_keys = ON;"); // Enable foreign key support
         // Create tables
         db.execSQL(CREATE_USER_TABLE);
         db.execSQL(CREATE_USER_PROFILE_TABLE);
@@ -301,9 +314,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_MOOD_LOG_TABLE);
         db.execSQL(CREATE_JOURNAL_TABLE);
         db.execSQL(CREATE_MINDFULNESS_EXERCISE_TABLE);
-        db.execSQL(CREATE_EXERCISE_TABLE);
-        db.execSQL(CREATE_ACTIVITY_TABLE);
         db.execSQL(CREATE_FITNESS_SETTING_TABLE);
+        db.execSQL(CREATE_GOAL_SETTING_TABLE);
+        db.execSQL(CREATE_EXERCISE_LOG_TABLE);
     }
 
     @Override
@@ -322,9 +335,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MOOD_LOG);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_JOURNAL);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MIND_FULNESS_EXERCISE);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXERCISE);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIVITY);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FITNESS_SETTING);
+        db.execSQL("DROP TABLE IF EXISTS " +TABLE_FITNESS_SETTING);
+        db.execSQL("DROP TABLE IF EXISTS " +TABLE_GOAL_SETTING);
+        db.execSQL("DROP TABLE IF EXISTS " +TABLE_EXERCISE_LOG);
         onCreate(db);
     }
     public void saveHydrationGoal(String userId, String date, int hydrationGoal) {
@@ -729,6 +742,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return photo; // Returns null if no photo is found
     }
+
+    public Cursor getLatestFitnessSettingAndGoals(SQLiteDatabase db) {
+        String query = "SELECT " +
+                "g." + COLUMN_GOAL_EXERCISE_TYPE + " AS ExerciseType, " +
+                "g." + COLUMN_GOAL_ATTRIBUTES + " AS Attributes " +
+                "FROM " + TABLE_GOAL_SETTING + " g " +
+                "JOIN " + TABLE_FITNESS_SETTING + " f ON g." + COLUMN_GOAL_FITNESS_ID + " = f." + COLUMN_FITNESS_ID + " " +
+                "WHERE f." + COLUMN_FITNESS_ID + " = (SELECT MAX(" + COLUMN_FITNESS_ID + ") FROM " + TABLE_FITNESS_SETTING + ")";
+        return db.rawQuery(query, null);
+    }
+
 
 
 

@@ -31,6 +31,8 @@ import java.util.Locale;
 
 public class HydrationTracking extends Fragment {
     private DatabaseHelper dbHelper;
+    boolean isCongrats=false;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -208,14 +210,11 @@ public class HydrationTracking extends Fragment {
     }
 
     private void displayTotalWaterIntake() {
-        // Get SharedPreferences to store the congrats flag
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("WaterIntakePrefs", Context.MODE_PRIVATE);
-        boolean isCongrats = sharedPreferences.getBoolean("isCongrats", true);
 
         if (getView() == null) return; // Prevent NullPointerException
 
         String currentDate = getCurrentDate();
-        String userId = "testUser";  // Replace with actual user logic
+        String userId = "testUser";
 
         // Get the total water intake for the user
         int totalWaterIntake = dbHelper.getTotalWaterIntake(userId, currentDate);
@@ -228,27 +227,20 @@ public class HydrationTracking extends Fragment {
         int hydrationGoal = dbHelper.getHydrationGoal(userId, currentDate);
 
         // Only show the congrats dialog if it's not shown already and the goal is met
-        if (totalWaterIntake >= hydrationGoal && hydrationGoal != 0 && isCongrats) {
-            showCongratulatoryDialog();
-
-            // Update the flag to prevent showing the dialog again
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("isCongrats", false); // Set the flag to false after showing the dialog
-            editor.apply();
+        if(hydrationGoal!=-1 ) {
+            if (totalWaterIntake >= hydrationGoal && !isCongrats) {
+                isCongrats = true;
+                showCongratulatoryDialog();
+            }
         }
     }
 
 
     private void showCongratulatoryDialog() {
-        // Create a dialog to congratulate the user for reaching the goal
         Dialog dialog = new Dialog(getContext());
-        dialog.setContentView(R.layout.dialog_achieve_goal);  // You need to create this dialog layout
-
-        // Initialize dialog views (you can customize the dialog as needed)
+        dialog.setContentView(R.layout.dialog_achieve_goal);
         Button BtnClose = dialog.findViewById(R.id.btnCloseDialog);
         BtnClose.setOnClickListener(v -> dialog.dismiss());
-
-        // Show the congratulatory dialog
         dialog.show();
     }
 

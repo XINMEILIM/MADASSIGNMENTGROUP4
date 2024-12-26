@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.madassignment4.DailyWellnessModule.DailyWellnessActivity;
+import com.example.madassignment4.ExerciseModule.ExerciseActivityMain;
 import com.example.madassignment4.MoodModule.MoodMainActivity;
 
 public class TrackerMain extends Fragment {
@@ -38,8 +39,10 @@ public class TrackerMain extends Fragment {
         });
 
         Button BtnWorkoutTracker = view.findViewById(R.id.BtnWorkoutTracker);
-        BtnWorkoutTracker.setOnClickListener(v ->
-                Navigation.findNavController(view).navigate(R.id.StepTracking));
+        BtnWorkoutTracker.setOnClickListener(v -> {
+            Intent intent=new Intent(getContext(), ExerciseActivityMain.class);
+            startActivity(intent);
+        });
 
         Button BtnWellnessTracker = view.findViewById(R.id.BtnWellnessTracker);
         BtnWellnessTracker.setOnClickListener(v ->{

@@ -68,23 +68,18 @@ public class bmiCalculator extends Fragment {
                         BMICategories.setVisibility(View.VISIBLE);
                         BMICategoriesTable.setVisibility(View.VISIBLE);
                     } else {
-                        // If negative or zero values entered
                         Toast.makeText(requireContext(), "Please enter valid positive values for height and weight.", Toast.LENGTH_SHORT).show();
                     }
                 } catch (NumberFormatException e) {
-                    // If non-numeric values entered
                     Toast.makeText(requireContext(), "Please enter numeric values for height and weight.", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                // If empty input fields
                 Toast.makeText(requireContext(), "Please fill in both height and weight fields.", Toast.LENGTH_SHORT).show();
             }
         });
-
         BtnBack.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
-
         return view;
     }
 }
