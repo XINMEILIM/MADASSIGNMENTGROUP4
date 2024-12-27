@@ -16,57 +16,76 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class ExerciseHomeFragment extends Fragment {
 
-    private ProgressBar progressBar;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_exercise_home, container, false);
 
-        // Calculate and update progress
-        calculateAndSetProgress();
-
+        // Database helper and connection
         FitnessDatabaseHelper dbHelper = new FitnessDatabaseHelper(getContext());
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        Cursor cursor = dbHelper.getLatestFitnessSettingAndGoals(db);
+        StringBuilder descriptionBuilder = new StringBuilder("Your TODO List : \n");
+        TextView tvPGDescription = view.findViewById(R.id.TVPGDescription);
 
-        StringBuilder descriptionBuilder = new StringBuilder();
-        descriptionBuilder.append("Your TODO List : \n");
-
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                String exerciseType = cursor.getString(cursor.getColumnIndexOrThrow("exerciseType"));
-                String attributes = cursor.getString(cursor.getColumnIndexOrThrow("attributes"));
-
-                // Format and append to the description
-                descriptionBuilder.append(exerciseType)
-                        .append(" - ")
-                        .append(attributes)
-                        .append("\n");
-            } while (cursor.moveToNext());
-            cursor.close();
+        try (Cursor cursor = dbHelper.getLatestFitnessSettingAndGoals(db)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    String exerciseType = cursor.getString(cursor.getColumnIndexOrThrow("exerciseType"));
+                    String attributes = cursor.getString(cursor.getColumnIndexOrThrow("attributes"));
+                    descriptionBuilder.append(exerciseType).append(" - ").append(attributes).append("\n");
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        tvPGDescription.setText(descriptionBuilder.toString());
+
+        // Progress bar setup
+        ProgressBar progressBar = view.findViewById(R.id.PBProgressGoal);
+        progressBar.setMax(100);
+
+        double totalGoals = 0, totalLogs = 0;
+
+        try (Cursor cursor2 = dbHelper.getLatestFitnessSettingAndGoals(db)) {
+            if (cursor2 != null && cursor2.moveToFirst()) {
+                do {
+                    String attributes = cursor2.getString(cursor2.getColumnIndexOrThrow("attributes"));
+                    if (attributes != null) {
+                        String[] parts = attributes.split(" ");
+                        totalGoals += Double.parseDouble(parts[0]); // Parse carefully
+                    }
+                } while (cursor2.moveToNext());
+            }
+        }
+
+        try (Cursor logCursor = db.rawQuery("SELECT attributes FROM " + FitnessDatabaseHelper.TABLE_EXERCISE_LOG + " WHERE fitnessID = (SELECT MAX(fitnessID) FROM " + FitnessDatabaseHelper.TABLE_FITNESS_SETTING + ")", null)) {
+            if (logCursor != null && logCursor.moveToFirst()) {
+                do {
+                    String attributes = logCursor.getString(logCursor.getColumnIndexOrThrow("attributes"));
+                    if (attributes != null) {
+                        String[] parts = attributes.split(" ");
+                        totalLogs += Double.parseDouble(parts[0]);
+                    }
+                } while (logCursor.moveToNext());
+            }
+        }
+
+        int progressPercentage = totalGoals > 0 ? (int) ((totalLogs / totalGoals) * 100) : 0;
+        progressBar.setProgress(progressPercentage);
+
+        //Toast.makeText(getContext(), "Progress: " + progressPercentage + "%", Toast.LENGTH_SHORT).show();
+
+        // Button listeners
+        view.findViewById(R.id.BtnProgressGoal).setOnClickListener(v -> openFragment(new ProgressGoalFragment()));
+        view.findViewById(R.id.BtnLog).setOnClickListener(v -> openFragment(new LogFragment()));
+        view.findViewById(R.id.BtnHistory).setOnClickListener(v -> openFragment(new HistoryFragment()));
 
         db.close();
 
-        // Set the formatted description to the TextView
-        TextView tvPGDescription = view.findViewById(R.id.TVPGDescription);
-        tvPGDescription.setText(descriptionBuilder.toString());
-
-        // Get references to buttons and progress bar
-        ImageButton btnProgressGoal = view.findViewById(R.id.BtnProgressGoal);
-        ImageButton btnLog = view.findViewById(R.id.BtnLog);
-        ImageButton btnHistory = view.findViewById(R.id.BtnHistory);
-        progressBar = view.findViewById(R.id.PBProgressGoal); // Reference to the progress bar
-
-        // Set up button click listeners
-        btnProgressGoal.setOnClickListener(v -> openFragment(new ProgressGoalFragment()));
-        btnLog.setOnClickListener(v -> openFragment(new LogFragment()));
-        btnHistory.setOnClickListener(v -> openFragment(new HistoryFragment()));
-
         return view;
     }
+
 
     // Method to replace the fragment
     private void openFragment(Fragment fragment) {
@@ -75,61 +94,6 @@ public class ExerciseHomeFragment extends Fragment {
             transaction.replace(R.id.fragmentContainer, fragment);
             transaction.addToBackStack(null);
             transaction.commit();
-        }
-    }
-
-    // Method to calculate and set progress
-    private void calculateAndSetProgress() {
-        FitnessDatabaseHelper dbHelper = new FitnessDatabaseHelper(getContext());
-
-        try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
-            // Retrieve the latest fitnessID
-            Cursor latestFitnessCursor = db.rawQuery(
-                    "SELECT MAX(fitnessID) AS latestFitnessID FROM " + FitnessDatabaseHelper.TABLE_FITNESS_SETTING,
-                    null
-            );
-            int latestFitnessID = -1; // Default to -1 in case no record exists
-            if (latestFitnessCursor.moveToFirst()) {
-                latestFitnessID = latestFitnessCursor.getInt(0); // Retrieve the latest fitnessID
-            }
-            latestFitnessCursor.close();
-
-            if (latestFitnessID == -1) {
-                Toast.makeText(getContext(), "No fitness setting found.", Toast.LENGTH_SHORT).show();
-                return; // Exit early if no fitnessID exists
-            }
-
-            // Query total sum of attributes in TABLE_EXERCISE_LOG for the latest fitnessID
-            Cursor logCursor = db.rawQuery(
-                    "SELECT SUM(CAST(REPLACE(attributes, SUBSTR(attributes, INSTR(attributes, ' '), LENGTH(attributes)), '') AS INTEGER)) AS totalAttributes " +
-                            "FROM " + FitnessDatabaseHelper.TABLE_EXERCISE_LOG + " " +
-                            "WHERE fitnessID = ?",
-                    new String[]{String.valueOf(latestFitnessID)}
-            );
-            int totalLogAttributes = 0;
-            if (logCursor.moveToFirst()) {
-                totalLogAttributes = logCursor.getInt(0); // Get the sum of attributes from the log
-            }
-            logCursor.close();
-
-            // Query total sum of attributes in TABLE_GOAL_SETTING for the latest fitnessID
-            Cursor goalCursor = db.rawQuery(
-                    "SELECT SUM(CAST(REPLACE(attributes, SUBSTR(attributes, INSTR(attributes, ' '), LENGTH(attributes)), '') AS INTEGER)) AS totalAttributes " +
-                            "FROM " + FitnessDatabaseHelper.TABLE_GOAL_SETTING + " " +
-                            "WHERE fitnessID = ?",
-                    new String[]{String.valueOf(latestFitnessID)}
-            );
-            int totalGoalAttributes = 0;
-            if (goalCursor.moveToFirst()) {
-                totalGoalAttributes = goalCursor.getInt(0); // Get the sum of attributes from goals
-            }
-            goalCursor.close();
-
-            // Calculate progress ratio
-            int progress = (totalGoalAttributes == 0) ? 0 : (int) (((float) totalLogAttributes / totalGoalAttributes) * 100);
-            progressBar.setProgress(progress); // Update the progress bar
-        } catch (Exception e) {
-            Toast.makeText(getContext(), "Error calculating progress: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 }
