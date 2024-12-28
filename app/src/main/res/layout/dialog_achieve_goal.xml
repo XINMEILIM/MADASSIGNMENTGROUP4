@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:background="@android:color/transparent"
-        android:text="x"
+        android:text="@string/close"
         android:textColor="@color/black"
         android:textSize="30sp" />
 
@@ -24,7 +24,7 @@
         android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
         android:paddingBottom="16dp"
-        android:text="You have achieved your goal!"
+        android:text="@string/achieved_goal"
         android:textSize="30sp" />
 
     <TextView
@@ -34,7 +34,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:paddingBottom="8dp"
-        android:text="Congrats!"
+        android:text="@string/congrats"
         android:fontFamily="@font/poppins_semibold"
         android:textSize="30sp"
         android:textStyle="bold" />
