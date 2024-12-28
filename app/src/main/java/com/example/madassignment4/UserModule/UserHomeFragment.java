@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.example.madassignment4.Database.DatabaseHelper;
 import com.example.madassignment4.R;
 
 public class UserHomeFragment extends Fragment {
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -44,6 +46,15 @@ public class UserHomeFragment extends Fragment {
         RadioButton radioBreak = view.findViewById(R.id.radioButton3);
         RadioButton radioInjured = view.findViewById(R.id.radioButton4);
         Button btnSave = view.findViewById(R.id.btnSaveHealthStatus);
+        Button btnFood=view.findViewById(R.id.btnGetStarted);
+
+        View.OnClickListener Food = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_userHomeFragment2_to_foodActivity);
+            }
+        };
+        btnFood.setOnClickListener(Food);
 
 
         btnSave.setOnClickListener(v -> {
@@ -69,6 +80,9 @@ public class UserHomeFragment extends Fragment {
             }
         });
     }
+
+
+
 
 
 
