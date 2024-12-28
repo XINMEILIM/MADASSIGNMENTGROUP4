@@ -1,11 +1,15 @@
 package com.example.real;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -18,17 +22,22 @@ public class ProfileFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        // Get username from arguments or shared preference (as an example)
-        String username = getArguments() != null ? getArguments().getString("username") : "User";
-
-        // Set the username text
+        // Initialize views
         textViewUserName = view.findViewById(R.id.textViewUserName);
-        textViewUserName.setText(username);
 
-        // Set up button navigation and toasts
+        // Retrieve username from SharedPreferences
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", null);
+
+        if (username != null) {
+            textViewUserName.setText(username); // Display username
+        } else {
+            Log.e("ProfileFragment", "No username found in SharedPreferences");
+        }
+
+        // Set up navigation for buttons
         setupNavigation(view);
 
         return view;

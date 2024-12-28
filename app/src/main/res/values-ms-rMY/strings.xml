@@ -4,29 +4,18 @@
     <!-- TODO: Remove or change this placeholder text -->
         <string name="welcome" >Selamat Datang ke applikasi Fitjourney</string>
         <string name="go_to_profile">Pergi ke Profil</string>
-        <string name="language">Bahasa</string>
         <string name="confirm">Sahkan</string>
         <string name="hi_welcome">Hai, Selamat Datang</string>
         <string name="enter_name">Masukkan nama anda</string>
-        <string name="privacy_policy">Dasar Privasi</string>
         <string name="about_us">Mengenai Kami</string>
-        <string name="my_wellness">Kesihatan Saya</string>
-        <string name="support_us">Sokong Kami</string>
-        <string name="settings">Tetapan</string>
         <string name="tracker">Penjejak</string>
         <string name="mood_tracker">Penjejak Mood</string>
         <string name="workout_tracker">Penjejak Senaman</string>
         <string name="wellness_tracker">Penjejak Kesihatan</string>
-        <string name="user_name">Nama Pengguna</string>
-        <string name="enter_gender">Masukkan Jantina</string>
-        <string name="enter_age">Masukkan Umur</string>
-        <string name="enter_height">Masukkan Ketinggian (cm)</string>
-        <string name="enter_weight">Masukkan Berat (kg)</string>
-        <string name="enter_year_of_birth">Masukkan Tahun Lahir</string>
         <string name="get_started">Mula</string>
         <string name="check_health_status">Periksa Status Kesihatan Anda</string>
         <string name="take_a_break">Berehat sebentar</string>
-        <string name="ready_for_new_wins">Bersedia untuk kemenangan baru?</string>
+        <string name="ready_for_new_wins">Sedia kemenangan baru?</string>
         <string name="sick">Sakit</string>
         <string name="recommended_recipe">Resepi Disyorkan</string>
         <string name="fuel_your_fitness">Beri tenaga kepada kecergasan anda dengan\nresepi kaya protein yang penuh kuasa ini!</string>
@@ -34,7 +23,35 @@
         <string name="injured">Cedera</string>
         <string name="hi_user">Hai, Pengguna!</string>
         <string name="active">Aktif</string>
-        <string name="crush_it">Hancurkannya.</string>
+        <string name="crush_it">Anda boleh.</string>
+        <string name="welcome_text">HI, SELAMAT DATANG</string>
+        <string name="save_button_text">Simpan</string>
+        <string name="name_input_hint">Masukkan nama anda</string>
+        <string name="privacy_policy_title">Dasar Privasi</string>
+        <string name="privacy_policy_content">Di Tracker, kami mengutamakan privasi anda dengan melindungi maklumat peribadi anda dan menjelaskan amalan kami dengan jelas. Kami mengumpul data seperti butiran peribadi, metrik kesihatan, lokasi (jika diaktifkan), dan maklumat peranti untuk meningkatkan perkhidmatan kami, memperibadikan pengalaman anda, dan menjejaki kemajuan kecergasan anda. Kami mungkin berkongsi maklumat dengan penyedia pihak ketiga yang dipercayai untuk meningkatkan fungsi aplikasi dan hanya mendedahkan data seperti yang dikehendaki oleh undang-undang. Kami melaksanakan langkah keselamatan yang kuat untuk melindungi data anda tetapi ambil perhatian bahawa tiada sistem dalam talian yang sepenuhnya selamat. Anda boleh mengakses, mengemas kini, atau memadam data anda dan mengurus keutamaan pemberitahuan dalam aplikasi. Aplikasi kami tidak bertujuan untuk kanak-kanak di bawah umur 13 tahun dan kami hanya mengekalkan data apabila diperlukan. Kemas kini kepada dasar ini akan disampaikan melalui aplikasi, dan anda boleh menghubungi kami dengan sebarang pertanyaan di tracker@gmail.com.</string>
+        <string name="last_updated">Kali Terakhir Dikemas Kini: Memuatkan...</string>
+        <string name="about_me">Tentang Saya</string>
+        <string name="user_name">Nama Pengguna</string>
+        <string name="my_mood">Mood</string>
+        <string name="my_wellness">Kesejahteraan</string>
+        <string name="my_profile">Profil</string>
+        <string name="my_workout">Senaman</string>
+        <string name="settings">Tetapan</string>
+        <string name="support_us">Sokong Kami</string>
+        <string name="language">Bahasa</string>
+        <string name="privacy_policy">Dasar Privasi</string>
+        <string name="profile_title">Profil</string>
+        <string name="enter_gender">Masukkan Jantina</string>
+        <string name="enter_age">Masukkan Umur</string>
+        <string name="enter_weight">Masukkan Berat (kg)</string>
+        <string name="enter_year_of_birth">Masukkan Tahun Lahir</string>
+        <string name="enter_height">Masukkan Ketinggian (cm)</string>
+        <string name="save_button">Simpan</string>
+        <string name="saved_details">Butiran yang disimpan anda akan muncul di sini</string>
+        <string name="update_user_profile">Kemas Kini Profil Pengguna</string>
+
+
+
 
 
 
