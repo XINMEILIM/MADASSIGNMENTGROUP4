@@ -4,25 +4,14 @@
     <!-- TODO: Remove or change this placeholder text -->
         <string name="welcome">फिटजर्नी एप्लीकेशन में आपका स्वागत है</string>
         <string name="go_to_profile">प्रोफ़ाइल पर जाएं</string>
-        <string name="language">भाषा</string>
         <string name="confirm">पुष्टि करें</string>
         <string name="hi_welcome">नमस्ते, आपका स्वागत है</string>
         <string name="enter_name">अपना नाम दर्ज करें</string>
-        <string name="privacy_policy">गोपनीयता नीति</string>
         <string name="about_us">हमारे बारे में</string>
-        <string name="my_wellness">मेरा स्वास्थ्य</string>
-        <string name="support_us">हमारा समर्थन करें</string>
-        <string name="settings">सेटिंग्स</string>
         <string name="tracker">ट्रैकर</string>
         <string name="mood_tracker">मूड ट्रैकर</string>
         <string name="workout_tracker">वर्कआउट ट्रैकर</string>
         <string name="wellness_tracker">वेलनेस ट्रैकर</string>
-        <string name="user_name">उपयोगकर्ता नाम</string>
-        <string name="enter_gender">लिंग दर्ज करें</string>
-        <string name="enter_age">आयु दर्ज करें</string>
-        <string name="enter_height">ऊँचाई दर्ज करें (सेमी)</string>
-        <string name="enter_weight">वज़न दर्ज करें (किग्रा)</string>
-        <string name="enter_year_of_birth">जन्म वर्ष दर्ज करें</string>
         <string name="get_started">शुरू करें</string>
         <string name="check_health_status">अपने स्वास्थ्य की स्थिति जांचें</string>
         <string name="take_a_break">थोड़ा आराम करें</string>
@@ -35,9 +24,30 @@
         <string name="hi_user">नमस्ते, उपयोगकर्ता!</string>
         <string name="active">सक्रिय</string>
         <string name="crush_it">इसे कुचलो।</string>
-
-
-
-
+        <string name="welcome_text">नमस्ते, स्वागत है</string>
+        <string name="save_button_text">सहेजें</string>
+        <string name="name_input_hint">अपना नाम दर्ज करें</string>
+        <string name="privacy_policy_title">गोपनीयता नीति</string>
+        <string name="privacy_policy_content">Tracker में, हम आपकी व्यक्तिगत जानकारी की सुरक्षा करके और अपनी प्रथाओं को स्पष्ट रूप से समझाकर आपकी गोपनीयता को प्राथमिकता देते हैं। हम सेवाओं को बेहतर बनाने, आपके अनुभव को वैयक्तिकृत करने और आपकी फिटनेस प्रगति को ट्रैक करने के लिए व्यक्तिगत विवरण, स्वास्थ्य मेट्रिक्स, स्थान (यदि सक्षम है), और डिवाइस जानकारी जैसी डेटा इकट्ठा करते हैं। हम विश्वसनीय तृतीय-पक्ष प्रदाताओं के साथ जानकारी साझा कर सकते हैं और केवल कानूनी आवश्यकताओं के अनुसार डेटा का खुलासा करते हैं। हम आपकी डेटा की सुरक्षा के लिए मजबूत सुरक्षा उपाय लागू करते हैं लेकिन ध्यान दें कि कोई भी ऑनलाइन प्रणाली पूरी तरह से सुरक्षित नहीं है। आप ऐप के भीतर अपनी डेटा को एक्सेस, अपडेट या हटा सकते हैं, और सूचनाओं की प्राथमिकताएं प्रबंधित कर सकते हैं। हमारा ऐप 13 वर्ष से कम उम्र के बच्चों के लिए अभिप्रेत नहीं है और हम केवल आवश्यकतानुसार डेटा बनाए रखते हैं। इस नीति के अपडेट्स ऐप के माध्यम से सूचित किए जाएंगे और आप किसी भी सवाल के लिए tracker@gmail.com पर संपर्क कर सकते हैं।</string>
+        <string name="last_updated">अंतिम अपडेट: लोड हो रहा है...</string>
+        <string name="about_me">मेरे बारे में</string>
+        <string name="user_name">उपयोगकर्ता नाम</string>
+        <string name="my_mood">मेरा मूड</string>
+        <string name="my_wellness">मेरा स्वास्थ्य</string>
+        <string name="my_profile">मेरी प्रोफ़ाइल</string>
+        <string name="my_workout">मेरी कसरत</string>
+        <string name="settings">सेटिंग्स</string>
+        <string name="support_us">हमें समर्थन दें</string>
+        <string name="language">भाषा</string>
+        <string name="privacy_policy">गोपनीयता नीति</string>
+        <string name="profile_title">मेरी प्रोफ़ाइल</string>
+        <string name="enter_gender">लिंग दर्ज करें</string>
+        <string name="enter_age">उम्र दर्ज करें</string>
+        <string name="enter_weight">वजन दर्ज करें (किग्रा)</string>
+        <string name="enter_year_of_birth">जन्म का वर्ष दर्ज करें</string>
+        <string name="enter_height">ऊंचाई दर्ज करें (सेमी)</string>
+        <string name="save_button">सहेजें</string>
+        <string name="saved_details">आपका सहेजा गया विवरण यहां दिखाई देगा</string>
+        <string name="update_user_profile">उपयोगकर्ता प्रोफ़ाइल अपडेट करें</string>
 
 </resources>

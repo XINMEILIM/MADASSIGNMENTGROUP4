@@ -10,8 +10,8 @@
         android:label="Opening Fragment"
         tools:layout="@layout/fragment_opening">
         <action
-            android:id="@+id/action_openingFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_openingFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
     </fragment>
 
     <fragment
@@ -23,7 +23,11 @@
         android:id="@+id/userProfileFragment"
         android:name="com.example.real.userProfileFragment"
         android:label="fragment_user_profile"
-        tools:layout="@layout/fragment_user_profile" />
+        tools:layout="@layout/fragment_user_profile" >
+        <action
+            android:id="@+id/action_userProfileFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/languageFragment"
         android:name="com.example.real.LanguageFragment"

@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
         // Initialize database helper
         databaseHelperModule1 = new DatabaseHelper_module1(this);
 
+
+
         // Set up navigation
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         if (navHostFragment == null) {

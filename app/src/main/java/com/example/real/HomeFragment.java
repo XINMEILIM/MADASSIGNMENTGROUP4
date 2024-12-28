@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
         userId = generateUniqueUserId(username);
 
         // Set up Save button click listener
-        btnSaveHealthStatus.setOnClickListener(v -> saveHealthStatus());
+        //btnSaveHealthStatus.setOnClickListener(v -> saveHealthStatus());
 
         //test for language
 
@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment {
         return username + "-" + UUID.randomUUID().toString();
     }
 
-    private void saveHealthStatus() {
+    /*private void saveHealthStatus() {
         try {
             String healthStatus = null;
 
@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment {
                 return;
             }
 
-            // Save health status to database
+            Save health status to database
             dbHelper.saveHealthStatus(userId, healthStatus);
             Toast.makeText(getContext(), "Health status saved successfully", Toast.LENGTH_SHORT).show();
 
@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
             // Display error toast
             Toast.makeText(getContext(), "Error saving health status: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 
     @Override
     public void onDestroy() {

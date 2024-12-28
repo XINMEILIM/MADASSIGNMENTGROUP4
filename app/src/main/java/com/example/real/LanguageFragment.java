@@ -9,11 +9,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+
+import com.example.real.Database.DatabaseHelper_module1;
 
 import java.util.Locale;
 
@@ -21,14 +24,16 @@ public class LanguageFragment extends Fragment {
 
     private RadioGroup radioGroupLanguages;
     private Button btnConfirmLanguage;
+    private DatabaseHelper_module1 dbHelper;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadLocale(); // Load saved language preference when the fragment is created
+        dbHelper = new DatabaseHelper_module1(requireContext()); // Initialize database helper
     }
 
-    /*@Override
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_language, container, false);
@@ -36,42 +41,11 @@ public class LanguageFragment extends Fragment {
         // Initialize UI components
         radioGroupLanguages = view.findViewById(R.id.radioGroupLanguages);
         btnConfirmLanguage = view.findViewById(R.id.btnConfirmLanguage);
-        //button to navigate to home
+
+        // Button to navigate to home
         Button btnNavigateHome = view.findViewById(R.id.btnNavigateHome);
-        btnNavigateHome.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, new HomeFragment())
-                    .addToBackStack(null)
-                    .commit();
-        });
-
-        // Set the click listener for the Confirm button
-        btnConfirmLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Get the selected radio button
-                int selectedId = radioGroupLanguages.getCheckedRadioButtonId();
-                RadioButton selectedRadioButton = view.findViewById(selectedId);
-
-                // If a selection is made, change the language
-                if (selectedRadioButton != null) {
-                    String selectedLanguage = getLanguageCode(selectedRadioButton.getText().toString());
-                    setLocale(selectedLanguage);
-                }
-            }
-        });
-
-        return view;
-    }*/
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_language, container, false);
-
-        // Initialize widgets
-        radioGroupLanguages = view.findViewById(R.id.radioGroupLanguages);
-        btnConfirmLanguage = view.findViewById(R.id.btnConfirmLanguage);
+        btnNavigateHome.setOnClickListener(v -> Navigation.findNavController(view)
+                .navigate(R.id.action_languageFragment_to_homeFragment));
 
         // Set button click listener
         btnConfirmLanguage.setOnClickListener(v -> {
@@ -81,10 +55,24 @@ public class LanguageFragment extends Fragment {
             if (selectedRadioButton != null) {
                 // Get selected language code
                 String selectedLanguage = getLanguageCode(selectedRadioButton.getText().toString());
-                setLocale(selectedLanguage);
+
+                // Save user language setting
+                String username = "Test User"; // Replace with actual username retrieval logic
+                String languageId = dbHelper.getLanguageIdByCode(selectedLanguage);
+
+                if (languageId != null) {
+                    dbHelper.saveUserLanguageSetting(username, languageId);
+                    saveLanguagePreference(selectedLanguage); // Save in SharedPreferences
+                    setLocale(selectedLanguage); // Update app locale
+                    Toast.makeText(requireContext(), "Language preference saved!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireContext(), "Failed to save language preference", Toast.LENGTH_SHORT).show();
+                }
 
                 // Navigate to HomeFragment
                 Navigation.findNavController(view).navigate(R.id.action_languageFragment_to_homeFragment);
+            } else {
+                Toast.makeText(requireContext(), "Please select a language", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -116,20 +104,17 @@ public class LanguageFragment extends Fragment {
      * @param languageCode The ISO 639-1 code for the language to set.
      */
     private void setLocale(String languageCode) {
-        // Set the app's locale
-            Locale locale = new Locale(languageCode);
-            Locale.setDefault(locale);
+        Locale locale = new Locale(languageCode);
+        Locale.setDefault(locale);
 
-            // Update app configuration
-            android.content.res.Configuration config = new android.content.res.Configuration();
-            config.setLocale(locale);
-            requireActivity().getResources().updateConfiguration(
-                    config,
-                    requireActivity().getResources().getDisplayMetrics()
-            );
-        }
-
-
+        // Update app configuration
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.setLocale(locale);
+        requireActivity().getResources().updateConfiguration(
+                config,
+                requireActivity().getResources().getDisplayMetrics()
+        );
+    }
 
     /**
      * Saves the selected language in SharedPreferences.

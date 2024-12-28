@@ -1,405 +1,371 @@
 package com.example.real.Database;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.content.ContentValues;
-import android.database.Cursor;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
 
 public class DatabaseHelper_module1 extends SQLiteOpenHelper {
 
+    private Context context;
+
     // Database Name and Version
     private static final String DATABASE_NAME = "FitJourney.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Table Names
-    public static final String TABLE_USER = "User";
     public static final String TABLE_USER_PROFILE = "UserProfile";
-    public static final String TABLE_HEALTH_STATUS = "HealthStatus";
-    public static final String TABLE_USER_HEALTH_STATUS = "UserHealthStatus";
-    public static final String TABLE_LANGUAGE = "Language";
-    public static final String TABLE_USER_LANGUAGE_SETTING = "UserLanguageSetting";
-    public static final String TABLE_HYDRATION_GOAL = "HydrationGoal";
-    public static final String TABLE_HYDRATION_INTAKE = "HydrationIntake";
-    public static final String TABLE_STEP_TRACKING = "StepTracking";
-    public static final String TABLE_MOOD_LOG = "MoodLog";
-    public static final String TABLE_JOURNAL = "Journal";
-    public static final String TABLE_MIND_FULNESS_EXERCISE = "MindfulnessExercise";
-    public static final String TABLE_EXERCISE = "Exercise";
-    public static final String TABLE_ACTIVITY = "Activity";
-    public static final String TABLE_FITNESS_SETTING = "FitnessSetting";
-    public static final String TABLE_PRIVACY_POLICY = "PrivacyPolicy";
-
-
-    // User Table Columns
-    public static final String COLUMN_USER_ID = "UserID";
-    public static final String COLUMN_USER_NAME = "UserName";
-    public static final String COLUMN_USER_EMAIL = "UserEmail";
-    public static final String COLUMN_USER_PASSWORD = "Password";  // Storing password
-    public static final String COLUMN_CREATED_AT = "CreatedAt";
-    public static final String COLUMN_LAST_LOGIN = "LastLogin";
 
     // User Profile Columns
-    public static final String COLUMN_NAME = "Name";
+    public static final String COLUMN_USER_ID = "UserID";
+    public static final String COLUMN_USERNAME = "Name";
     public static final String COLUMN_AGE = "Age";
     public static final String COLUMN_GENDER = "Gender";
     public static final String COLUMN_HEIGHT = "Height";
     public static final String COLUMN_WEIGHT = "Weight";
     public static final String COLUMN_YEAR_OF_BIRTH = "YearOfBirth";
-    public static final String COLUMN_UPDATED_AT = "UpdatedAt";
 
-    // Health Status Table Columns
+    // SQL for creating UserProfile Table
+    private static final String CREATE_USER_PROFILE_TABLE =
+            "CREATE TABLE " + TABLE_USER_PROFILE + " (" +
+                    COLUMN_USER_ID + " TEXT PRIMARY KEY, " +
+                    COLUMN_USERNAME + " TEXT, " +
+                    COLUMN_AGE + " INTEGER, " +
+                    COLUMN_GENDER + " TEXT, " +
+                    COLUMN_HEIGHT + " DOUBLE, " +
+                    COLUMN_WEIGHT + " DOUBLE, " +
+                    COLUMN_YEAR_OF_BIRTH + " INTEGER);";
+
+    // Table for Privacy Policy
+    private static final String TABLE_PRIVACY_POLICY = "PrivacyPolicy";
+    private static final String COLUMN_ID = "id";
+    private static final String COLUMN_CONTENT = "content";
+    private static final String COLUMN_LAST_UPDATED = "lastUpdated";
+
+    // Table Names
+    public static final String TABLE_LANGUAGE = "Language";
+    public static final String TABLE_USER_LANGUAGE_SETTINGS = "UserLanguageSettings";
+
+    // Columns for Language Table
+    public static final String COLUMN_LANGUAGE_ID = "idlanguage";
+    public static final String COLUMN_LANGUAGE_CODE = "code";
+
+    // Columns for UserLanguageSettings Table
+    public static final String COLUMN_USER_LANGUAGE_ID = "iduserlanguage";
+
+    // SQL for creating Language Table
+    private static final String CREATE_LANGUAGE_TABLE =
+            "CREATE TABLE " + TABLE_LANGUAGE + " (" +
+                    COLUMN_LANGUAGE_ID + " TEXT PRIMARY KEY, " +
+                    COLUMN_LANGUAGE_CODE + " TEXT NOT NULL);";
+
+    // SQL for creating UserLanguageSettings Table
+    private static final String CREATE_USER_LANGUAGE_SETTINGS_TABLE =
+            "CREATE TABLE " + TABLE_USER_LANGUAGE_SETTINGS + " (" +
+                    COLUMN_USER_LANGUAGE_ID + " TEXT PRIMARY KEY, " +
+                    COLUMN_USER_ID + " TEXT NOT NULL, " +
+                    COLUMN_LANGUAGE_ID + " TEXT NOT NULL, " +
+                    "FOREIGN KEY(" + COLUMN_USER_ID + ") REFERENCES " + TABLE_USER_PROFILE + "(" + COLUMN_USER_ID + "), " +
+                    "FOREIGN KEY(" + COLUMN_LANGUAGE_ID + ") REFERENCES " + TABLE_LANGUAGE + "(" + COLUMN_LANGUAGE_ID + "));";
+
+    // Table names
+    public static final String TABLE_HEALTH_STATUS = "HealthStatus";
+    public static final String TABLE_USER_HEALTH_STATUS = "UserHealthStatus";
+
+    // HealthStatus table columns
+    public static final String COLUMN_ID_HEALTH_STATUS = "IDHealthStatus";
+    public static final String COLUMN_DESCRIPTION = "Description";
+
+    // UserHealthStatus table columns
+    public static final String COLUMN_ID_USER_HEALTH_STATUS = "IDUserHealthStatus";
     public static final String COLUMN_HEALTH_STATUS_ID = "HealthStatusID";
-    public static final String COLUMN_HEALTH_STATUS_DESC = "HealthStatus";
+    public static final String COLUMN_DATE = "Date";
 
-    // User Health Status Columns
-    public static final String COLUMN_USER_HEALTH_STATUS_ID = "UserHealthStatusID";
-    public static final String COLUMN_USER_HEALTH_DATE = "Date";
+    // SQL for creating HealthStatus table
+    private static final String CREATE_HEALTH_STATUS_TABLE =
+            "CREATE TABLE " + TABLE_HEALTH_STATUS + " (" +
+                    COLUMN_ID_HEALTH_STATUS + " TEXT PRIMARY KEY, " +
+                    COLUMN_DESCRIPTION + " TEXT NOT NULL);";
 
-    // Language Columns
-    public static final String COLUMN_LANGUAGE_ID = "LanguageID";
-    public static final String COLUMN_LANGUAGE_NAME = "LanguageName";
-    public static final String COLUMN_LANGUAGE_CODE = "LanguageCode";
-
-    // User Language Setting Columns
-    public static final String COLUMN_USER_LANGUAGE_ID = "UserLanguageID";
-
-    // Privacy Policy Columns
-    private static final String COLUMN_ID = "ID";
-    private static final String COLUMN_CONTENT = "Content";
-
-    public static final String COLUMN_PRIVACY_POLICY_LAST_UPDATED = "LastUpdated";
-
-    // Hydration Goal Columns
-    public static final String COLUMN_GOAL_ID = "GoalID";
-    public static final String COLUMN_HYDRATION_GOAL = "HydrationGoal";  // Hydration goal in ml
-    public static final String COLUMN_GOAL_DATE = "Date";
-
-    // Hydration Intake Columns
-    public static final String COLUMN_INTAKE_ID = "IntakeID";
-    public static final String COLUMN_INTAKE_TIMESTAMP = "IntakeTimeStamp";
-    public static final String COLUMN_QUANTITY_OF_WATER = "QuantityofWater";  // Intake in ml
-
-    // Step Tracking Columns
-    public static final String COLUMN_STEP_GOAL_ID = "StepGoalID";
-    public static final String COLUMN_STEP_GOAL = "StepGoal";
-    public static final String COLUMN_STEP_COUNT = "StepCount";
-    public static final String COLUMN_DISTANCE_WALKED = "DistanceWalked";
-    public static final String COLUMN_CALORIES_BURNED = "CaloriesBurned";
-    public static final String COLUMN_STEP_TRACK_DATE = "Date";
-
-    // Mood Log Columns
-    public static final String COLUMN_MOOD_ID = "MoodID";
-    public static final String COLUMN_MOOD_DATE = "MoodDate";
-    public static final String COLUMN_MOOD_TYPE = "MoodType";
-
-    // Journal Columns
-    public static final String COLUMN_JOURNAL_ID = "JournalID";
-    public static final String COLUMN_JOURNAL_DATE = "JournalDate";
-    public static final String COLUMN_JOURNAL_PHOTO_PATH = "PhotoPath";
-    public static final String COLUMN_JOURNAL_WEATHER = "Weather";
-    public static final String COLUMN_JOURNAL_NOTE = "Note";
-
-    // Mindfulness Exercise Columns
-    public static final String COLUMN_MINDFULNESS_ID = "MindfulnessID";
-    public static final String COLUMN_MINDFULNESS_TYPE = "MindfulnessType";
-    public static final String COLUMN_MINDFULNESS_DURATION = "Duration";
-    public static final String COLUMN_MINDFULNESS_DATE = "MindfulnessDate";
-
-    // Exercise Columns
-    public static final String COLUMN_EXERCISE_ID = "ExerciseID";
-    public static final String COLUMN_EXERCISE_DATE = "Date";
-    public static final String COLUMN_EXERCISE_TIME = "Time";
-    public static final String COLUMN_EXERCISE_TYPE = "ExerciseType";
-    public static final String COLUMN_EXERCISE_ATTRIBUTE = "Attribute";
-
-    // Activity Columns
-    public static final String COLUMN_ACTIVITY_ID = "ActivityID";
-    public static final String COLUMN_ACTIVITY_TYPE = "ExerciseType";
-    public static final String COLUMN_ACTIVITY_ATTRIBUTE = "Attribute";
-
-    // Fitness Setting Columns
-    public static final String COLUMN_FITNESS_SETTING_ID = "FitnessSettingID";
-    public static final String COLUMN_FITNESS_SETTING_TIMELINE = "Timeline";
+    // SQL for creating UserHealthStatus table
+    private static final String CREATE_USER_HEALTH_STATUS_TABLE =
+            "CREATE TABLE " + TABLE_USER_HEALTH_STATUS + " (" +
+                    COLUMN_ID_USER_HEALTH_STATUS + " TEXT PRIMARY KEY, " +
+                    COLUMN_USER_ID + " TEXT NOT NULL, " +
+                    COLUMN_HEALTH_STATUS_ID + " TEXT NOT NULL, " +
+                    COLUMN_DATE + " TEXT NOT NULL, " +
+                    "FOREIGN KEY(" + COLUMN_USER_ID + ") REFERENCES " + TABLE_USER_PROFILE + "(" + COLUMN_USER_ID + "), " +
+                    "FOREIGN KEY(" + COLUMN_HEALTH_STATUS_ID + ") REFERENCES " + TABLE_HEALTH_STATUS + "(" + COLUMN_ID_HEALTH_STATUS + "));";
 
     public DatabaseHelper_module1(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Create tables
-        db.execSQL("CREATE TABLE " + TABLE_USER + " (" +
-                COLUMN_USER_ID + " TEXT PRIMARY KEY, " +
-                COLUMN_USER_NAME + " TEXT, " +
-                COLUMN_USER_EMAIL + " TEXT, " +
-                COLUMN_USER_PASSWORD + " TEXT, " +
-                COLUMN_CREATED_AT + " TIMESTAMP, " +
-                COLUMN_LAST_LOGIN + " TIMESTAMP);");
+        db.execSQL(CREATE_USER_PROFILE_TABLE);
 
-        db.execSQL("CREATE TABLE " + TABLE_LANGUAGE + " (" +
-                COLUMN_LANGUAGE_ID + " TEXT PRIMARY KEY, " +
-                COLUMN_LANGUAGE_NAME + " TEXT, " +
-                COLUMN_LANGUAGE_CODE + " TEXT);");
+        // Insert initial test data
+        db.execSQL("INSERT INTO " + TABLE_USER_PROFILE + " (" +
+                COLUMN_USER_ID + ", " +
+                COLUMN_USERNAME + ", " +
+                COLUMN_AGE + ", " +
+                COLUMN_GENDER + ", " +
+                COLUMN_HEIGHT + ", " +
+                COLUMN_WEIGHT + ", " +
+                COLUMN_YEAR_OF_BIRTH +
+                ") VALUES ('1', 'Test User', 25, 'Male', 180.5, 75.0, 1998);");
 
-        db.execSQL("CREATE TABLE " + TABLE_HYDRATION_GOAL + " (" +
-                COLUMN_GOAL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_USER_ID + " TEXT, " +
-                COLUMN_GOAL_DATE + " TEXT, " +
-                COLUMN_HYDRATION_GOAL + " INTEGER, " +
-                "FOREIGN KEY (" + COLUMN_USER_ID + ") REFERENCES " + TABLE_USER + "(" + COLUMN_USER_ID + "));");
+        Log.d("Database", "Database created with initial test data");
 
-        db.execSQL("CREATE TABLE " + TABLE_USER_LANGUAGE_SETTING + " (" +
-                COLUMN_USER_LANGUAGE_ID + " TEXT PRIMARY KEY, " +
-                COLUMN_USER_ID + " TEXT, " +
-                COLUMN_LANGUAGE_ID + " TEXT, " +
-                "FOREIGN KEY (" + COLUMN_USER_ID + ") REFERENCES " + TABLE_USER + "(" + COLUMN_USER_ID + "), " +
-                "FOREIGN KEY (" + COLUMN_LANGUAGE_ID + ") REFERENCES " + TABLE_LANGUAGE + "(" + COLUMN_LANGUAGE_ID + "));");
+        // Create Privacy Policy table
+        String createPrivacyPolicyTable = "CREATE TABLE " + TABLE_PRIVACY_POLICY + " ("
+                + COLUMN_ID + " TEXT PRIMARY KEY, "
+                + COLUMN_CONTENT + " TEXT, "
+                + COLUMN_LAST_UPDATED + " TEXT);";
+        db.execSQL(createPrivacyPolicyTable);
 
-            // Create LastUpdated table
-            String createLastUpdatedTable = "CREATE TABLE LastUpdated ("
-                    + "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + "Version TEXT)";
-            db.execSQL(createLastUpdatedTable);
+        db.execSQL(CREATE_LANGUAGE_TABLE);
+        db.execSQL(CREATE_USER_LANGUAGE_SETTINGS_TABLE);
+        db.execSQL(CREATE_HEALTH_STATUS_TABLE);
+        db.execSQL(CREATE_USER_HEALTH_STATUS_TABLE);
 
-            // Insert default last updated version
-            ContentValues values = new ContentValues();
-            values.put("Version", "2024-12-26");
-            db.insert("LastUpdated", null, values);
-        }
+        // Insert initial health statuses
+        db.execSQL("INSERT INTO " + TABLE_HEALTH_STATUS + " VALUES ('001', 'ACTIVE');");
+        db.execSQL("INSERT INTO " + TABLE_HEALTH_STATUS + " VALUES ('002', 'SICK');");
+        db.execSQL("INSERT INTO " + TABLE_HEALTH_STATUS + " VALUES ('003', 'TAKE A BREAK');");
+        db.execSQL("INSERT INTO " + TABLE_HEALTH_STATUS + " VALUES ('004', 'INJURED');");
+
+        // Populate the Language table
+        insertInitialLanguages(db);
+
+        // Insert initial privacy policy data
+        String initialContent = "At Tracker, we prioritize your privacy by protecting your personal information and explaining our practices clearly. "
+                + "We collect data like personal details, health metrics, location (if enabled), and device information to improve our services, "
+                + "personalize your experience, and track your fitness progress. "
+                + "We may share information with trusted third-party providers to enhance app functionality, and we only disclose data as legally required. "
+                + "We implement strong security measures to protect your data but note that no online system is entirely secure. "
+                + "You can access, update, or delete your data, and manage notification preferences within the app. "
+                + "Our app is not intended for children under 13, and we retain data only as needed. Updates to this policy will be communicated "
+                + "through the app, and you can reach us with any questions at tracker@gmail.com.";
+
+        String initialID = UUID.randomUUID().toString();
+        String initialDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+
+        String insertPrivacyPolicy = "INSERT INTO " + TABLE_PRIVACY_POLICY + " ("
+                + COLUMN_ID + ", "
+                + COLUMN_CONTENT + ", "
+                + COLUMN_LAST_UPDATED + ") VALUES ('"
+                + initialID + "', '"
+                + initialContent + "', '"
+                + initialDate + "');";
+        db.execSQL(insertPrivacyPolicy);
+    }
 
 
-        @Override
+    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LANGUAGE);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HYDRATION_GOAL);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_LANGUAGE_SETTING);
-
+        // Drop tables if they exist and recreate them
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_PROFILE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRIVACY_POLICY);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LANGUAGE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_PROFILE);
 
-
-            if (oldVersion < newVersion) {
-                db.execSQL("CREATE TABLE IF NOT EXISTS PrivacyPolicy (ID INTEGER PRIMARY KEY AUTOINCREMENT, Content TEXT)");
-            }
-
-
-        // Drop other tables if needed
         onCreate(db);
-
     }
 
-    // Insert a new user
-    public void saveUser(String username) {
+    // Insert data for a new user profile
+    public void saveUserProfile(String userId, String username, int age, String gender, double height, double weight, int yearOfBirth) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_USER_NAME, username);
-        db.insert(TABLE_USER, null, values);
-        db.close();
-    }
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_USER_ID, userId);
+        cv.put(COLUMN_USERNAME, username);
+        cv.put(COLUMN_AGE, age);
+        cv.put(COLUMN_GENDER, gender);
+        cv.put(COLUMN_HEIGHT, height);
+        cv.put(COLUMN_WEIGHT, weight);
+        cv.put(COLUMN_YEAR_OF_BIRTH, yearOfBirth);
 
-    // Fetch the first username
-    public String getUsername() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_USER, new String[]{COLUMN_USER_NAME}, null, null, null, null, null);
-        if (cursor != null && cursor.moveToFirst()) {
-            String username = cursor.getString(0);
-            cursor.close();
-            db.close();
-            return username;
+        long result = db.insert(TABLE_USER_PROFILE, null, cv);
+        if (result == -1) {
+            Toast.makeText(context, "Failed to save profile", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Profile saved successfully", Toast.LENGTH_SHORT).show();
         }
-        return null;
     }
 
-    // Insert a health status
-    public void saveHealthStatus(String username, String healthStatus) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_HEALTH_STATUS_DESC, healthStatus);
-
-        db.update(TABLE_USER, values, COLUMN_USER_NAME + "=?", new String[]{username});
-        db.close();
-    }
-
-    // Save user health status
-    public void saveUserHealthStatus(int userId, int healthStatusId, String date) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_USER_ID, userId);
-        values.put(COLUMN_HEALTH_STATUS_ID, healthStatusId);
-        values.put(COLUMN_USER_HEALTH_DATE, date);
-        db.insert(TABLE_USER_HEALTH_STATUS, null, values);
-        db.close();
-    }
-
-    // Fetch health status by user ID
-    public Cursor getUserHealthStatus(int userId) {
+    // Method to fetch all user profiles
+    public Cursor getAllUserProfiles() {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.query(TABLE_USER_HEALTH_STATUS, null, COLUMN_USER_ID + "=?", new String[]{String.valueOf(userId)}, null, null, null);
+        return db.rawQuery("SELECT * FROM " + TABLE_USER_PROFILE, null);
     }
 
-    // Get user ID by username
-    public int getUserId(String username) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_USER, new String[]{COLUMN_USER_ID}, COLUMN_USER_NAME + "=?", new String[]{username}, null, null, null);
-        int userId = -1;
+    // Method to log all user profiles for debugging
+    public void logAllProfiles() {
+        Cursor cursor = getAllUserProfiles();
         if (cursor != null && cursor.moveToFirst()) {
-            userId = cursor.getInt(0);
-            cursor.close();
-        }
-        db.close();
-        return userId;
-    }
+            do {
+                String userId = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_ID));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USERNAME));
+                int age = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_AGE));
+                String gender = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_GENDER));
+                double height = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_HEIGHT));
+                double weight = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_WEIGHT));
+                int yearOfBirth = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_YEAR_OF_BIRTH));
 
-    // Get health status ID by description
-    public int getHealthStatusId(String healthStatusDesc) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_HEALTH_STATUS, new String[]{COLUMN_HEALTH_STATUS_ID}, COLUMN_HEALTH_STATUS_DESC + "=?", new String[]{healthStatusDesc}, null, null, null);
-        int healthStatusId = -1;
-        if (cursor != null && cursor.moveToFirst()) {
-            healthStatusId = cursor.getInt(0);
-            cursor.close();
-        }
-        db.close();
-        return healthStatusId;
-    }
-
-    // Save User Profile
-    public void saveUserProfile(String name, int age, String gender, int height, float weight, int yearOfBirth) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_NAME, name);
-        values.put(COLUMN_AGE, age);
-        values.put(COLUMN_GENDER, gender);
-        values.put(COLUMN_HEIGHT, height);
-        values.put(COLUMN_WEIGHT, weight);
-        values.put(COLUMN_YEAR_OF_BIRTH, yearOfBirth);
-        values.put(COLUMN_UPDATED_AT, getCurrentDateTime());
-
-        // Insert into the table
-        long insert = db.insert(TABLE_USER_PROFILE, null, values);
-        db.close();
-    }
-
-    // Method to retrieve user profile details
-    public Cursor getUserProfile() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        // Retrieve the user profile data, assuming only one row
-        return db.query(TABLE_USER_PROFILE, null, null, null, null, null, null);
-    }
-
-    // Method to get the current date and time
-    private String getCurrentDateTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        return sdf.format(new Date());
-    }
-
-    private static final String CREATE_PRIVACY_POLICY_TABLE =
-            "CREATE TABLE IF NOT EXISTS PrivacyPolicy (" +
-                    "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "Content TEXT NOT NULL);";
-
-    // Privacy Policy Methods
-    public void insertPrivacyPolicy(String content) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_CONTENT, content);
-        db.insert(TABLE_PRIVACY_POLICY, null, values);
-        db.close();
-    }
-
-    public String getPrivacyPolicy() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_PRIVACY_POLICY, new String[]{COLUMN_CONTENT}, null, null, null, null, null);
-        String policy = null;
-        if (cursor != null && cursor.moveToFirst()) {
-            policy = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CONTENT));
-            cursor.close();
-        }
-        db.close();
-        return policy;
-    }
-    public void setLastUpdatedVersion(String version) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("Version", version);
-
-        db.replace("LastUpdated", null, values); // Replace if it exists, insert otherwise
-    }
-
-    public String getLastUpdatedVersion() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(
-                "LastUpdated",
-                new String[]{"Version"},
-                null,
-                null,
-                null,
-                null,
-                null
-        );
-
-        if (cursor != null && cursor.moveToFirst()) {
-            String version = cursor.getString(0);
-            cursor.close();
-            return version;
+                Log.d("DatabaseDebug", "UserID: " + userId +
+                        ", Name: " + name +
+                        ", Age: " + age +
+                        ", Gender: " + gender +
+                        ", Height: " + height +
+                        ", Weight: " + weight +
+                        ", YearOfBirth: " + yearOfBirth);
+            } while (cursor.moveToNext());
+        } else {
+            Log.d("DatabaseDebug", "No profiles found in database");
         }
 
         if (cursor != null) {
             cursor.close();
         }
-
-        return "Not Available"; // Default value if no version is set
     }
 
-
-    // Insert Languages into Language Table
-    public void insertLanguages() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String[] languages = {"English", "Arabic", "Spanish", "French", "Indonesian", "Russian", "German", "Italian", "Portuguese", "Thai", "Malay", "Chinese", "Hindi"};
-        String[] languageCodes = {"en", "ar", "es", "fr", "id", "ru", "de", "it", "pt", "th", "ms", "zh", "hi"};
-
-        for (int i = 0; i < languages.length; i++) {
-            ContentValues values = new ContentValues();
-            values.put(COLUMN_LANGUAGE_NAME, languages[i]);
-            values.put(COLUMN_LANGUAGE_CODE, languageCodes[i]);
-            db.insert(TABLE_LANGUAGE, null, values);
-        }
-        db.close();
-    }
-
-    // Set User Preferred Language
-    public void setUserPreferredLanguage(String userId, int languageId) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_USER_ID, userId);
-        values.put(COLUMN_LANGUAGE_ID, languageId);
-        db.insert(TABLE_USER_LANGUAGE_SETTING, null, values);
-        db.close();
-    }
-
-    // Get User Preferred Language
-    public String getUserPreferredLanguage(String userId) {
+    // Method to fetch a user profile by username
+    public Cursor getUserProfileByUsername(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT " + COLUMN_LANGUAGE_CODE + " FROM " + TABLE_LANGUAGE + " L " +
-                "JOIN " + TABLE_USER_LANGUAGE_SETTING + " ULS ON L." + COLUMN_LANGUAGE_ID + " = ULS." + COLUMN_LANGUAGE_ID + " " +
-                "WHERE ULS." + COLUMN_USER_ID + " = ?";
-        Cursor cursor = db.rawQuery(query, new String[]{userId});
-        String languageCode = null;
-        if (cursor != null && cursor.moveToFirst()) {
-            int index = cursor.getColumnIndexOrThrow(COLUMN_LANGUAGE_CODE);
-            languageCode = cursor.getString(index);
-            cursor.close();
-        }
-        db.close();
-        return languageCode;
+        return db.rawQuery(
+                "SELECT * FROM " + TABLE_USER_PROFILE + " WHERE " + COLUMN_USERNAME + " = ?",
+                new String[]{username}
+        );
     }
+
+    public void clearUserProfileTable() {
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            if (db != null) {
+                db.execSQL("DELETE FROM " + TABLE_USER_PROFILE);
+                Log.d("Database", "User profile table cleared successfully.");
+            } else {
+                Log.e("Database", "Writable database is null.");
+            }
+        } catch (Exception e) {
+            Log.e("Database", "Error clearing user profile table", e);
+        }
+    }
+
+    public String[] getPrivacyPolicy() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_PRIVACY_POLICY + " LIMIT 1;";
+        android.database.Cursor cursor = db.rawQuery(query, null);
+
+        String[] result = new String[2];
+        if (cursor.moveToFirst()) {
+            result[0] = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CONTENT));
+            result[1] = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LAST_UPDATED));
+        }
+        cursor.close();
+        return result;
+    }
+
+    private void insertInitialLanguages(SQLiteDatabase db) {
+        insertLanguage(db, UUID.randomUUID().toString(), "en");
+        insertLanguage(db, UUID.randomUUID().toString(), "ms");
+        insertLanguage(db, UUID.randomUUID().toString(), "hi");
+        insertLanguage(db, UUID.randomUUID().toString(), "zh");
+    }
+
+    private void insertLanguage(SQLiteDatabase db, String idlanguage, String code) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_LANGUAGE_ID, idlanguage);
+        values.put(COLUMN_LANGUAGE_CODE, code);
+        db.insert(TABLE_LANGUAGE, null, values);
+    }
+
+    public void saveUserLanguageSetting(String username, String languageId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Fetch the userid from UserProfile table
+        String userId = getUserIdByUsername(username);
+
+        if (userId == null) {
+            Log.e("Database", "User ID not found for username: " + username);
+            return;
+        }
+        // Insert into UserLanguageSettings table
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_LANGUAGE_ID, UUID.randomUUID().toString()); // Random ID for the setting
+        values.put(COLUMN_USER_ID, userId); // Fetched User ID
+        values.put(COLUMN_LANGUAGE_ID, languageId); // Selected Language ID
+
+        long result = db.insert(TABLE_USER_LANGUAGE_SETTINGS, null, values);
+        if (result == -1) {
+            Log.e("Database", "Failed to save user language setting");
+        } else {
+            Log.d("Database", "User language setting saved successfully");
+        }
+    }
+
+    private String getUserIdByUsername(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + COLUMN_USER_ID + " FROM " + TABLE_USER_PROFILE + " WHERE " + COLUMN_USERNAME + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{username});
+
+        String userId = null;
+        if (cursor.moveToFirst()) {
+            userId = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_ID));
+        }
+        cursor.close();
+        return userId;
+    }
+
+    public String getLanguageIdByCode(String languageCode) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + COLUMN_LANGUAGE_ID + " FROM " + TABLE_LANGUAGE + " WHERE " + COLUMN_LANGUAGE_CODE + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{languageCode});
+
+        String languageId = null;
+        if (cursor.moveToFirst()) {
+            languageId = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LANGUAGE_ID));
+        }
+        cursor.close();
+        return languageId;
+    }
+
+    // Save UserHealthStatus
+    public void saveUserHealthStatus(String userHealthStatusID, String userID, String healthStatusID, String date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_ID_USER_HEALTH_STATUS, userHealthStatusID);
+        cv.put(COLUMN_USER_ID, userID);
+        cv.put(COLUMN_HEALTH_STATUS_ID, healthStatusID);
+        cv.put(COLUMN_DATE, date);
+
+        long result = db.insert(TABLE_USER_HEALTH_STATUS, null, cv);
+        if (result == -1) {
+            Log.e("Database", "Failed to save user health status");
+        } else {
+            Log.d("Database", "User health status saved successfully");
+        }
+    }
+
+    // Fetch UserHealthStatus
+    public Cursor getUserHealthStatus(String userID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery(
+                "SELECT * FROM " + TABLE_USER_HEALTH_STATUS + " WHERE " + COLUMN_USER_ID + " = ?",
+                new String[]{userID});
+    }
+
+
+
 }
-
-
-

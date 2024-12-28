@@ -4,25 +4,14 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="welcome" >欢迎使用 Fitjourney 应用程序</string>
         <string name="go_to_profile">转到个人资料</string>
-        <string name="language">语言</string>
         <string name="confirm">确认</string>
         <string name="hi_welcome">你好，欢迎</string>
         <string name="enter_name">输入您的名字</string>
-        <string name="privacy_policy">隐私政策</string>
         <string name="about_us">关于我们</string>
-        <string name="my_wellness">我的健康</string>
-        <string name="support_us">支持我们</string>
-        <string name="settings">设置</string>
         <string name="tracker">跟踪器</string>
         <string name="mood_tracker">心情跟踪器</string>
         <string name="workout_tracker">锻炼跟踪器</string>
         <string name="wellness_tracker">健康跟踪器</string>
-        <string name="user_name">用户名</string>
-        <string name="enter_gender">输入性别</string>
-        <string name="enter_age">输入年龄</string>
-        <string name="enter_height">输入身高（厘米）</string>
-        <string name="enter_weight">输入体重（公斤）</string>
-        <string name="enter_year_of_birth">输入出生年份</string>
         <string name="get_started">开始</string>
         <string name="check_health_status">检查您的健康状况</string>
         <string name="take_a_break">休息一下</string>
@@ -35,6 +24,31 @@
         <string name="hi_user">嗨，用户！</string>
         <string name="active">活跃</string>
         <string name="crush_it">打破它。</string>
+        <string name="welcome_text">你好，欢迎</string>
+        <string name="save_button_text">保存</string>
+        <string name="name_input_hint">输入你的名字</string>
+        <string name="privacy_policy_title">隐私政策</string>
+        <string name="privacy_policy_content">在 Tracker，我们通过保护您的个人信息并清楚地解释我们的做法，优先保护您的隐私。我们收集数据，如个人详细信息、健康指标、位置（如果启用）和设备信息，以改善我们的服务、个性化您的体验和跟踪您的健康进度。我们可能会与受信任的第三方提供商共享信息，以增强应用程序功能，并且我们仅在法律要求的情况下披露数据。我们实施强大的安全措施来保护您的数据，但请注意，没有任何在线系统是完全安全的。您可以在应用程序中访问、更新或删除您的数据，并管理通知偏好。我们的应用程序不适用于 13 岁以下的儿童，我们仅在需要时保留数据。此政策的更新将通过应用程序进行传达，您可以通过 tracker@gmail.com 联系我们以获取任何问题。</string>
+        <string name="last_updated">最后更新：加载中...</string>
+        <string name="about_me">关于我</string>
+        <string name="my_mood">我的心情</string>
+        <string name="my_wellness">我的健康</string>
+        <string name="my_profile">我的资料</string>
+        <string name="my_workout">我的锻炼</string>
+        <string name="settings">设置</string>
+        <string name="support_us">支持我们</string>
+        <string name="language">语言</string>
+        <string name="privacy_policy">隐私政策</string>
+        <string name="profile_title">我的资料</string>
+        <string name="user_name">用户名</string>
+        <string name="enter_gender">输入性别</string>
+        <string name="enter_age">输入年龄</string>
+        <string name="enter_weight">输入体重 (公斤)</string>
+        <string name="enter_year_of_birth">输入出生年份</string>
+        <string name="enter_height">输入身高 (厘米)</string>
+        <string name="save_button">保存</string>
+        <string name="saved_details">您保存的详细信息将显示在此处</string>
+        <string name="update_user_profile">更新用户资料</string>
 
 
 </resources>
