@@ -69,15 +69,16 @@ public class FoodActivity extends AppCompatActivity {
         calorieList.add(new FoodBean("", 0, "", 0, 0));
         mCalorieAdapter = new CalorieAdapter(calorieList);
         mCalorieResultAdapter = new CalorieResultAdapter(calorieResultList);
-        foods0.add(new FoodBean("egg", R.mipmap.icon_egg, "1", R.string.egg, 140));
-        foods0.add(new FoodBean("Bread", R.mipmap.icon_bread, "300", R.string.egg, 120));
-        foods0.add(new FoodBean("Orange juice", R.mipmap.icon_orange_juice, "500", R.string.egg, 22));
-        foods0.add(new FoodBean("Rice", R.mipmap.icon_rice, "150", R.string.egg, 34));
-        foods0.add(new FoodBean("Shrimp", R.mipmap.icon_shrimp, "100", R.string.egg, 56));
-        foods0.add(new FoodBean("Stir-fried vegetables", R.mipmap.icon_vegetables, "150", R.string.egg, 143));
-        foods0.add(new FoodBean("Chicken breast", R.mipmap.icon_chicken, "100", R.string.egg, 233));
-        foods0.add(new FoodBean("Purple sweet potato.", R.mipmap.icon_purple_sweet_potato, "200", R.string.egg, 44));
-        foods0.add(new FoodBean("Milk", R.mipmap.icon_milk, "500", R.string.egg, 77));
+        foods0.add(new FoodBean("Egg", R.mipmap.icon_egg, "1", R.string.egg, 140));
+        foods0.add(new FoodBean("Bread", R.mipmap.icon_bread, "300", R.string.bread, 120));
+        foods0.add(new FoodBean("Orange juice", R.mipmap.icon_orange_juice, "500", R.string.orange_juice, 22));
+        foods0.add(new FoodBean("Rice", R.mipmap.icon_rice, "150", R.string.rice, 34)); 
+        foods0.add(new FoodBean("Shrimp", R.mipmap.icon_shrimp, "100", R.string.shrimp, 56));
+        foods0.add(new FoodBean("Stir-fried vegetables", R.mipmap.icon_vegetables, "150", R.string.vegetables, 143));
+        foods0.add(new FoodBean("Chicken breast", R.mipmap.icon_chicken, "100", R.string.chicken, 233));
+        foods0.add(new FoodBean("Purple sweet potato", R.mipmap.icon_purple_sweet_potato, "200", R.string.sweet_potato, 44));
+        foods0.add(new FoodBean("Milk", R.mipmap.icon_milk, "500", R.string.milk, 77)); 
+
         llWeek = findViewById(R.id.ll_week);
         ll_encyclopedia = findViewById(R.id.ll_encyclopedia);
         ll_calculator = findViewById(R.id.ll_calculator);
