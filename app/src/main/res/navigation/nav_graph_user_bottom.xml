@@ -85,6 +85,9 @@
         <action
             android:id="@+id/action_exerciseHomeFragment3_to_logFragment2"
             app:destination="@id/logFragment2" />
+        <action
+            android:id="@+id/action_exerciseHomeFragment3_to_trackerMain3"
+            app:destination="@id/trackerMain3" />
     </fragment>
     <fragment
         android:id="@+id/home3"
@@ -145,7 +148,11 @@
         android:id="@+id/progressGoalFragment2"
         android:name="com.example.madassignment4.ExerciseModule.ProgressGoalFragment"
         android:label="fragment_progress_goal"
-        tools:layout="@layout/fragment_progress_goal" />
+        tools:layout="@layout/fragment_progress_goal" >
+        <action
+            android:id="@+id/action_progressGoalFragment2_to_exerciseHomeFragment3"
+            app:destination="@id/exerciseHomeFragment3" />
+    </fragment>
     <fragment
         android:id="@+id/historyFragment2"
         android:name="com.example.madassignment4.ExerciseModule.HistoryFragment"
@@ -154,12 +161,19 @@
         <action
             android:id="@+id/action_historyFragment2_to_historySummaryFragment2"
             app:destination="@id/historySummaryFragment2" />
+        <action
+            android:id="@+id/action_historyFragment2_to_exerciseHomeFragment3"
+            app:destination="@id/exerciseHomeFragment3" />
     </fragment>
     <fragment
         android:id="@+id/logFragment2"
         android:name="com.example.madassignment4.ExerciseModule.LogFragment"
         android:label="fragment_log"
-        tools:layout="@layout/fragment_log" />
+        tools:layout="@layout/fragment_log" >
+        <action
+            android:id="@+id/action_logFragment2_to_exerciseHomeFragment3"
+            app:destination="@id/exerciseHomeFragment3" />
+    </fragment>
     <fragment
         android:id="@+id/historySummaryFragment2"
         android:name="com.example.madassignment4.ExerciseModule.HistorySummaryFragment"

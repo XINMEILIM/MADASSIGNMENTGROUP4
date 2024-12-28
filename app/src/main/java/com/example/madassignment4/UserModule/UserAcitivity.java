@@ -36,8 +36,25 @@ public class UserAcitivity extends AppCompatActivity {
         NavController navController = navHostFragment.getNavController();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+        // Set up manual navigation using if-else
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.userHomeFragment2) {
+                navController.navigate(R.id.userHomeFragment2);
+                return true;
+            } else if (itemId == R.id.trackerMain3) {
+                navController.navigate(R.id.trackerMain3);
+                return true;
+            } else if (itemId == R.id.profileFragment) {
+                navController.navigate(R.id.profileFragment);
+                return true;
+            } else {
+                return false;
+            }
+        });
     }
 
-    }
+}
 
 

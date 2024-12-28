@@ -143,23 +143,6 @@ public class Journal extends Fragment {
         }
     }
 
-    private byte[] getByteArrayFromUri(Uri uri) {
-        try {
-            InputStream inputStream = getContext().getContentResolver().openInputStream(uri);
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = inputStream.read(buffer)) != -1) {
-                byteArrayOutputStream.write(buffer, 0, length);
-            }
-            inputStream.close();
-            return byteArrayOutputStream.toByteArray();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     private void initializeUIComponents(View view) {
         saveButton = view.findViewById(R.id.save_btn);
         photoAddButton = view.findViewById(R.id.photoAdd_btn);

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.madassignment4.Database.DatabaseHelper;
 import com.example.madassignment4.R;
@@ -74,6 +76,11 @@ public class LogFragment extends Fragment {
         btnAddExercise1.setOnClickListener(v -> addActivity(spinnerExerciseType1, spinnerDuration1));
         btnAddExercise2.setOnClickListener(v -> addActivity(spinnerExerciseType2, spinnerDuration2));
         btnUpdateLog.setOnClickListener(v -> updateLog());
+
+        ImageButton backButton = view.findViewById(R.id.imageButton4);
+        backButton.setOnClickListener(v -> {
+            Navigation.findNavController(requireView()).navigate(R.id.action_logFragment2_to_exerciseHomeFragment3);
+        });
 
         return view;
     }

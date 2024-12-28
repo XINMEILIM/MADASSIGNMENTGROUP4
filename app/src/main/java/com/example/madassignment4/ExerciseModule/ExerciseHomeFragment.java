@@ -100,6 +100,11 @@ public class ExerciseHomeFragment extends Fragment {
         };
         btnHistory.setOnClickListener(History);
 
+        ImageButton backButton = view.findViewById(R.id.imageButton);
+        backButton.setOnClickListener(v -> {
+            Navigation.findNavController(requireView()).navigate(R.id.action_exerciseHomeFragment3_to_trackerMain3);
+        });
+
         return view;
     }
 

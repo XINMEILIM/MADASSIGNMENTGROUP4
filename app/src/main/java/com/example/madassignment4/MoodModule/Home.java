@@ -135,7 +135,7 @@ public class Home extends Fragment {
     private void updatePhoto() {
         byte[] photo = databaseHelper.getPhoto(databaseHelper.getUserIdByMostRecentLogin(), selectedDate);
         if (photo == null) {
-            defaultPhoto.setImageResource(R.drawable.transparentrectangle); // Default emoji
+            defaultPhoto.setImageResource(R.drawable.transparentrectangle); // Default photo
         } else {
             // Convert byte[] to Bitmap
             Bitmap bitmap = BitmapFactory.decodeByteArray(photo, 0, photo.length);

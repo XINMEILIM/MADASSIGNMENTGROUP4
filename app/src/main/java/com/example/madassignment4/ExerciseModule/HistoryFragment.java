@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -57,6 +58,11 @@ public class HistoryFragment extends Fragment {
 
         // Load data from database
         loadHistoryFromDatabase();
+
+        ImageButton backButton = view.findViewById(R.id.imageButton3);
+        backButton.setOnClickListener(v -> {
+            Navigation.findNavController(requireView()).navigate(R.id.action_historyFragment2_to_exerciseHomeFragment3);
+        });
 
         return view;
     }
