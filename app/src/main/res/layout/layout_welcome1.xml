@@ -60,7 +60,7 @@
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/poppins_regular"
         android:layout_marginTop="300dp"
-        android:text="Please wait, we are customizing Recommended Recipes for you."
+        android:text="@string/customizing_recipes"
         android:id="@+id/tv_next"
         />
 

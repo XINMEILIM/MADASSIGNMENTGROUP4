@@ -13,7 +13,7 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/search_bar_background"
-        android:hint="Search"
+        android:hint="@string/search"
         android:inputType="text" />
 
     <androidx.recyclerview.widget.RecyclerView
