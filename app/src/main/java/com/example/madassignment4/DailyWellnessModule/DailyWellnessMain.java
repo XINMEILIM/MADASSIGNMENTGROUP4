@@ -37,20 +37,39 @@ public class DailyWellnessMain extends Fragment {
         Button BtnStepTracking = view.findViewById(R.id.BtnStepTracking);
         Button BtnBMICalculator = view.findViewById(R.id.BtnBMICalculator);
         ImageButton BtnBack = view.findViewById(R.id.back_btn);
-        BtnBack.setOnClickListener(v -> {
-            Navigation.findNavController(requireView()).navigate(R.id.trackerMain2);
-        });
+        View.OnClickListener Back = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_dailyWellnessMain3_to_trackerMain3);
+            }
+        };
+        BtnBack.setOnClickListener(Back);
+
 
         // Set click listeners for navigation
-        BtnHydrationTracking.setOnClickListener(v ->
-                Navigation.findNavController(view).navigate(R.id.HydrationTracking));
+        View.OnClickListener HydrationTracking = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_dailyWellnessMain3_to_hydrationTracking);
+            }
+        };
+        BtnHydrationTracking.setOnClickListener(HydrationTracking);
 
-        BtnStepTracking.setOnClickListener(v ->
-                Navigation.findNavController(view).navigate(R.id.StepTracking));
+        View.OnClickListener StepTracking = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_dailyWellnessMain3_to_stepTracking);
+            }
+        };
+        BtnStepTracking.setOnClickListener(StepTracking);
 
-        BtnBMICalculator.setOnClickListener(v ->
-                Navigation.findNavController(view).navigate(R.id.BMICalculator));
+        View.OnClickListener BMICalculator = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_dailyWellnessMain3_to_bmiCalculator);
+            }
+        };
+        BtnBMICalculator.setOnClickListener(BMICalculator);
+
     }
-
-
 }

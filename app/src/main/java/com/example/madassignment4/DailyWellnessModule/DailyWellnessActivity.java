@@ -10,8 +10,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 
 import com.example.madassignment4.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class DailyWellnessActivity extends AppCompatActivity {
 
@@ -31,5 +33,6 @@ public class DailyWellnessActivity extends AppCompatActivity {
         NavHostFragment navHostFragment =
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         NavController navController = navHostFragment.getNavController();
+
     }
 }

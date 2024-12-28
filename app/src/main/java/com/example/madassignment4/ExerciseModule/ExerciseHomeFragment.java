@@ -76,14 +76,33 @@ public class ExerciseHomeFragment extends Fragment {
         progressBar = view.findViewById(R.id.PBProgressGoal); // Reference to the progress bar
 
         // Set up button click listeners
-        btnProgressGoal.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.progressGoalFragment));
-        btnLog.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.logFragment));
-        btnHistory.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.historyFragment));
+        View.OnClickListener ProgressGoal = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_exerciseHomeFragment3_to_progressGoalFragment2);
+            }
+        };
+        btnProgressGoal.setOnClickListener(ProgressGoal);
+
+        View.OnClickListener Log = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_exerciseHomeFragment3_to_logFragment2);
+            }
+        };
+        btnLog.setOnClickListener(Log);
+
+        View.OnClickListener History = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_exerciseHomeFragment3_to_historyFragment2);
+            }
+        };
+        btnHistory.setOnClickListener(History);
 
         return view;
     }
 
-    // Method to calculate and set progress
     private void calculateAndSetProgress() {
         DatabaseHelper dbHelper = new DatabaseHelper(getContext());
 

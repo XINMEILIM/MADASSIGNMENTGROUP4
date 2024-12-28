@@ -87,7 +87,7 @@ public class MeditationExercise extends Fragment {
 
         done_btn.setOnClickListener(v -> {
             dialogDone.dismiss();
-            Navigation.findNavController(view).navigate(R.id.DestMindfulnessExercise);
+            Navigation.findNavController(view).navigate(R.id.mindfulnessExercise);
         });
 
         ImageButton backButton = view.findViewById(R.id.mmeback_btn);
@@ -96,7 +96,7 @@ public class MeditationExercise extends Fragment {
             pauseTimer();
             yes_btn.setOnClickListener(v1 -> {
                 dialogConfirmation.dismiss();
-                Navigation.findNavController(requireView()).navigate(R.id.DestMindfulnessExercise);
+                Navigation.findNavController(requireView()).navigate(R.id.mindfulnessExercise);
             });
             no_btn.setOnClickListener(v1 -> dialogConfirmation.dismiss());
         });
@@ -110,7 +110,7 @@ public class MeditationExercise extends Fragment {
 
                 yes_btn.setOnClickListener(v -> {
                     dialogConfirmation.dismiss();
-                    Navigation.findNavController(requireView()).navigate(R.id.DestMindfulnessExercise);
+                    Navigation.findNavController(requireView()).navigate(R.id.mindfulnessExercise);
                 });
 
                 no_btn.setOnClickListener(v -> dialogConfirmation.dismiss());

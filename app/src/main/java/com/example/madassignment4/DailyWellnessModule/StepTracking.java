@@ -47,7 +47,7 @@ public class StepTracking extends Fragment implements SensorEventListener {
     private long lastStepTime = 0;
     private static final long DEBOUNCE_TIME = 300;
     private DatabaseHelper dbHelper;
-    private String userId = "testUser"; // Replace with actual user logic
+     // Replace with actual user logic
     private String currentDate;
 
     @Override
@@ -66,6 +66,7 @@ public class StepTracking extends Fragment implements SensorEventListener {
 
         // Initialize DatabaseHelper
         dbHelper = new DatabaseHelper(requireContext());
+        String userId = dbHelper.getUserIdByMostRecentLogin();
         currentDate = getCurrentDate();
 
         // Prompt user for step goal
@@ -76,20 +77,30 @@ public class StepTracking extends Fragment implements SensorEventListener {
         btnStop.setOnClickListener(v -> stopTracking());
 
         //Set up HydrationHistory button
-        btnHistory.setOnClickListener(v->{
-            NavController navController = Navigation.findNavController(view);
-            navController.navigate(R.id.action_StepTracking_to_stepHistory);
-        });
+        View.OnClickListener StepHistory = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_stepTracking_to_stepHistory2);
+            }
+        };
+        btnHistory.setOnClickListener(StepHistory);
 
         // Back Button setup
         ImageButton btnBack = view.findViewById(R.id.back_btn);
-        btnBack.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
+        View.OnClickListener Back = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_stepTracking_to_dailyWellnessMain3);
+            }
+        };
+        btnBack.setOnClickListener(Back);
+
 
         return view;
     }
 
     private void showStepGoalDialog() {
-        // Check if a step goal already exists for the current day
+        String userId = dbHelper.getUserIdByMostRecentLogin();
         int existingGoal = dbHelper.getStepGoal(userId, currentDate);
         if (existingGoal != -1) {
             // If a goal exists, show a message and prevent the user from setting a new goal
@@ -135,6 +146,7 @@ public class StepTracking extends Fragment implements SensorEventListener {
 
 
     private void startTracking() {
+        String userId = dbHelper.getUserIdByMostRecentLogin();
         if (!isTracking) {
             // Retrieve the total step count, distance walked, and calories burned for the day from the database
             stepCount = dbHelper.getTotalStepsForDay(userId, currentDate);
@@ -155,6 +167,7 @@ public class StepTracking extends Fragment implements SensorEventListener {
 
 
     private void stopTracking() {
+        String userId = dbHelper.getUserIdByMostRecentLogin();
         if (isTracking) {
             sensorManager.unregisterListener(this);
             isTracking = false;

@@ -98,7 +98,7 @@ public class StepTrackingService extends Service implements SensorEventListener 
 
     private void saveDailyStepData() {
         String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        String userId = "testUser"; // Replace with actual user ID
+        String userId = dbHelper.getUserIdByMostRecentLogin(); // Replace with actual user ID
 
         dbHelper.saveDailyStepTracking(userId, currentDate, stepCount, distanceWalked, caloriesBurned);
     }

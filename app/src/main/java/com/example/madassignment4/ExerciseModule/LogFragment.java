@@ -34,8 +34,7 @@ public class LogFragment extends Fragment {
     private ArrayList<HashMap<String, String>> activityList; // To hold exercise details
     private ArrayList<String> displayList; // To show in ListView
     private DatabaseHelper databaseHelper;
-    private String userID; // To store the current user's ID
-
+    private String userID;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +42,8 @@ public class LogFragment extends Fragment {
         activityList = new ArrayList<>();
         displayList = new ArrayList<>();
 
-        // Get User ID (You can retrieve it from SharedPreferences, or another method)
-        // Here, we assume it is set elsewhere in the app.
-        userID = "testUser"; // Replace with actual user ID from session or app context
+
+        userID = databaseHelper.getUserIdByMostRecentLogin();
     }
 
     @Override
@@ -143,7 +141,7 @@ public class LogFragment extends Fragment {
                         DatabaseHelper.COLUMN_LOG_EXERCISE_TYPE + ", " +
                         DatabaseHelper.COLUMN_LOG_ATTRIBUTES + ", " +
                         DatabaseHelper.COLUMN_LOG_FITNESS_ID + ") VALUES ('" +
-                        userID + "', '" + // userID is now first
+                        userID + "', '" +
                         currentDate + "', '" +
                         exerciseType + "', '" +
                         numericAttribute + "', " +

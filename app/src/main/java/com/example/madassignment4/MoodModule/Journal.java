@@ -9,6 +9,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -26,6 +28,7 @@ import android.widget.Toast;
 
 import com.example.madassignment4.Database.DatabaseHelper;
 import com.example.madassignment4.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -45,6 +48,15 @@ public class Journal extends Fragment {
 
     public Journal() {
         // Default empty constructor
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Hide BottomNavigationView
+        BottomNavigationView bottomNav = requireActivity().findViewById(R.id.bottom_navigation);
+        bottomNav.setVisibility(View.GONE);
     }
 
     @Override
@@ -92,7 +104,7 @@ public class Journal extends Fragment {
                     byte[] photoByteArray = outputStream.toByteArray();
 
                     // Save date, photo (byte[]), weather, and note to the database
-                    databaseHelper.saveJournal("testUser", date, photoByteArray, selectedWeather, noteEditText.getText().toString());
+                    databaseHelper.saveJournal(databaseHelper.getUserIdByMostRecentLogin(), date, photoByteArray, selectedWeather, noteEditText.getText().toString());
                 } catch (IOException e) {
                     e.printStackTrace();
                     // Handle error resizing the image
@@ -100,17 +112,20 @@ public class Journal extends Fragment {
                 }
             } else {
                 // Handle case where no photo is selected
-                databaseHelper.saveJournal("testUser", date, null, selectedWeather, noteEditText.getText().toString());
+                databaseHelper.saveJournal(databaseHelper.getUserIdByMostRecentLogin(), date, null, selectedWeather, noteEditText.getText().toString());
             }
 
             // Navigate back to HomeFragment
-            Navigation.findNavController(requireView()).navigate(R.id.action_journal_to_home, bundle);
+            Navigation.findNavController(requireView()).navigate(R.id.action_journal_to_home3, bundle);
+
+
+
 
             Toast.makeText(getContext(), "Journal saved!", Toast.LENGTH_SHORT).show();
         });
 
         backButton.setOnClickListener(v -> {
-            Navigation.findNavController(requireView()).navigate(R.id.action_journal_to_home, bundle);
+            Navigation.findNavController(requireView()).navigate(R.id.action_journal_to_home3, bundle);
         });
 
         return view;
@@ -230,7 +245,7 @@ public class Journal extends Fragment {
         if (selectedDate == null) return;
 
         // Retrieve photo for the selected date
-        byte[] photo = databaseHelper.getPhoto("testUser",selectedDate);
+        byte[] photo = databaseHelper.getPhoto(databaseHelper.getUserIdByMostRecentLogin(),selectedDate);
         if (photo != null) {
             try {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(photo, 0, photo.length);
@@ -244,7 +259,7 @@ public class Journal extends Fragment {
         }
 
         // Retrieve journal data (note and weather)
-        Cursor cursor = databaseHelper.getJournal("testUser", selectedDate);
+        Cursor cursor = databaseHelper.getJournal(databaseHelper.getUserIdByMostRecentLogin(), selectedDate);
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 String note = cursor.getString(cursor.getColumnIndexOrThrow(databaseHelper.COLUMN_JOURNAL_NOTE));

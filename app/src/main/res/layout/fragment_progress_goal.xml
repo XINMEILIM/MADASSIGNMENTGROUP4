@@ -8,199 +8,60 @@
     android:background="#FFF0E1"
     tools:context=".ExerciseModule.ProgressGoalFragment">
 
-    <TextView
-        android:id="@+id/TVPGTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Set Your Fitness Goal"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#FDA341"
-        android:fontFamily="@font/poppins_bold"
+
+    <ListView
+        android:id="@+id/LVFG"
+        android:layout_width="323dp"
+        android:layout_height="135dp"
+        android:dividerHeight="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.045" />
-
-
-    <TextView
-        android:id="@+id/TVTimeFrame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Time Frame"
-        android:fontFamily="@font/poppins_regular"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="#FDA341"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.111" />
-
-    <TextView
-        android:id="@+id/TVSetup"
-        android:layout_width="236dp"
-        android:layout_height="27dp"
-        android:text="Set Your Goal"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="#FDA341"
-        android:fontFamily="@font/poppins_semibold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.234" />
-
-    <Spinner
-        android:id="@+id/SpinnerTimeFrame"
-        android:layout_width="126dp"
-        android:layout_height="48dp"
-        android:background="#FDA341"
-        android:spinnerMode="dropdown"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.149" />
-
-    <TextView
-        android:id="@+id/TVPGCardioType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cardio/Aerobic Type Exercise"
-        android:fontFamily="@font/poppins_semibold"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="#FDA341"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.294" />
-
-    <TextView
-        android:id="@+id/TVPGWeightTrainingType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Weight-Training Type Exercise"
-        android:fontFamily="@font/poppins_semibold"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="#FDA341"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.472" />
-
-    <TextView
-        android:id="@+id/TVPGDailyLogExerciseType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Type"
-        android:fontFamily="@font/poppins_regular"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="#FDA341"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.163"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.342" />
-
-    <TextView
-        android:id="@+id/TVPGDailyLOgDuration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Distance"
-        android:fontFamily="@font/poppins_regular"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="#FDA341"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.542"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.342" />
-
-    <Spinner
-        android:id="@+id/SpinnerPGDailyLogExercise"
-        android:layout_width="126dp"
-        android:layout_height="48dp"
-        android:background="#FDA341"
-        android:spinnerMode="dropdown"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.389" />
-
-    <Spinner
-        android:id="@+id/SpinnerPGDailyLogDuration"
-        android:layout_width="126dp"
-        android:layout_height="48dp"
-        android:background="#FDA341"
-        android:spinnerMode="dropdown"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.568"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.389" />
+        app:layout_constraintVertical_bias="0.744" />
 
     <Button
-        android:id="@+id/BtnPGDailyLogAddExercise"
+        android:id="@+id/BtnPGDailyLogAddExercise2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#FDA341"
-        android:text="Add"
         android:fontFamily="@font/poppins_semibold"
+        android:text="Add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.389" />
+        app:layout_constraintVertical_bias="0.553" />
 
-    <TextView
-        android:id="@+id/TVPGDailyLogExerciseType2"
+    <Button
+        android:id="@+id/BtnPGSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Type"
-        android:fontFamily="@font/poppins_regular"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="#FDA341"
+        android:backgroundTint="#FDA341"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.163"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.52" />
+        app:layout_constraintVertical_bias="0.872" />
 
     <TextView
-        android:id="@+id/TVPGDailyLOgDuration2"
+        android:id="@+id/TVPGCardioType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Duration"
-        android:fontFamily="@font/poppins_regular"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Cardio/Aerobic Type Exercise"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#FDA341"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.52" />
+        app:layout_constraintVertical_bias="0.273" />
 
     <Spinner
         android:id="@+id/SpinnerPGDailyLogExercise2"
@@ -214,7 +75,140 @@
         app:layout_constraintHorizontal_bias="0.056"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.573" />
+        app:layout_constraintVertical_bias="0.553" />
+
+    <TextView
+        android:id="@+id/TVPGDailyLogExerciseType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Type"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#FDA341"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.163"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.322" />
+
+    <Spinner
+        android:id="@+id/SpinnerPGDailyLogExercise"
+        android:layout_width="126dp"
+        android:layout_height="48dp"
+        android:background="#FDA341"
+        android:spinnerMode="dropdown"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.368" />
+
+    <TextView
+        android:id="@+id/TVPGTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Set Your Fitness Goal"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#FDA341"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.024" />
+
+    <TextView
+        android:id="@+id/TVPGWeightTrainingType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Weight-Training Type Exercise"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#FDA341"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.452" />
+
+    <TextView
+        android:id="@+id/TVTimeFrame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Time Frame"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#FDA341"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.091" />
+
+    <TextView
+        android:id="@+id/TVSetup"
+        android:layout_width="236dp"
+        android:layout_height="27dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Set Your Goal"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#FDA341"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.214" />
+
+    <TextView
+        android:id="@+id/TVPGDailyLogExerciseType2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Type"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#FDA341"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.163"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/BtnPGDailyLogAddExercise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FDA341"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.368" />
+
+    <TextView
+        android:id="@+id/TVPGDailyLOgDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Distance"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#FDA341"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.542"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.322" />
 
     <Spinner
         android:id="@+id/SpinnerPGDailyLogDuration2"
@@ -228,45 +222,48 @@
         app:layout_constraintHorizontal_bias="0.568"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.573" />
+        app:layout_constraintVertical_bias="0.553" />
 
-    <Button
-        android:id="@+id/BtnPGDailyLogAddExercise2"
+    <TextView
+        android:id="@+id/TVPGDailyLOgDuration2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#FDA341"
-        android:text="Add"
-        android:fontFamily="@font/poppins_semibold"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Duration"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#FDA341"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.544"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.573" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/BtnPGSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#FDA341"
-        android:text="Save"
-        android:fontFamily="@font/poppins_semibold"
+    <Spinner
+        android:id="@+id/SpinnerTimeFrame"
+        android:layout_width="126dp"
+        android:layout_height="48dp"
+        android:background="#FDA341"
+        android:spinnerMode="dropdown"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.944" />
+        app:layout_constraintVertical_bias="0.128" />
 
-    <ListView
-        android:id="@+id/LVFG"
-        android:layout_width="323dp"
-        android:layout_height="135dp"
-        android:dividerHeight="1dp"
+    <Spinner
+        android:id="@+id/SpinnerPGDailyLogDuration"
+        android:layout_width="126dp"
+        android:layout_height="48dp"
+        android:background="#FDA341"
+        android:spinnerMode="dropdown"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.568"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.815" />
+        app:layout_constraintVertical_bias="0.368" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

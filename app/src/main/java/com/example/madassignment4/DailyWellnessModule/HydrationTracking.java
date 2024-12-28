@@ -1,13 +1,9 @@
 package com.example.madassignment4.DailyWellnessModule;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,14 +47,23 @@ public class HydrationTracking extends Fragment {
         BtnAdd.setOnClickListener(v -> showHydrationIntakeDialog());
 
         Button BtnHistory = view.findViewById(R.id.BtnHistory);
-        BtnHistory.setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(view);
-            navController.navigate(R.id.action_hydrationTracking_to_hydrationHistory);
-        });
+        View.OnClickListener HydrationHistory = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_hydrationTracking_to_hydrationHistory2);
+            }
+        };
+        BtnHistory.setOnClickListener(HydrationHistory);
 
         // Set up the back button
         ImageButton BtnBack = view.findViewById(R.id.back_btn);
-        BtnBack.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
+        View.OnClickListener Back = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_hydrationTracking_to_dailyWellnessMain3);
+            }
+        };
+        BtnBack.setOnClickListener(Back);
 
         return view;
     }
@@ -68,7 +73,7 @@ public class HydrationTracking extends Fragment {
         String currentDate = getCurrentDate();
 
         // Get user ID (replace this with actual user ID if applicable)
-        String userId = "testUser";  // Example user ID; replace with actual logic
+        String userId = dbHelper.getUserIdByMostRecentLogin();  // Example user ID; replace with actual logic
 
         // Check if the user has already set a goal today from the database
         int hydrationGoal = dbHelper.getHydrationGoal(userId, currentDate);
@@ -136,7 +141,7 @@ public class HydrationTracking extends Fragment {
         String currentTimeStamp = getCurrentTimeStamp();
 
         // Get user ID (replace this with actual user ID if applicable)
-        String userId = "testUser";  // Example user ID; replace with actual logic
+        String userId = dbHelper.getUserIdByMostRecentLogin();
 
         // Create the dialog for entering hydration intake
         Dialog dialog = new Dialog(getContext());
@@ -195,7 +200,7 @@ public class HydrationTracking extends Fragment {
         if (getView() == null) return; // Prevent NullPointerException
 
         String todayDate = getCurrentDate();  // Get today's date
-        String userId = "testUser";  // Replace with actual user ID logic
+        String userId = dbHelper.getUserIdByMostRecentLogin();
 
         // Get today's hydration intake records
         List<HydrationIntakeModel> intakeList = dbHelper.getTodayHydrationRecords(userId, todayDate);
@@ -214,7 +219,7 @@ public class HydrationTracking extends Fragment {
         if (getView() == null) return; // Prevent NullPointerException
 
         String currentDate = getCurrentDate();
-        String userId = "testUser";
+        String userId = dbHelper.getUserIdByMostRecentLogin();
 
         // Get the total water intake for the user
         int totalWaterIntake = dbHelper.getTotalWaterIntake(userId, currentDate);

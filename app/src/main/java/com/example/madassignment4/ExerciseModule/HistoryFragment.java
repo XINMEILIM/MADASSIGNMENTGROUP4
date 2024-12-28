@@ -41,7 +41,13 @@ public class HistoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
 
         Button btnSummary = view.findViewById(R.id.BtnHistorySummary);
-        btnSummary.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.historySummaryFragment));
+        View.OnClickListener Summary = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_historyFragment2_to_historySummaryFragment2);
+            }
+        };
+        btnSummary.setOnClickListener(Summary);
 
         // Initialize RecyclerView
         recyclerViewHistory = view.findViewById(R.id.recyclerViewHistory);

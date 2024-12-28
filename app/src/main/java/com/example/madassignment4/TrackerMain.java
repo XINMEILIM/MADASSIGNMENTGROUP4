@@ -33,21 +33,30 @@ public class TrackerMain extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Button BtnMoodTracker = view.findViewById(R.id.BtnMoodTracker);
-        BtnMoodTracker.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), MoodMainActivity.class);
-            startActivity(intent);
-        });
+        View.OnClickListener MoodTracker = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_trackerMain3_to_home3);
+            }
+        };
+        BtnMoodTracker.setOnClickListener(MoodTracker);
 
         Button BtnWorkoutTracker = view.findViewById(R.id.BtnWorkoutTracker);
-        BtnWorkoutTracker.setOnClickListener(v -> {
-            Intent intent=new Intent(getContext(), ExerciseActivityMain.class);
-            startActivity(intent);
-        });
+        View.OnClickListener WorkoutTracker = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_trackerMain3_to_exerciseHomeFragment3);
+            }
+        };
+        BtnWorkoutTracker.setOnClickListener(WorkoutTracker);
 
         Button BtnWellnessTracker = view.findViewById(R.id.BtnWellnessTracker);
-        BtnWellnessTracker.setOnClickListener(v ->{
-                Intent intent=new Intent(getContext(), DailyWellnessActivity.class);
-                startActivity(intent);
-        });
+        View.OnClickListener WellnessTracker = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_trackerMain3_to_dailyWellnessMain3);
+            }
+        };
+        BtnWellnessTracker.setOnClickListener(WellnessTracker);
     }
 }

@@ -93,7 +93,7 @@ public class BreathingExercise extends Fragment {
 
         done_btn.setOnClickListener(v -> {
             dialogDone.dismiss();
-            Navigation.findNavController(view).navigate(R.id.DestMindfulnessExercise);
+            Navigation.findNavController(view).navigate(R.id.mindfulnessExercise);
         });
 
         ImageButton backButton = view.findViewById(R.id.beback_btn);
@@ -103,7 +103,7 @@ public class BreathingExercise extends Fragment {
 
             yes_btn.setOnClickListener(v1 -> {
                 dialogConfirmation.dismiss();
-                Navigation.findNavController(requireView()).navigate(R.id.DestMindfulnessExercise);
+                Navigation.findNavController(requireView()).navigate(R.id.mindfulnessExercise);
             });
 
             no_btn.setOnClickListener(v1 -> dialogConfirmation.dismiss());
@@ -118,7 +118,7 @@ public class BreathingExercise extends Fragment {
 
                 yes_btn.setOnClickListener(v -> {
                     dialogConfirmation.dismiss();
-                    Navigation.findNavController(requireView()).navigate(R.id.DestMindfulnessExercise);
+                    Navigation.findNavController(requireView()).navigate(R.id.mindfulnessExercise);
                 });
 
                 no_btn.setOnClickListener(v -> dialogConfirmation.dismiss());

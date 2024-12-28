@@ -3,6 +3,7 @@ package com.example.madassignment4.DailyWellnessModule;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,9 +78,13 @@ public class bmiCalculator extends Fragment {
                 Toast.makeText(requireContext(), "Please fill in both height and weight fields.", Toast.LENGTH_SHORT).show();
             }
         });
-        BtnBack.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager().popBackStack();
-        });
+        View.OnClickListener Back = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_bmiCalculator_to_dailyWellnessMain3);
+            }
+        };
+        BtnBack.setOnClickListener(Back);
         return view;
     }
 }

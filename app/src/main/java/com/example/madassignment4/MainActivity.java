@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         // Set up the Navigation Component
         // Find the NavHostFragment using its ID
         NavHostFragment navHostFragment =
-                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_tracker_fragment);
+                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_user_fragment);
 
         // Get the NavController from the NavHostFragment
         NavController navController = navHostFragment.getNavController();

@@ -104,15 +104,13 @@ public class ProgressGoalFragment extends Fragment {
             return;
         }
 
-        // Retrieve the user_id (replace this with actual retrieval logic)
-        String userId = "testUser";
+        String userId = databaseHelper.getUserIdByMostRecentLogin();
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
 
         try {
-            // Insert time frame into fitnessSetting table with user_id
             ContentValues fitnessSettingValues = new ContentValues();
-            fitnessSettingValues.put(DatabaseHelper.COLUMN_TIME_FRAME, timeFrame); // Column name change here
-            fitnessSettingValues.put(DatabaseHelper.COLUMN_USER_ID, userId); // Insert user_id here
+            fitnessSettingValues.put(DatabaseHelper.COLUMN_TIME_FRAME, timeFrame);
+            fitnessSettingValues.put(DatabaseHelper.COLUMN_USER_ID, userId);
             fitnessID = db.insert(DatabaseHelper.TABLE_FITNESS_SETTING, null, fitnessSettingValues);
 
             if (fitnessID == -1) {
@@ -120,17 +118,16 @@ public class ProgressGoalFragment extends Fragment {
                 return;
             }
 
-            // Insert each entry from the list into goalSetting table with user_id
             for (String entry : exerciseEntries) {
                 String[] parts = entry.split(" - ");
                 String exerciseType = parts[0];
                 String attribute = parts[1];
 
                 ContentValues goalSettingValues = new ContentValues();
-                goalSettingValues.put(DatabaseHelper.COLUMN_GOAL_FITNESS_ID, fitnessID); // Column name change here
-                goalSettingValues.put(DatabaseHelper.COLUMN_USER_ID, userId); // Insert user_id here
-                goalSettingValues.put(DatabaseHelper.COLUMN_GOAL_EXERCISE_TYPE, exerciseType); // Column name change here
-                goalSettingValues.put(DatabaseHelper.COLUMN_GOAL_ATTRIBUTES, attribute); // Column name change here
+                goalSettingValues.put(DatabaseHelper.COLUMN_GOAL_FITNESS_ID, fitnessID);
+                goalSettingValues.put(DatabaseHelper.COLUMN_USER_ID, userId);
+                goalSettingValues.put(DatabaseHelper.COLUMN_GOAL_EXERCISE_TYPE, exerciseType);
+                goalSettingValues.put(DatabaseHelper.COLUMN_GOAL_ATTRIBUTES, attribute);
 
 
                 long goalSettingId = db.insert(DatabaseHelper.TABLE_GOAL_SETTING, null, goalSettingValues);

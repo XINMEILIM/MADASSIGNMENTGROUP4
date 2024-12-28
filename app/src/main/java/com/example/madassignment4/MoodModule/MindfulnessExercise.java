@@ -6,6 +6,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -16,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.madassignment4.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class MindfulnessExercise extends Fragment {
@@ -36,9 +39,18 @@ public class MindfulnessExercise extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                Navigation.findNavController(requireView()).navigate(R.id.action_mindfulnessExercise_to_home);
+                Navigation.findNavController(requireView()).navigate(R.id.action_mindfulnessExercise_to_home3);
             }
         });
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Hide BottomNavigationView
+        BottomNavigationView bottomNav = requireActivity().findViewById(R.id.bottom_navigation);
+        bottomNav.setVisibility(View.GONE);
     }
 
     @Override
@@ -107,7 +119,7 @@ public class MindfulnessExercise extends Fragment {
             // Pass the selected time to the MeditationExercise fragment
             Bundle bundle = new Bundle();
             bundle.putLong("timeInMillis", selectedTime);
-            Navigation.findNavController(view).navigate(R.id.breathingExercise, bundle);
+            Navigation.findNavController(view).navigate(R.id.breathingExercise2, bundle);
         });
 
         start_btn2.setOnClickListener(v -> {
@@ -115,11 +127,11 @@ public class MindfulnessExercise extends Fragment {
             // Pass the selected time to the MeditationExercise fragment
             Bundle bundle = new Bundle();
             bundle.putLong("timeInMillis", selectedTime);
-            Navigation.findNavController(view).navigate(R.id.meditationExercise, bundle);
+            Navigation.findNavController(view).navigate(R.id.meditationExercise2, bundle);
         });
 
         back_btn.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigate(R.id.DestHome);
+            Navigation.findNavController(view).navigate(R.id.action_mindfulnessExercise_to_home3);
         });
 
         return view;

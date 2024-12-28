@@ -64,4 +64,41 @@
         <item>19 km</item>
         <item>20 km</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="welcome">Welcome to the Fitjourney applications</string>
+    <string name="go_to_profile">Go to Profile</string>
+    <string name="language">Language</string>
+    <string name="confirm">Confirm</string>
+    <string name="hi_welcome">HI, WELCOME</string>
+    <string name="enter_name">Enter your name</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="about_us">About Us</string>
+    <string name="my_wellness">My Wellness</string>
+    <string name="support_us">Support Us</string>
+    <string name="settings">Settings</string>
+    <string name="tracker">Tracker</string>
+    <string name="mood_tracker">Mood Tracker</string>
+    <string name="workout_tracker">Workout Tracker</string>
+    <string name="wellness_tracker">Wellness Tracker</string>
+    <string name="user_name">User\'s Name</string>
+    <string name="enter_gender">Enter Gender</string>
+    <string name="enter_age">Enter Age</string>
+    <string name="enter_height">Enter Height (cm)</string>
+    <string name="enter_weight">Enter Weight (kg)</string>
+    <string name="enter_year_of_birth">Enter Year of Birth</string>
+    <string name="get_started">Get Started</string>
+    <string name="check_health_status">Check Your Health Status</string>
+    <string name="take_a_break">Take a break</string>
+    <string name="ready_for_new_wins">Ready for new wins?</string>
+    <string name="sick">Sick</string>
+    <string name="recommended_recipe">Recommended Recipe</string>
+    <string name="fuel_your_fitness">Fuel your fitness with this\npower-packed, protein-rich\nrecipe for peak performance!</string>
+    <string name="save">Save</string>
+    <string name="injured">Injured</string>
+    <string name="hi_user">Hi, User!</string>
+    <string name="active">Active</string>
+    <string name="crush_it">Crush it.</string>
+    <string name="default_privacy_policy">At Tracker, we prioritize your privacy by protecting your personal information and explaining our practices clearly. We collect data like personal details, health metrics, location (if enabled), and device information to improve our services, personalize your experience, and track your fitness progress. We may share information with trusted third-party providers to enhance app functionality, and we only disclose data as legally required. We implement strong security measures to protect your data but note that no online system is entirely secure. You can access, update, or delete your data, and manage notification preferences within the app. Our app is not intended for children under 13, and we retain data only as needed. Updates to this policy will be communicated through the app, and you can reach us with any questions at tracker@gmail.com</string>
 </resources>

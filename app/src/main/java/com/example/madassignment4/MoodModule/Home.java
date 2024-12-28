@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -18,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.madassignment4.Database.DatabaseHelper;
 import com.example.madassignment4.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,11 +47,22 @@ public class Home extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                Navigation.findNavController(requireView()).navigate(R.id.DestTrackerMain);
+                Navigation.findNavController(requireView()).navigate(R.id.action_home3_to_trackerMain3);
                 remove();
             }
         });
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Hide BottomNavigationView
+        BottomNavigationView bottomNav = requireActivity().findViewById(R.id.bottom_navigation);
+        bottomNav.setVisibility(View.VISIBLE);
+    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,7 +101,7 @@ public class Home extends Fragment {
 
         ImageButton backButton = view.findViewById(R.id.homeback_btn);
         backButton.setOnClickListener(v -> {
-            Navigation.findNavController(requireView()).navigate(R.id.DestTrackerMain);
+            Navigation.findNavController(requireView()).navigate(R.id.action_home3_to_trackerMain3);
         });
 
         return view;
@@ -108,7 +122,7 @@ public class Home extends Fragment {
 
     // Update the emoji based on the mood of the selected date
     private void updateEmoji() {
-        String mood = databaseHelper.getMood("testUser", selectedDate);
+        String mood = databaseHelper.getMood(databaseHelper.getUserIdByMostRecentLogin(), selectedDate);
         if (mood == null) {
             defaultEmoji.setImageResource(R.drawable.transparentsquare); // Default emoji
             feeling.setText("Feeling");
@@ -119,7 +133,7 @@ public class Home extends Fragment {
     }
 
     private void updatePhoto() {
-        byte[] photo = databaseHelper.getPhoto("testUser", selectedDate);
+        byte[] photo = databaseHelper.getPhoto(databaseHelper.getUserIdByMostRecentLogin(), selectedDate);
         if (photo == null) {
             defaultPhoto.setImageResource(R.drawable.transparentrectangle); // Default emoji
         } else {
@@ -153,18 +167,18 @@ public class Home extends Fragment {
     private void navigateToSelectMood(View v) {
         Bundle bundle = new Bundle();
         bundle.putString("selectedDate", selectedDate);
-        Navigation.findNavController(v).navigate(R.id.DestSelectMood, bundle);
+        Navigation.findNavController(v).navigate(R.id.action_home3_to_selectMood, bundle);
     }
 
     // Navigation to Journal Fragment
     private void navigateToJournal(View v) {
         Bundle bundle = new Bundle();
         bundle.putString("selectedDate", selectedDate);
-        Navigation.findNavController(v).navigate(R.id.DestJournal, bundle);
+        Navigation.findNavController(v).navigate(R.id.action_home3_to_journal, bundle);
     }
 
     // Navigation to Mindfulness Exercise Fragment
     private void navigateToMindfulnessExercise(View v) {
-        Navigation.findNavController(v).navigate(R.id.DestMindfulnessExercise);
+        Navigation.findNavController(v).navigate(R.id.action_home3_to_mindfulnessExercise);
     }
 }

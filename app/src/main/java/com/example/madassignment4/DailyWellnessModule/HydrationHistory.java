@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +52,7 @@ public class HydrationHistory extends Fragment {
         String startDate = sdf.format(calendar.getTime());  // Date 6 days ago
 
         // Retrieve daily intake data as a Map<Date, TotalIntake>
-        String userId = "testUser";  // Replace with dynamic user ID or param if needed
+        String userId = dbHelper.getUserIdByMostRecentLogin();  // Replace with dynamic user ID or param if needed
         Map<String, Integer> dailyIntake = dbHelper.getTotalWaterIntakeByDay(userId, startDate, endDate);
 
         // Prepare BarChart entries and x-axis labels
@@ -98,7 +99,13 @@ public class HydrationHistory extends Fragment {
 
         // Back Button setup
         ImageButton btnBack = view.findViewById(R.id.back_btn);
-        btnBack.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
+        View.OnClickListener Back = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_hydrationHistory2_to_hydrationTracking);
+            }
+        };
+        btnBack.setOnClickListener(Back);
         return view;
     }
 

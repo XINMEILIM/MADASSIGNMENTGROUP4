@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +52,7 @@ public class StepHistory extends Fragment {
         String startDate = sdf.format(calendar.getTime());  // Date 6 days ago
 
         // Retrieve the step history data
-        String userId = "testUser";  // Replace with dynamic user ID or param if needed
+        String userId = dbHelper.getUserIdByMostRecentLogin();  // Replace with dynamic user ID or param if needed
         ArrayList<String> dates = getDateRange(startDate, endDate);
 
         // Prepare BarChart entries and x-axis labels
@@ -102,7 +103,13 @@ public class StepHistory extends Fragment {
 
         // Back Button setup
         ImageButton btnBack = view.findViewById(R.id.back_btn);
-        btnBack.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
+        View.OnClickListener Back = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_stepHistory2_to_stepTracking);
+            }
+        };
+        btnBack.setOnClickListener(Back);
 
         return view;
     }

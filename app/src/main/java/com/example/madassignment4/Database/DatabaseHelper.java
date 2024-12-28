@@ -6,19 +6,22 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.example.madassignment4.DailyWellnessModule.HydrationIntakeModel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Database Name and Version
     private static final String DATABASE_NAME = "FitJourney.db";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 8;
 
     // Table Names
     public static final String TABLE_USER = "User";
@@ -42,14 +45,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // User Table Columns
     public static final String COLUMN_USER_ID = "UserID";
     public static final String COLUMN_USER_NAME = "UserName";
-    public static final String COLUMN_USER_EMAIL = "UserEmail";
-    public static final String COLUMN_USER_PASSWORD = "Password";  // Storing password
     public static final String COLUMN_CREATED_AT = "CreatedAt";
     public static final String COLUMN_LAST_LOGIN = "LastLogin";
 
     // User Profile Columns
-    public static final String COLUMN_NAME = "Name";
-    public static final String COLUMN_AGE = "Age";
     public static final String COLUMN_GENDER = "Gender";
     public static final String COLUMN_HEIGHT = "Height";
     public static final String COLUMN_WEIGHT = "Weight";
@@ -138,8 +137,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + TABLE_USER + " (" +
                     COLUMN_USER_ID + " TEXT PRIMARY KEY, " +
                     COLUMN_USER_NAME + " TEXT, " +
-                    COLUMN_USER_EMAIL + " TEXT, " +
-                    COLUMN_USER_PASSWORD + " TEXT, " +
                     COLUMN_CREATED_AT + " TIMESTAMP, " +
                     COLUMN_LAST_LOGIN + " TIMESTAMP);";
 
@@ -147,8 +144,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_USER_PROFILE_TABLE =
             "CREATE TABLE " + TABLE_USER_PROFILE + " (" +
                     COLUMN_USER_ID + " TEXT PRIMARY KEY, " +  // Foreign Key reference to User table
-                    COLUMN_NAME + " TEXT, " +
-                    COLUMN_AGE + " INTEGER, " +
                     COLUMN_GENDER + " TEXT, " +
                     COLUMN_HEIGHT + " DOUBLE, " +
                     COLUMN_WEIGHT + " DOUBLE, " +
@@ -340,6 +335,223 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " +TABLE_EXERCISE_LOG);
         onCreate(db);
     }
+
+    public void saveOrUpdateUser(String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String userId = UUID.randomUUID().toString(); // Generate a unique User ID
+        long currentTime = System.currentTimeMillis();
+
+        // Check if user already exists
+        Cursor cursor = db.query(TABLE_USER, null, COLUMN_USER_NAME + " = ?", new String[]{username}, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            // User exists, update last login
+            String existingUserId = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_ID));
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_LAST_LOGIN, currentTime);
+            db.update(TABLE_USER, values, COLUMN_USER_ID + " = ?", new String[]{existingUserId});
+        } else {
+            // User does not exist, insert a new user
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_USER_ID, userId);
+            values.put(COLUMN_USER_NAME, username);
+            values.put(COLUMN_CREATED_AT, currentTime);
+            values.put(COLUMN_LAST_LOGIN, currentTime);
+            db.insert(TABLE_USER, null, values);
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+        db.close();
+    }
+
+    public String getUsername() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String username = null;
+        Cursor cursor = null;
+        try {
+            // Query to fetch the username
+            String query = "SELECT " + COLUMN_USER_NAME + " FROM " + TABLE_USER + " ORDER BY " + COLUMN_LAST_LOGIN + " DESC LIMIT 1";
+            cursor = db.rawQuery(query, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                username = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_NAME));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return username;
+    }
+
+    public String getUserIdByMostRecentLogin() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String userId = null;
+
+        // Query to get the user with the most recent login
+        String query = "SELECT " + COLUMN_USER_ID +
+                " FROM " + TABLE_USER +
+                " ORDER BY " + COLUMN_LAST_LOGIN + " DESC LIMIT 1";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            userId = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_ID));
+            cursor.close();
+        }
+
+        db.close();
+        return userId;
+    }
+
+    public void populateHealthStatusTable() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Check if the table already contains data
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_HEALTH_STATUS, null);
+        if (cursor.getCount() == 0) { // Only populate if the table is empty
+            ContentValues values = new ContentValues();
+
+            // Add health statuses
+            String[] healthStatuses = {"Active", "Sick", "Take a Break", "Injured"};
+            for (String status : healthStatuses) {
+                String healthStatusId = UUID.randomUUID().toString();
+                values.put(COLUMN_HEALTH_STATUS_ID, healthStatusId);
+                values.put(COLUMN_HEALTH_STATUS_DESC, status);
+                db.insert(TABLE_HEALTH_STATUS, null, values);
+                values.clear();
+            }
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+        db.close();
+    }
+
+    public void saveOrUpdateUserHealthStatus(String userId, String healthStatusId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        long currentDate = getCurrentDateOnly(); // Helper method to get today's date only
+
+        // Query to check if a health status already exists for the user on the same day
+        String query = "SELECT " + COLUMN_USER_HEALTH_STATUS_ID +
+                " FROM " + TABLE_USER_HEALTH_STATUS +
+                " WHERE " + COLUMN_USER_ID + " = ? AND " + COLUMN_USER_HEALTH_DATE + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{userId, String.valueOf(currentDate)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            // Health status exists for today, update it
+            int userHealthStatusId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_USER_HEALTH_STATUS_ID));
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_HEALTH_STATUS_ID, healthStatusId);
+            db.update(TABLE_USER_HEALTH_STATUS, values, COLUMN_USER_HEALTH_STATUS_ID + " = ?", new String[]{String.valueOf(userHealthStatusId)});
+        } else {
+            // No health status for today, insert a new row
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_USER_ID, userId);
+            values.put(COLUMN_HEALTH_STATUS_ID, healthStatusId);
+            values.put(COLUMN_USER_HEALTH_DATE, currentDate); // Save only the date (without time)
+            db.insert(TABLE_USER_HEALTH_STATUS, null, values);
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+        db.close();
+    }
+
+
+    private long getCurrentDateOnly() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTimeInMillis();
+    }
+
+    public Map<String, Object> getUserProfile(String userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Map<String, Object> profileData = new HashMap<>();
+
+        try (Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_USER_PROFILE +
+                " WHERE " + COLUMN_USER_ID + " = ?", new String[]{userId})) {
+            if (cursor != null && cursor.moveToFirst()) {
+                profileData.put(COLUMN_HEIGHT, cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_HEIGHT)));
+                profileData.put(COLUMN_WEIGHT, cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_WEIGHT)));
+                profileData.put(COLUMN_GENDER, cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_GENDER)));
+                profileData.put(COLUMN_YEAR_OF_BIRTH, cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_YEAR_OF_BIRTH)));
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Log or handle any exceptions
+        }
+        return profileData;
+    }
+
+    public boolean saveOrUpdateUserProfile(String userId, String gender, double height, double weight, int yearOfBirth) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        // Populate ContentValues with user profile data
+        values.put(COLUMN_USER_ID, userId);
+        values.put(COLUMN_GENDER, gender);
+        values.put(COLUMN_HEIGHT, height);
+        values.put(COLUMN_WEIGHT, weight);
+        values.put(COLUMN_YEAR_OF_BIRTH, yearOfBirth);
+        values.put(COLUMN_UPDATED_AT, System.currentTimeMillis()); // Set the current timestamp
+
+        // Check if user profile already exists
+        String query = "SELECT 1 FROM " + TABLE_USER_PROFILE + " WHERE " + COLUMN_USER_ID + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{userId});
+
+        boolean isUpdated;
+        try {
+            if (cursor != null && cursor.moveToFirst()) {
+                // Profile exists, perform an update
+                int rowsUpdated = db.update(TABLE_USER_PROFILE, values, COLUMN_USER_ID + " = ?", new String[]{userId});
+                isUpdated = rowsUpdated > 0;
+            } else {
+                // Profile does not exist, perform an insert
+                long rowId = db.insert(TABLE_USER_PROFILE, null, values);
+                isUpdated = rowId != -1;
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return isUpdated;
+    }
+
+    public void saveOrUpdatePrivacyPolicy(String policyId, String content) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_PRIVACY_POLICY_ID, policyId);
+        values.put(COLUMN_PRIVACY_POLICY_CONTENT, content);
+        values.put(COLUMN_PRIVACY_POLICY_LAST_UPDATED, System.currentTimeMillis());
+
+        // Use replace to insert or update based on primary key
+        long rowId = db.replace(TABLE_PRIVACY_POLICY, null, values);
+
+        if (rowId == -1) {
+            Log.e("DatabaseHelper", "Failed to save or update privacy policy");
+        } else {
+            Log.d("DatabaseHelper", "Privacy policy saved or updated successfully");
+        }
+        db.close();
+    }
+
+    public Cursor getPrivacyPolicy() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_PRIVACY_POLICY + " LIMIT 1";
+        return db.rawQuery(query, null);
+    }
+
+
     public void saveHydrationGoal(String userId, String date, int hydrationGoal) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -751,6 +963,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "JOIN " + TABLE_FITNESS_SETTING + " f ON g." + COLUMN_GOAL_FITNESS_ID + " = f." + COLUMN_FITNESS_ID + " " +
                 "WHERE f." + COLUMN_FITNESS_ID + " = (SELECT MAX(" + COLUMN_FITNESS_ID + ") FROM " + TABLE_FITNESS_SETTING + ")";
         return db.rawQuery(query, null);
+    }
+
+    public SQLiteDatabase getDatabase() {
+        return this.getWritableDatabase(); // Or getReadableDatabase() if no write operation is needed
     }
 
 
