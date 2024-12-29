@@ -69,15 +69,15 @@ public class FoodActivity extends AppCompatActivity {
         calorieList.add(new FoodBean("", 0, "", 0, 0));
         mCalorieAdapter = new CalorieAdapter(calorieList);
         mCalorieResultAdapter = new CalorieResultAdapter(calorieResultList);
-        foods0.add(new FoodBean("Egg", R.mipmap.icon_egg, "1", R.string.egg, 140));
-        foods0.add(new FoodBean("Bread", R.mipmap.icon_bread, "300", R.string.bread, 120));
-        foods0.add(new FoodBean("Orange juice", R.mipmap.icon_orange_juice, "500", R.string.orange_juice, 22));
-        foods0.add(new FoodBean("Rice", R.mipmap.icon_rice, "150", R.string.rice, 34)); 
-        foods0.add(new FoodBean("Shrimp", R.mipmap.icon_shrimp, "100", R.string.shrimp, 56));
-        foods0.add(new FoodBean("Stir-fried vegetables", R.mipmap.icon_vegetables, "150", R.string.vegetables, 143));
-        foods0.add(new FoodBean("Chicken breast", R.mipmap.icon_chicken, "100", R.string.chicken, 233));
-        foods0.add(new FoodBean("Purple sweet potato", R.mipmap.icon_purple_sweet_potato, "200", R.string.sweet_potato, 44));
-        foods0.add(new FoodBean("Milk", R.mipmap.icon_milk, "500", R.string.milk, 77)); 
+        foods0.add(new FoodBean(getString(R.string.egg_name), R.mipmap.icon_egg, "1", R.string.egg, 140));
+        foods0.add(new FoodBean(getString(R.string.bread_name), R.mipmap.icon_bread, "300", R.string.bread, 120));
+        foods0.add(new FoodBean(getString(R.string.orangejuice_name), R.mipmap.icon_orange_juice, "500", R.string.orange_juice, 22));
+        foods0.add(new FoodBean(getString(R.string.rice_name), R.mipmap.icon_rice, "150", R.string.rice, 34));
+        foods0.add(new FoodBean(getString(R.string.shrimp_name), R.mipmap.icon_shrimp, "100", R.string.shrimp, 56));
+        foods0.add(new FoodBean(getString(R.string.vegetables_name), R.mipmap.icon_vegetables, "150", R.string.vegetables, 143));
+        foods0.add(new FoodBean(getString(R.string.chicken_name), R.mipmap.icon_chicken, "100", R.string.chicken, 233));
+        foods0.add(new FoodBean(getString(R.string.sweetpotato_name), R.mipmap.icon_purple_sweet_potato, "200", R.string.sweet_potato, 44));
+        foods0.add(new FoodBean(getString(R.string.milk_name), R.mipmap.icon_milk, "500", R.string.milk, 77));
 
         llWeek = findViewById(R.id.ll_week);
         ll_encyclopedia = findViewById(R.id.ll_encyclopedia);
@@ -188,8 +188,16 @@ public class FoodActivity extends AppCompatActivity {
         });
         rv_input.setAdapter(mCalorieAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-        List<String> weekdays = Arrays.asList("MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN");
+        String monday = getString(R.string.Mon);
+        String tuesday = getString(R.string.Tue);
+        String wednesday = getString(R.string.Wed);
+        String thursday = getString(R.string.Thu);
+        String friday = getString(R.string.Fri);
+        String saturday = getString(R.string.Sat);
+        String sunday = getString(R.string.Sun);
+        String food=getString(R.string.Food_Encyclopedia);
+        String calculator=getString(R.string.Calorie_Calculator);
+        List<String> weekdays = Arrays.asList(monday,tuesday ,wednesday , thursday, friday,saturday ,sunday );
         adapter = new WeekdayAdapter(weekdays);
         adapter.setListener(new WeekdayAdapter.OnItemClickListener() {
             @Override
@@ -214,14 +222,14 @@ public class FoodActivity extends AppCompatActivity {
             }
         });
         ll_encyclopedia.setOnClickListener(v -> {
-            tv_title.setText("Food Encyclopedia");
+            tv_title.setText(food);
             layout_food_list.setVisibility(View.VISIBLE);
             layout_weekly_recipes.setVisibility(View.GONE);
             layout_input_food.setVisibility(View.GONE);
             isMain = false;
         });
         ll_calculator.setOnClickListener(v -> {
-            tv_title.setText("Calorie Calculator");
+            tv_title.setText(calculator);
             layout_food_list.setVisibility(View.GONE);
             layout_weekly_recipes.setVisibility(View.GONE);
             layout_input_food.setVisibility(View.VISIBLE);
@@ -231,7 +239,7 @@ public class FoodActivity extends AppCompatActivity {
         llCalorieResult = findViewById(R.id.ll_result);
         tvCalculate.setOnClickListener(v -> {
             calorieResultList.add(new FoodBean());
-            tv_title.setText("Calorie Calculator");
+            tv_title.setText(calculator);
             llCalorieInput.setVisibility(View.GONE);
             llCalorieResult.setVisibility(View.VISIBLE);
             int result = 0;
@@ -253,7 +261,7 @@ public class FoodActivity extends AppCompatActivity {
     }
 
     private void randomSelectFoods(List<FoodBean> selectedFoods, int count) {
-        selectedFoods.clear(); // 清空之前的选择
+        selectedFoods.clear();
         Random random = new Random();
         while (selectedFoods.size() < count) {
             int index = random.nextInt(foods0.size());

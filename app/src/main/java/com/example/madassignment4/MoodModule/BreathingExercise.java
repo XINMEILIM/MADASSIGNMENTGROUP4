@@ -170,7 +170,7 @@ public class BreathingExercise extends Fragment {
                     mediaPlayer4.start();
                 } else if (cycleState == 1 && secondsRemaining == 8) {
                     cycleText.setText("7");
-                    action.setText("HOLD");
+                    action.setText(getString(R.string.hold));
                     action_img.setImageResource(R.drawable.hold_stk);
                 } else if (cycleState == 2 && secondsRemaining == 9) {
                     cycleText.setText("8");

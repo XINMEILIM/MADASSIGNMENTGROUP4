@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:text="Date: 2023-01-01"
+        android:text="@string/date_2023"
         android:textColor="#FFFFFF"
         android:fontFamily="@font/poppins_semibold" />
 
@@ -22,14 +22,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:fontFamily="@font/poppins_regular"
-        android:text="Exercise Type: Cardio"
+        android:text="@string/cardio_attributes"
         android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/tvAttributes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Attributes: 5 km"
+        android:text="@string/attributes_km"
         android:fontFamily="@font/poppins_regular"
         android:textColor="#FFFFFF" />
 </LinearLayout>

@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Database Name and Version
     private static final String DATABASE_NAME = "FitJourney.db";
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 9;
 
     // Table Names
     public static final String TABLE_USER = "User";
@@ -129,6 +129,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_LOG_ATTRIBUTES = "Attributes";
     public static final String COLUMN_LOG_FITNESS_ID = "FitnessID";
     public static final String COLUMN_LOG_CREATED_AT = "Created_At";
+
+    // Define language constants
+    private static final String LANGUAGE_ENGLISH_ID = "en";
+    private static final String LANGUAGE_CHINESE_ID = "zh";
+    private static final String LANGUAGE_MALAY_ID = "ms";
+    private static final String LANGUAGE_HINDI_ID = "hi";
 
 
 
@@ -312,11 +318,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_FITNESS_SETTING_TABLE);
         db.execSQL(CREATE_GOAL_SETTING_TABLE);
         db.execSQL(CREATE_EXERCISE_LOG_TABLE);
+
+        insertPredefinedLanguages(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Drop tables if they exist and recreate them
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_PROFILE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HEALTH_STATUS);
@@ -341,7 +348,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String userId = UUID.randomUUID().toString(); // Generate a unique User ID
         long currentTime = System.currentTimeMillis();
 
-        // Check if user already exists
         Cursor cursor = db.query(TABLE_USER, null, COLUMN_USER_NAME + " = ?", new String[]{username}, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             // User exists, update last login
@@ -453,7 +459,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(COLUMN_USER_ID, userId);
             values.put(COLUMN_HEALTH_STATUS_ID, healthStatusId);
-            values.put(COLUMN_USER_HEALTH_DATE, currentDate); // Save only the date (without time)
+            values.put(COLUMN_USER_HEALTH_DATE, currentDate);
             db.insert(TABLE_USER_HEALTH_STATUS, null, values);
         }
 
@@ -462,6 +468,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         db.close();
     }
+
+    public String getUserHealthStatus(String userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + COLUMN_HEALTH_STATUS_ID +
+                " FROM " + TABLE_USER_HEALTH_STATUS +
+                " WHERE " + COLUMN_USER_ID + " = ?" +
+                " ORDER BY " + COLUMN_USER_HEALTH_DATE + " DESC LIMIT 1";
+
+        Cursor cursor = db.rawQuery(query, new String[]{userId});
+
+        String healthStatus = null;
+        if (cursor.moveToFirst()) {
+            int healthStatusIndex = cursor.getColumnIndex(COLUMN_HEALTH_STATUS_ID);
+            healthStatus = cursor.getString(healthStatusIndex);
+        }
+        cursor.close();
+        return healthStatus;
+    }
+
 
 
     private long getCurrentDateOnly() {
@@ -486,7 +511,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 profileData.put(COLUMN_YEAR_OF_BIRTH, cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_YEAR_OF_BIRTH)));
             }
         } catch (Exception e) {
-            e.printStackTrace(); // Log or handle any exceptions
+            e.printStackTrace();
         }
         return profileData;
     }
@@ -501,7 +526,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_HEIGHT, height);
         values.put(COLUMN_WEIGHT, weight);
         values.put(COLUMN_YEAR_OF_BIRTH, yearOfBirth);
-        values.put(COLUMN_UPDATED_AT, System.currentTimeMillis()); // Set the current timestamp
+        values.put(COLUMN_UPDATED_AT, System.currentTimeMillis());
 
         // Check if user profile already exists
         String query = "SELECT 1 FROM " + TABLE_USER_PROFILE + " WHERE " + COLUMN_USER_ID + " = ?";
@@ -550,6 +575,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + TABLE_PRIVACY_POLICY + " LIMIT 1";
         return db.rawQuery(query, null);
     }
+
+
+
 
 
     public void saveHydrationGoal(String userId, String date, int hydrationGoal) {
@@ -964,6 +992,86 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "WHERE f." + COLUMN_FITNESS_ID + " = (SELECT MAX(" + COLUMN_FITNESS_ID + ") FROM " + TABLE_FITNESS_SETTING + ")";
         return db.rawQuery(query, null);
     }
+
+    // Method to insert predefined languages into the Language table
+    private void insertPredefinedLanguages(SQLiteDatabase db) {
+        // Add English language
+        addLanguage(db, LANGUAGE_ENGLISH_ID, "English", "en");
+
+        // Add Chinese language
+        addLanguage(db, LANGUAGE_CHINESE_ID, "Chinese", "zh");
+
+        // Add Malay language
+        addLanguage(db, LANGUAGE_MALAY_ID, "Malay", "ms");
+
+        // Add Hindi language
+        addLanguage(db, LANGUAGE_HINDI_ID, "Hindi", "hi");
+    }
+
+    // Method to add a language to the Language table
+    private void addLanguage(SQLiteDatabase db, String languageId, String languageName, String languageCode) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_LANGUAGE_ID, languageId);
+        values.put(COLUMN_LANGUAGE_NAME, languageName);
+        values.put(COLUMN_LANGUAGE_CODE, languageCode);
+        db.insert(TABLE_LANGUAGE, null, values);
+    }
+
+    // Method to insert a new language setting for a user
+    public void insertLanguageSetting(String userId, String languageId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_ID, userId);
+        values.put(COLUMN_LANGUAGE_ID, languageId);
+
+        // Update the language if already exists or insert a new record
+        int rowsUpdated = db.update(TABLE_USER_LANGUAGE_SETTING, values, COLUMN_USER_ID + " = ?", new String[]{userId});
+
+        if (rowsUpdated == 0) {
+            // If no rows were updated, insert a new language setting for the user
+            db.insert(TABLE_USER_LANGUAGE_SETTING, null, values);
+        }
+        db.close();
+    }
+
+
+    // Method to get the current language setting for a user
+    // Method to get user language
+    public String getUserLanguage(String userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + COLUMN_LANGUAGE_ID + " FROM " + TABLE_USER_LANGUAGE_SETTING +
+                " WHERE " + COLUMN_USER_ID + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{userId});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int index=cursor.getColumnIndex(COLUMN_LANGUAGE_ID);
+            String languageId = cursor.getString(index);
+            cursor.close();
+            return languageId;
+        } else {
+            cursor.close();
+            return null; // No language found
+        }
+    }
+
+    // Method to get language code based on language ID
+    public String getLanguageName(String languageId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + COLUMN_LANGUAGE_CODE + " FROM " + TABLE_LANGUAGE +
+                " WHERE " + COLUMN_LANGUAGE_ID + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{languageId});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int index=cursor.getColumnIndex(COLUMN_LANGUAGE_CODE);
+            String languageCode = cursor.getString(index);
+            cursor.close();
+            return languageCode;
+        } else {
+            cursor.close();
+            return "en"; // Default to English if not found
+        }
+    }
+
 
     public SQLiteDatabase getDatabase() {
         return this.getWritableDatabase(); // Or getReadableDatabase() if no write operation is needed
