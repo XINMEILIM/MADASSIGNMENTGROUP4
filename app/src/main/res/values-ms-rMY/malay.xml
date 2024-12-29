@@ -1,5 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="time_frames">
+        <item>Pilih</item>
+        <item>Harian</item>
+        <item>Mingguan</item>
+        <item>Bulanan</item>
+    </string-array>
+
+    <string-array name="cardio_exercise_types">
+        <item>Pilih senaman</item>
+        <item>Berjalan</item>
+        <item>Lari</item>
+        <item>Renang</item>
+        <item>Berbasikal</item>
+        <item>Lain-lain</item>
+    </string-array>
+
+    <string-array name="weight_exercise_types">
+        <item>Pilih senaman</item>
+        <item>Senaman</item>
+        <item>Angkat Berat</item>
+        <item>Latihan Berat Lain</item>
+    </string-array>
+
+    <string-array name="exercise_duration">
+        <item>1 minit</item>
+        <item>5 minit</item>
+        <item>10 minit</item>
+        <item>15 minit</item>
+        <item>30 minit</item>
+        <item>45 minit</item>
+        <item>1 jam</item>
+        <item>2 jam</item>
+        <item>3 jam</item>
+        <item>4 jam</item>
+        <item>5 jam</item>
+        <item>6 jam</item>
+        <item>7 jam</item>
+        <item>8 jam</item>
+        <item>9 jam</item>
+        <item>10 jam</item>
+    </string-array>
+
+    <string-array name="exercise_distance">
+        <item>1 km</item>
+        <item>2 km</item>
+        <item>3 km</item>
+        <item>4 km</item>
+        <item>5 km</item>
+        <item>6 km</item>
+        <item>7 km</item>
+        <item>8 km</item>
+        <item>9 km</item>
+        <item>10 km</item>
+        <item>11 km</item>
+        <item>12 km</item>
+        <item>13 km</item>
+        <item>14 km</item>
+        <item>15 km</item>
+        <item>16 km</item>
+        <item>17 km</item>
+        <item>18 km</item>
+        <item>19 km</item>
+        <item>20 km</item>
+    </string-array>
     <string name="app_name">Fitness App</string>
     <string name="welcome" >Selamat Datang ke applikasi Fitjourney</string>
     <string name="Home">Laman utama</string>
@@ -34,10 +98,10 @@
     <string name="get_started">Mula</string>
     <string name="check_health_status">Periksa Status Kesihatan Anda</string>
     <string name="take_a_break">Berehat sebentar</string>
-    <string name="ready_for_new_wins">Sedia kemenangan baru?</string>
+    <string name="ready_for_new_wins">Sedia kemenangan\nbaru?</string>
     <string name="sick">Sakit</string>
     <string name="recommended_recipe">Resepi Disyorkan</string>
-    <string name="fuel_your_fitness">Beri tenaga kepada kecergasan anda dengan\nresepi kaya protein yang penuh kuasa ini!</string>
+    <string name="fuel_your_fitness">Beri tenaga kepada\nkecergasan anda dengan\nresepi kaya protein yang\npenuh kuasa ini!</string>
     <string name="save">Simpan</string>
     <string name="injured">Cedera</string>
     <string name="hi_user">Hai, Pengguna!</string>
@@ -51,7 +115,7 @@
     <string name="last_updated">Kali Terakhir Dikemas Kini: Memuatkan...</string>
     <string name="about_me">Tentang Saya</string>
     <string name="user_name">Nama Pengguna</string>
-    <string name="my_mood">Mood</string>
+    <string name="my_mood">Perasaan</string>
     <string name="my_wellness">Kesejahteraan</string>
     <string name="my_profile">Profil</string>
     <string name="my_workout">Senaman</string>
@@ -78,14 +142,23 @@
     <string name="enter_hydration">Masukkan pengambilan hidrasi anda (ml)</string>
     <string name="bmi_calculator">Kalkulator BMI</string>
     <string name="calculate">Kira</string>
-    <string name="bmi_result">BMI anda ialah ....</string>
+    <string name="bmi_result">BMI anda ialah....</string>
     <string name="bmi_category">yang merupakan</string>
+    <string name="bmi_underweight">iaitu kekurangan berat badan.</string>
+    <string name="bmi_normal">iaitu berat badan normal.</string>
+    <string name="bmi_overweight">iaitu berat badan berlebihan.</string>
+    <string name="bmi_obese">iaitu obesiti.</string>
     <string name="bmi_value">0.0</string>
     <string name="bmi_categories">Kategori BMI:</string>
     <string name="bmi_fragment">FRAGMEN BMI</string>
+    <string name="underweight">Kurus</string>
+    <string name="normal">Normal</string>
+    <string name="overweight">Berat Lebih</string>
+    <string name="obese">Obes</string>
     <string name="zero">0</string>
     <string name="time_placeholder">00:00</string>
     <string name="inhale">TARIK NAFAS</string>
+    <string name="exhale">LEPASKAN NAFAS</string>
     <string name="breathing_exercise_478">Latihan Pernafasan\n4-7-8</string>
     <string name="breathing_exercise">Latihan Pernafasan</string>
     <string name="exit_confirmation">Adakah anda pasti mahu keluar dari latihan ini?</string>
@@ -101,7 +174,7 @@
     <string name="log_diary">Catatan Harian</string>
     <string name="start_goal">Mulakan Penetapan Matlamat ANDA SEKARANG!</string>
     <string name="mindfulness_meditation">Latihan\nMeditasi Kesedaran</string>
-    <string name="breathing_instructions">Dalam latihan ini, anda akan menarik nafas selama 4 saat, tahan</string>
+    <string name="breathing_instructions">Dalam latihan ini, tarik nafas selama 4 saat, tahan selama 7 saat, dan hembus nafas selama 8 saat. Ikuti kiraan detik pada skrin.</string>
     <string name="start">Mula</string>
     <string name="meditation_instructions">Dalam latihan ini, tutup mata anda dan fokus pada pernafasan semula jadi anda. Perhatikan setiap tarikan dan hembusan nafas. Jika fikiran timbul, kembali kepada pernafasan anda dengan lembut tanpa penghakiman. Hanya hadir.</string>
     <string name="summary">Lihat Ringkasan</string>
@@ -120,6 +193,12 @@
     <string name="duration_placeholder">0 min</string>
     <string name="weekdays">      Ahad     Isnin      Selasa    Rabu     Khamis       Jumaat        Sabtu</string>
     <string name="feeling">Perasaan</string>
+    <string name="excited">Teruja</string>
+    <string name="happy">Gembira</string>
+    <string name="sad">Sedih</string>
+    <string name="neutral">Neutral</string>
+    <string name="anxious">Cemas</string>
+    <string name="angry">Marah</string>
     <string name="mindfulness">Latihan Kesedaran</string>
     <string name="journal">Jurnal</string>
     <string name="hydration_history">Sejarah Hidrasi</string>
@@ -137,10 +216,10 @@
     <string name="daily_log">Log Harian</string>
     <string name="update">Kemas Kini</string>
     <string name="distance">Jarak</string>
-    <string name="fitness_goal">Tetapkan Matlamat Kecergasan Anda</string>
+    <string name="fitness_goal">Tetapkan Matlamat\nKecergasan Anda</string>
     <string name="time_frame">Jangka Masa</string>
     <string name="set_goal">Tetapkan Matlamat Anda</string>
-    <string name="feeling_today">Bagaimana perasaan anda hari ini?</string>
+    <string name="feeling_today">Bagaimana perasaan anda hari\nini?</string>
     <string name="step_history">Sejarah Langkah</string>
     <string name="age">tahun</string>
     <string name="user_height">KetinggianPengguna</string>
@@ -158,6 +237,7 @@
     <string name="calories_burned">Kalori Dibakar</string>
     <string name="stop">Berhenti</string>
     <string name="steps">Langkah</string>
+    <string name="km">km</string>
     <string name="meditation_exercise">Latihan Meditasi</string>
     <string name="hold">Tahan</string>
     <string name="T3_min">3 minit</string>

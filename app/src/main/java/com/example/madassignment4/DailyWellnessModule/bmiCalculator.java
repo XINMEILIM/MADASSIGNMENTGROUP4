@@ -35,6 +35,10 @@ public class bmiCalculator extends Fragment {
         TextView BMICategories = view.findViewById(R.id.BMICategories);
         ImageView BMICategoriesTable = view.findViewById(R.id.BMICategoriesTable);
         ImageButton BtnBack = view.findViewById(R.id.back_btn);
+        TextView underWeight = view.findViewById(R.id.textView19);
+        TextView normal = view.findViewById(R.id.textView21);
+        TextView overweight = view.findViewById(R.id.textView23);
+        TextView obese = view.findViewById(R.id.textView22);
 
         // Set up button click listener
         BtnCalculate.setOnClickListener(v -> {
@@ -54,20 +58,24 @@ public class bmiCalculator extends Fragment {
 
                         String category;
                         if (BMI <= 18.4) {
-                            category = "underweight.";
+                            category = getString(R.string.bmi_underweight);
                         } else if (BMI >= 18.5 && BMI <= 24.9) {
-                            category = "normal.";
+                            category = getString(R.string.bmi_normal);
                         } else if (BMI >= 25.0 && BMI <= 29.9) {
-                            category = "overweight.";
+                            category = getString(R.string.bmi_overweight);
                         } else {
-                            category = "obese.";
+                            category = getString(R.string.bmi_obese);
                         }
 
-                        resultBMICategory.setText("which is " + category);
+                        resultBMICategory.setText(category);
                         yourBMI.setVisibility(View.VISIBLE);
                         resultBMICategory.setVisibility(View.VISIBLE);
                         BMICategories.setVisibility(View.VISIBLE);
                         BMICategoriesTable.setVisibility(View.VISIBLE);
+                        underWeight.setVisibility(View.VISIBLE);
+                        normal.setVisibility(View.VISIBLE);
+                        overweight.setVisibility(View.VISIBLE);
+                        obese.setVisibility(View.VISIBLE);
                     } else {
                         Toast.makeText(requireContext(), "Please enter valid positive values for height and weight.", Toast.LENGTH_SHORT).show();
                     }

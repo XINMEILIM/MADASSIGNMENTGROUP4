@@ -1,5 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="time_frames">
+        <item>चुनें</item>
+        <item>दैनिक</item>
+        <item>साप्ताहिक</item>
+        <item>मासिक</item>
+    </string-array>
+
+    <string-array name="cardio_exercise_types">
+        <item>व्यायाम चुनें</item>
+        <item>चलना</item>
+        <item>दौड़ना</item>
+        <item>तैराकी</item>
+        <item>साइकल चलाना</item>
+        <item>अन्य</item>
+    </string-array>
+
+    <string-array name="weight_exercise_types">
+        <item>व्यायाम चुनें</item>
+        <item>व्यायाम</item>
+        <item>वजन उठाना</item>
+        <item>वजन प्रशिक्षण अन्य</item>
+    </string-array>
+
+    <string-array name="exercise_duration">
+        <item>1 मिनट</item>
+        <item>5 मिनट</item>
+        <item>10 मिनट</item>
+        <item>15 मिनट</item>
+        <item>30 मिनट</item>
+        <item>45 मिनट</item>
+        <item>1 घंटा</item>
+        <item>2 घंटे</item>
+        <item>3 घंटे</item>
+        <item>4 घंटे</item>
+        <item>5 घंटे</item>
+        <item>6 घंटे</item>
+        <item>7 घंटे</item>
+        <item>8 घंटे</item>
+        <item>9 घंटे</item>
+        <item>10 घंटे</item>
+    </string-array>
+
+    <string-array name="exercise_distance">
+        <item>1 किमी</item>
+        <item>2 किमी</item>
+        <item>3 किमी</item>
+        <item>4 किमी</item>
+        <item>5 किमी</item>
+        <item>6 किमी</item>
+        <item>7 किमी</item>
+        <item>8 किमी</item>
+        <item>9 किमी</item>
+        <item>10 किमी</item>
+        <item>11 किमी</item>
+        <item>12 किमी</item>
+        <item>13 किमी</item>
+        <item>14 किमी</item>
+        <item>15 किमी</item>
+        <item>16 किमी</item>
+        <item>17 किमी</item>
+        <item>18 किमी</item>
+        <item>19 किमी</item>
+        <item>20 किमी</item>
+    </string-array>
     <string name="app_name">Fitness App</string>
     <string name="welcome">फिटजर्नी एप्लीकेशन में आपका स्वागत है</string>
     <string name="Home">घर</string>
@@ -80,12 +144,21 @@
     <string name="calculate">गणना करें</string>
     <string name="bmi_result">आपका बीएमआई है ....</string>
     <string name="bmi_category">जो है</string>
+    <string name="bmi_underweight">जिसका मतलब है कम वजन।</string>
+    <string name="bmi_normal">जिसका मतलब है सामान्य वजन।</string>
+    <string name="bmi_overweight">जिसका मतलब है अधिक वजन।</string>
+    <string name="bmi_obese">जिसका मतलब है मोटापा।</string>
     <string name="bmi_value">0.0</string>
     <string name="bmi_categories">बीएमआई श्रेणियाँ:</string>
     <string name="bmi_fragment">फ्रैगमेंट बीएमआई</string>
+    <string name="underweight">कम वजन</string>
+    <string name="normal">सामान्य</string>
+    <string name="overweight">अधिकार वजन</string>
+    <string name="obese">मोटापा</string>
     <string name="zero">0</string>
     <string name="time_placeholder">00:00</string>
     <string name="inhale">सांस लें</string>
+    <string name="exhale">साँस छोड़ना</string>
     <string name="breathing_exercise_478">4-7-8\nसांस लेने का व्यायाम</string>
     <string name="breathing_exercise">सांस लेने का व्यायाम</string>
     <string name="exit_confirmation">क्या आप इस व्यायाम से बाहर निकलना चाहते हैं?</string>
@@ -101,7 +174,7 @@
     <string name="log_diary">डायरी में लिखें</string>
     <string name="start_goal">अभी अपना लक्ष्य सेट करना शुरू करें!</string>
     <string name="mindfulness_meditation">माइंडफुलनेस\nध्यान अभ्यास</string>
-    <string name="breathing_instructions">इस अभ्यास में, आप 4 सेकंड के लिए सांस लेंगे, रोकेंगे</string>
+    <string name="breathing_instructions">इस अभ्यास में, आप 4 सेकंड के लिए साँस लेंगे, 7 सेकंड के लिए रोकेंगे, और 8 सेकंड के लिए साँस छोड़ेंगे। ऑन-स्क्रीन काउंटडाउन का पालन करें।</string>
     <string name="start">शुरू करें</string>
     <string name="meditation_instructions">इस अभ्यास में, अपनी आँखें बंद करें और अपनी स्वाभाविक सांस पर ध्यान केंद्रित करें। हर सांस अंदर और बाहर महसूस करें। यदि विचार आएं, तो बिना निर्णय के अपनी सांस पर वापस लौटें। बस उपस्थित रहें।</string>
     <string name="summary">सारांश देखें</string>
@@ -120,6 +193,12 @@
     <string name="duration_placeholder">0 मिनट</string>
     <string name="weekdays">      रविवार     सोमवार      मंगलवार    बुधवार     गुरुवार       शुक्रवार        शनिवार</string>
     <string name="feeling">महसूस करना</string>
+    <string name="excited">उत्साहित</string>
+    <string name="happy">खुश</string>
+    <string name="sad">उदास</string>
+    <string name="neutral">तटस्थ</string>
+    <string name="anxious">चिंतित</string>
+    <string name="angry">गुस्से में</string>
     <string name="mindfulness">माइंडफुलनेस अभ्यास</string>
     <string name="journal">जर्नल</string>
     <string name="hydration_history">हाइड्रेशन इतिहास</string>
@@ -158,6 +237,7 @@
     <string name="calories_burned">जली हुई कैलोरी</string>
     <string name="stop">रुकें</string>
     <string name="steps">कदम</string>
+    <string name="km">किमी</string>
     <string name="meditation_exercise">ध्यान अभ्यास</string>
     <string name="hold">पकड़ना</string>
     <string name="T3_min">3 मिनट</string>

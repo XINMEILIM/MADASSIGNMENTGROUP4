@@ -165,7 +165,7 @@ public class BreathingExercise extends Fragment {
 
                 if (cycleState == 0 && secondsRemaining == 5) {
                     cycleText.setText("4");
-                    action.setText("INHALE");
+                    action.setText(getString(R.string.inhale));
                     action_img.setImageResource(R.drawable.inhale_stk);
                     mediaPlayer4.start();
                 } else if (cycleState == 1 && secondsRemaining == 8) {
@@ -174,7 +174,7 @@ public class BreathingExercise extends Fragment {
                     action_img.setImageResource(R.drawable.hold_stk);
                 } else if (cycleState == 2 && secondsRemaining == 9) {
                     cycleText.setText("8");
-                    action.setText("EXHALE");
+                    action.setText(getString(R.string.exhale));
                     action_img.setImageResource(R.drawable.exhale_stk);
                     mediaPlayer8.start();
                 } else {

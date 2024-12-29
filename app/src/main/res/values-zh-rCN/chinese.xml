@@ -1,5 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="time_frames">
+        <item>选择</item>
+        <item>每天</item>
+        <item>每周</item>
+        <item>每月</item>
+    </string-array>
+
+    <string-array name="cardio_exercise_types">
+        <item>选择运动</item>
+        <item>步行</item>
+        <item>跑步</item>
+        <item>游泳</item>
+        <item>骑车</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="weight_exercise_types">
+        <item>选择运动</item>
+        <item>锻炼</item>
+        <item>举重</item>
+        <item>其他力量训练</item>
+    </string-array>
+
+    <string-array name="exercise_duration">
+        <item>1 分钟</item>
+        <item>5 分钟</item>
+        <item>10 分钟</item>
+        <item>15 分钟</item>
+        <item>30 分钟</item>
+        <item>45 分钟</item>
+        <item>1 小时</item>
+        <item>2 小时</item>
+        <item>3 小时</item>
+        <item>4 小时</item>
+        <item>5 小时</item>
+        <item>6 小时</item>
+        <item>7 小时</item>
+        <item>8 小时</item>
+        <item>9 小时</item>
+        <item>10 小时</item>
+    </string-array>
+
+    <string-array name="exercise_distance">
+        <item>1 公里</item>
+        <item>2 公里</item>
+        <item>3 公里</item>
+        <item>4 公里</item>
+        <item>5 公里</item>
+        <item>6 公里</item>
+        <item>7 公里</item>
+        <item>8 公里</item>
+        <item>9 公里</item>
+        <item>10 公里</item>
+        <item>11 公里</item>
+        <item>12 公里</item>
+        <item>13 公里</item>
+        <item>14 公里</item>
+        <item>15 公里</item>
+        <item>16 公里</item>
+        <item>17 公里</item>
+        <item>18 公里</item>
+        <item>19 公里</item>
+        <item>20 公里</item>
+    </string-array>
     <string name="app_name">Fitness App</string>
     <string name="egg_name">鸡蛋</string>
     <string name="bread_name">面包</string>
@@ -80,12 +144,21 @@
     <string name="calculate">计算</string>
     <string name="bmi_result">你的BMI是....</string>
     <string name="bmi_category">属于</string>
+    <string name="bmi_underweight">属于体重过轻。</string>
+    <string name="bmi_normal">属于体重正常。</string>
+    <string name="bmi_overweight">属于超重。</string>
+    <string name="bmi_obese">属于肥胖。</string>
     <string name="bmi_value">0.0</string>
     <string name="bmi_categories">BMI分类：</string>
     <string name="bmi_fragment">BMI片段</string>
+    <string name="underweight">体重过轻</string>
+    <string name="normal">正常</string>
+    <string name="overweight">超重</string>
+    <string name="obese">肥胖</string>
     <string name="zero">0</string>
     <string name="time_placeholder">00:00</string>
     <string name="inhale">吸气</string>
+    <string name="exhale">呼气</string>
     <string name="breathing_exercise_478">4-7-8\n呼吸练习</string>
     <string name="breathing_exercise">呼吸练习</string>
     <string name="exit_confirmation">确定要退出此练习吗？</string>
@@ -101,7 +174,7 @@
     <string name="log_diary">日志</string>
     <string name="start_goal">现在开始设定你的目标！</string>
     <string name="mindfulness_meditation">正念冥想练习</string>
-    <string name="breathing_instructions">在此练习中，你将吸气4秒，屏住呼吸</string>
+    <string name="breathing_instructions">在此练习中，您将吸气 4 秒，屏气 7 秒，呼气 8 秒。按照屏幕上的倒计时进行。</string>
     <string name="start">开始</string>
     <string name="meditation_instructions">在此练习中，闭上眼睛，专注于自然的呼吸。注意每次吸气和呼气。如果有思绪出现，温柔地将注意力带回呼吸，勿加评判。专注于当下。</string>
     <string name="summary">查看总结</string>
@@ -120,6 +193,12 @@
     <string name="duration_placeholder">0分钟</string>
     <string name="weekdays">      星期日     星期一      星期二    星期三     星期四       星期五        星期六</string>
     <string name="feeling">感受</string>
+    <string name="excited">兴奋</string>
+    <string name="happy">开心</string>
+    <string name="sad">难过</string>
+    <string name="neutral">平静</string>
+    <string name="anxious">焦虑</string>
+    <string name="angry">生气</string>
     <string name="mindfulness">正念练习</string>
     <string name="journal">日志</string>
     <string name="hydration_history">饮水历史记录</string>
@@ -158,6 +237,7 @@
     <string name="calories_burned">卡路里消耗</string>
     <string name="stop">停止</string>
     <string name="steps">步数</string>
+    <string name="km">公里</string>
     <string name="meditation_exercise">冥想练习</string>
     <string name="hold">保持</string>
     <string name="T3_min">3 分钟</string>

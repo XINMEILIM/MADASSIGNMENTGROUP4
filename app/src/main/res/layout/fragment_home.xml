@@ -56,7 +56,7 @@
         android:background="#FCB56F"
         android:backgroundTint="#FCB56F"
         android:fontFamily="@font/poppins_bold"
-        android:text="@string/weekdays"
+        android:text="      Sun     Mon     Tue     Wed    Thu        Fri       Sat"
         android:textAlignment="viewStart"
         android:textColor="#000000"
         android:textSize="15sp"

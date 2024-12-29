@@ -24,13 +24,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- RadioGroup for Language Options -->
+
+    <!-- Change Button -->
     <RadioGroup
         android:id="@+id/radioGroup_language"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="265dp"
+        android:layout_height="210dp"
+        android:layout_marginTop="24dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.664"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView1">
 
@@ -38,42 +41,45 @@
             android:id="@+id/radio_default"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/default_language"
+            android:checked="true"
             android:fontFamily="@font/poppins_regular"
-            android:checked="true" />
+            android:text="@string/default_language"
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/radio_chinese"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
             android:text="@string/chinese"
-            android:fontFamily="@font/poppins_regular"/>
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/radio_malay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
             android:text="@string/malay"
-            android:fontFamily="@font/poppins_regular"/>
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/radio_hindi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
             android:text="@string/hindi"
-            android:fontFamily="@font/poppins_regular"/>
+            android:textSize="20sp" />
 
     </RadioGroup>
 
-    <!-- Change Button -->
     <Button
         android:id="@+id/button_change_language"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:backgroundTint="#FFAE43"
-        android:text="@string/change_language"
         android:fontFamily="@font/poppins_semibold"
+        android:text="@string/change_language"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

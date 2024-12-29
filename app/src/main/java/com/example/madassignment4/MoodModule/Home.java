@@ -125,10 +125,10 @@ public class Home extends Fragment {
         String mood = databaseHelper.getMood(databaseHelper.getUserIdByMostRecentLogin(), selectedDate);
         if (mood == null) {
             defaultEmoji.setImageResource(R.drawable.transparentsquare); // Default emoji
-            feeling.setText("Feeling");
+            feeling.setText(R.string.feeling);
         } else {
             defaultEmoji.setImageResource(getEmojiResource(mood));
-            feeling.setText(mood);
+            feeling.setText(getMoodStringResource(mood));
         }
     }
 
@@ -160,6 +160,25 @@ public class Home extends Fragment {
                 return R.drawable.angry_stk;
             default:
                 return R.drawable.transparentsquare;
+        }
+    }
+
+    private int getMoodStringResource(String mood) {
+        switch (mood) {
+            case "Excited":
+                return R.string.excited;
+            case "Happy":
+                return R.string.happy;
+            case "Sad":
+                return R.string.sad;
+            case "Neutral":
+                return R.string.neutral;
+            case "Anxious":
+                return R.string.anxious;
+            case "Angry":
+                return R.string.angry;
+            default:
+                return R.string.feeling; // Default fallback
         }
     }
 

@@ -83,16 +83,13 @@
 
     <TextView
         android:id="@+id/CaloriesBurned"
-        android:layout_width="73dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="28dp"
+        android:layout_width="84dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="45dp"
         android:fontFamily="@font/poppins_regular"
-        android:text="Calories Burned"
-        android:textAlignment="center"
+        android:text="@string/calories_burned"
+        android:textAlignment="viewStart"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/km"
         app:layout_constraintTop_toBottomOf="@+id/km" />
 
@@ -149,25 +146,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:layout_marginEnd="108dp"
         android:fontFamily="@font/poppins_regular"
-        android:text="km"
+        android:text="@string/km"
         android:textAlignment="center"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/steps"
         app:layout_constraintTop_toBottomOf="@+id/TotalStep" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/BtnStop"
         android:layout_width="111dp"
         android:layout_height="57dp"
-        android:layout_marginTop="26dp"
         android:layout_marginEnd="64dp"
         android:background="@drawable/rounded_button"
         android:text="@string/stop"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CaloriesBurned" />
+        app:layout_constraintTop_toTopOf="@+id/BtnStart" />
 
     <TextView
         android:id="@+id/goalstep"
@@ -218,8 +213,8 @@
         android:layout_marginTop="112dp"
         android:layout_marginEnd="92dp"
         android:fontFamily="@font/poppins_regular"
-        android:text="steps"
-        android:textAlignment="center"
+        android:text="@string/steps"
+        android:textAlignment="viewStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.636"
         app:layout_constraintStart_toEndOf="@+id/TotalStep"
