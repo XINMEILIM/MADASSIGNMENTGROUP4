@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Fitness App</string>
     <string name="egg_name">鸡蛋</string>
     <string name="bread_name">面包</string>
     <string name="orangejuice_name">橙汁</string>
