@@ -80,7 +80,7 @@
     <string name="get_started">Get Started</string>
     <string name="check_health_status">Check Your Health Status</string>
     <string name="take_a_break">Take a break</string>
-    <string name="ready_for_new_wins">Ready for new wins?</string>
+    <string name="ready_for_new_wins">Ready for new\nwins?</string>
     <string name="sick">Sick</string>
     <string name="recommended_recipe">Recommended Recipe</string>
     <string name="fuel_your_fitness">Fuel your fitness with this\npower-packed, protein-rich\nrecipe for peak performance!</string>
