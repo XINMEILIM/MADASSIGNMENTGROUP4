@@ -276,5 +276,13 @@
     <string name="chinese">Chinese</string>
     <string name="malay">Malay</string>
     <string name="hindi">Hindi</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+    <string name="genderL">Gender</string>
+    <string name="FOOD_1">FOOD 1</string>
+    <string name="Weight_g">Weight (g)</string>
+    <string name="days_of_week">\t \t Sun     \t \t Mon     \t\tTue       \t Wed       \t\t Thu       \t\tFri      \t\t\tSat    </string>
     <string name="change_language">Change Language</string>
+    <string name="weekly_recipe">Weekly Recipe</string>
+
 </resources>

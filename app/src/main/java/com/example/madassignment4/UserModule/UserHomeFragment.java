@@ -19,7 +19,7 @@ import com.example.madassignment4.Database.DatabaseHelper;
 import com.example.madassignment4.R;
 
 public class UserHomeFragment extends Fragment {
-
+//
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -42,7 +42,7 @@ public class UserHomeFragment extends Fragment {
         String username = dbHelper.getUsername();
         textViewGreeting.setText(username != null ? "Hi, " + username + "!" : "Hi, User!");
 
-        // Retrieve and set the saved health status
+        // Retrieve and set the saved health status33
         String userId = dbHelper.getUserIdByMostRecentLogin();
         String savedStatus = dbHelper.getUserHealthStatus(userId);
 

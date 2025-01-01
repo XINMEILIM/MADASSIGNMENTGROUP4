@@ -30,7 +30,7 @@ public class PrivacyPolicy extends Fragment {
         initializePrivacyPolicy();
         loadPrivacyPolicy();
         return view;
-    }
+    }//
 
     private void initializePrivacyPolicy() {
         DatabaseHelper dbHelper = new DatabaseHelper(getContext());

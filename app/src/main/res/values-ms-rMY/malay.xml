@@ -276,4 +276,13 @@
     <string name="malay">Bahasa Melayu</string>
     <string name="hindi">Bahasa Hindi</string>
     <string name="change_language">Tukar Bahasa</string>
+    <string name="height">Tinggi</string>
+    <string name="weight">Berat</string>
+    <string name="genderL">Jantina</string>
+    <string name="FOOD_1">MAKANAN 1</string>
+    <string name="Weight_g">Berat (g)</string>
+    <string name="days_of_week">\t Ahad     \tIsnin     \tSelasa       \tRabu       \tKhamis       \tJumaat      \tSabtu#    </string>
+    <string name="weekly_recipe">Resepi Mingguan</string>
+
+
 </resources>

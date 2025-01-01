@@ -19,7 +19,7 @@ import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    //Database Name and Version
+    //Database Name and Version3333###
     private static final String DATABASE_NAME = "FitJourney.db";
     private static final int DATABASE_VERSION = 9;
 
@@ -138,7 +138,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-    // SQL for creating User Table
+    // SQL for creating User Table3#3#3##3333
     private static final String CREATE_USER_TABLE =
             "CREATE TABLE " + TABLE_USER + " (" +
                     COLUMN_USER_ID + " TEXT PRIMARY KEY, " +
@@ -300,7 +300,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("PRAGMA foreign_keys = ON;"); // Enable foreign key support
+        db.execSQL("PRAGMA foreign_keys = ON;"); // Enable foreign key support33#33#333#33
         // Create tables
         db.execSQL(CREATE_USER_TABLE);
         db.execSQL(CREATE_USER_PROFILE_TABLE);

@@ -276,5 +276,12 @@
     <string name="malay">मलय</string>
     <string name="hindi">हिन्दी</string>
     <string name="change_language">भाषा बदलें</string>
+    <string name="days_of_week">\t \t रवि     \t \t सोम     \t\tमंगल       \t बुध       \t\t गुरु       \t\tशुक्र      \t\t\tशनि    </string>
+    <string name="height">ऊंचाई</string>
+    <string name="weight">वजन</string>
+    <string name="genderL">लिंग</string>
+    <string name="FOOD_1">भोजन 1</string>
+    <string name="Weight_g">वजन (ग्रा)</string>
+    <string name="weekly_recipe">साप्ताहिक नुस्खा</string>
 
 </resources>

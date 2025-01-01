@@ -37,7 +37,7 @@ public class LanguageFragment extends Fragment {
         if (userId != null) {
             String userLanguageId = dbHelper.getUserLanguage(userId);
 
-            // Set the language based on the stored preference
+            // Set the language based on the stored preference###3
             if (userLanguageId == null) {
                 userLanguageId = "en"; // Default to English if no preference is found
             }

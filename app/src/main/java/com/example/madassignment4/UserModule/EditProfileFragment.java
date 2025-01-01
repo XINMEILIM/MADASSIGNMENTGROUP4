@@ -30,7 +30,7 @@ public class EditProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
 
-        // Initialize DatabaseHelper and get writable database
+        // Initialize DatabaseHelper and get writable database3
         dbHelper = new DatabaseHelper(requireContext());
         db = dbHelper.getWritableDatabase();
 

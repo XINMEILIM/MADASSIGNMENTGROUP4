@@ -276,6 +276,11 @@
     <string name="malay">马来语</string>
     <string name="hindi">印地语</string>
     <string name="change_language">更换语言</string>
-
-
+    <string name="days_of_week">\t \t 日     \t \t 一     \t\t二       \t 三       \t\t 四       \t\t五      \t\t\t六    </string>
+    <string name="height">身高</string>
+    <string name="weight">体重</string>
+    <string name="genderL">性别</string>
+    <string name="FOOD_1">食物 1</string>
+    <string name="Weight_g">重量 (克)</string>
+    <string name="weekly_recipe">每周食谱</string>
 </resources>

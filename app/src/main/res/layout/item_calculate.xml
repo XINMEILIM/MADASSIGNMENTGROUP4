@@ -27,7 +27,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:hint="FOOD 1"
+        android:hint="@string/FOOD_1"
         android:fontFamily="@font/poppins_regular"
         android:background="@drawable/shapre_orange"
         android:textColorHint="@color/white"
@@ -53,7 +53,7 @@
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
         android:background="@drawable/shapre_orange"
-        android:hint="Weight (g)"
+        android:hint="@string/Weight_g"
         android:layout_weight="1"
         android:layout_marginEnd="16dp" />
 
