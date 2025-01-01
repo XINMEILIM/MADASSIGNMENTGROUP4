@@ -1,6 +1,5 @@
 package com.example.madassignment4;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -11,10 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import com.example.madassignment4.DailyWellnessModule.DailyWellnessActivity;
-import com.example.madassignment4.ExerciseModule.ExerciseActivityMain;
-import com.example.madassignment4.MoodModule.MoodMainActivity;
 
 public class TrackerMain extends Fragment {
 

@@ -38,7 +38,6 @@ public class Home extends Fragment {
     private DatabaseHelper databaseHelper;
 
     public Home() {
-        // Required empty public constructor
     }
 
     @Override

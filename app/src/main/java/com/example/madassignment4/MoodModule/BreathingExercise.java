@@ -37,7 +37,6 @@ public class BreathingExercise extends Fragment {
     private ImageView action_img;
 
     public BreathingExercise() {
-        // Required empty public constructor
     }
 
     @Override

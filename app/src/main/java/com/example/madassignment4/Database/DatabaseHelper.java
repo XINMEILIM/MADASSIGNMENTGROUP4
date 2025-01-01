@@ -19,7 +19,7 @@ import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    //Database Name and Version3333###
+    //Database Name and Version
     private static final String DATABASE_NAME = "FitJourney.db";
     private static final int DATABASE_VERSION = 9;
 
@@ -577,13 +577,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
-
-
     public void saveHydrationGoal(String userId, String date, int hydrationGoal) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("UserID", userId);  // Replace with actual user ID
+        values.put("UserID", userId);
         values.put("Date", date);
         values.put("HydrationGoal", hydrationGoal);
 
@@ -694,26 +691,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return dailyIntake; // Return totals grouped by date
     }
-    public void saveStepData(String userId, int stepGoal, int stepCount, float distanceWalked, float caloriesBurned, String date) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_USER_ID, userId);
-        values.put(COLUMN_STEP_GOAL, stepGoal);
-        values.put(COLUMN_STEP_COUNT, stepCount);
-        values.put(COLUMN_DISTANCE_WALKED, distanceWalked);
-        values.put(COLUMN_CALORIES_BURNED, caloriesBurned);
-        values.put(COLUMN_STEP_TRACK_DATE, date);
-
-        db.insert(TABLE_STEP_TRACKING, null, values);
-        db.close();
-    }
-
-    // Method to load the last saved data
-    public Cursor loadLastStepData(String userId) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.query(TABLE_STEP_TRACKING, null, COLUMN_USER_ID + "=?", new String[]{String.valueOf(userId)}, null, null, COLUMN_STEP_TRACK_DATE + " DESC", "1");
-    }
-
 
     public void saveDailyStepTracking(String userId, String date, int stepCount, float distanceWalked, float caloriesBurned) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -727,46 +704,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Insert or replace the record for the given date
         db.insertWithOnConflict(TABLE_STEP_TRACKING, null, values, SQLiteDatabase.CONFLICT_REPLACE);
-    }
-
-    public Map<String, Map<String, Object>> getTotalStepCount(String userId) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Map<String, Map<String, Object>> history = new LinkedHashMap<>();
-
-        String query = "SELECT Date, StepCount, DistanceWalked, CaloriesBurned FROM " + TABLE_STEP_TRACKING +
-                " WHERE UserID = ? ORDER BY Date DESC";
-
-        Cursor cursor = db.rawQuery(query, new String[]{userId});
-
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                int DateIndex=cursor.getColumnIndex("Date");
-                int StepsCountIndex=cursor.getColumnIndex("StepCount");
-                String date = cursor.getString(DateIndex);
-                int steps = cursor.getInt(StepsCountIndex);
-
-                Map<String, Object> dailyData = new HashMap<>();
-                dailyData.put("Steps", steps);
-                history.put(date, dailyData);
-            }
-            cursor.close();
-        }
-
-        return history;
-    }
-
-    public int getStepGoalId(String userId, String date) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query("StepTracking", new String[]{"StepGoalID"}, "UserID = ? AND Date = ?", new String[]{userId, date}, null, null, null);
-        int stepGoalId = -1;
-
-        if (cursor != null && cursor.moveToFirst()) {
-            int StepGoalIDIndex=cursor.getColumnIndex("StepGoalID");
-            stepGoalId = cursor.getInt(StepGoalIDIndex);
-            cursor.close();
-        }
-
-        return stepGoalId;
     }
 
     public void saveStepGoal(String userId, String date, int goal) {
@@ -1035,8 +972,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    // Method to get the current language setting for a user
-    // Method to get user language
+
     public String getUserLanguage(String userId) {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT " + COLUMN_LANGUAGE_ID + " FROM " + TABLE_USER_LANGUAGE_SETTING +
@@ -1074,9 +1010,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public SQLiteDatabase getDatabase() {
-        return this.getWritableDatabase(); // Or getReadableDatabase() if no write operation is needed
+        return this.getWritableDatabase();
     }
-
 
 
 

@@ -36,7 +36,6 @@ public class HydrationTracking extends Fragment {
 
         dbHelper = new DatabaseHelper(requireContext());
 
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_hydration_tracking, container, false);
 
         // Initialize the UI components
@@ -55,7 +54,6 @@ public class HydrationTracking extends Fragment {
         };
         BtnHistory.setOnClickListener(HydrationHistory);
 
-        // Set up the back button
         ImageButton BtnBack = view.findViewById(R.id.back_btn);
         View.OnClickListener Back = new View.OnClickListener() {
             @Override
@@ -72,8 +70,7 @@ public class HydrationTracking extends Fragment {
         // Get the current date
         String currentDate = getCurrentDate();
 
-        // Get user ID (replace this with actual user ID if applicable)
-        String userId = dbHelper.getUserIdByMostRecentLogin();  // Example user ID; replace with actual logic
+        String userId = dbHelper.getUserIdByMostRecentLogin();
 
         // Check if the user has already set a goal today from the database
         int hydrationGoal = dbHelper.getHydrationGoal(userId, currentDate);
@@ -139,8 +136,6 @@ public class HydrationTracking extends Fragment {
         // Get the current date and timestamp
         String currentDate = getCurrentDate();
         String currentTimeStamp = getCurrentTimeStamp();
-
-        // Get user ID (replace this with actual user ID if applicable)
         String userId = dbHelper.getUserIdByMostRecentLogin();
 
         // Create the dialog for entering hydration intake

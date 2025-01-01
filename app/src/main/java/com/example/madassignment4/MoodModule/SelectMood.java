@@ -24,7 +24,6 @@ public class SelectMood extends Fragment {
     private String selectedDate;
 
     public SelectMood() {
-        // Required empty public constructor
     }
 
     @Override

@@ -33,7 +33,6 @@ public class MeditationExercise extends Fragment {
     private Button no_btn, yes_btn;
 
     public MeditationExercise() {
-        // Required empty public constructor
     }
 
     @Override

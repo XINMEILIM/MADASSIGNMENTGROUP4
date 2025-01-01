@@ -35,7 +35,6 @@ public class UserHomeFragment extends Fragment {
         // Access the database helper
         DatabaseHelper dbHelper = new DatabaseHelper(requireContext());
 
-        // Populate the health status table (if necessary)
         dbHelper.populateHealthStatusTable();
 
         // Retrieve and display the username

@@ -37,10 +37,9 @@ public class StepHistory extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_step_history, container, false);
 
-        // Initialize BarChart and DatabaseHelper
+
         barChart = view.findViewById(R.id.barChart);
         dbHelper = new DatabaseHelper(getActivity());
 
@@ -52,7 +51,7 @@ public class StepHistory extends Fragment {
         String startDate = sdf.format(calendar.getTime());  // Date 6 days ago
 
         // Retrieve the step history data
-        String userId = dbHelper.getUserIdByMostRecentLogin();  // Replace with dynamic user ID or param if needed
+        String userId = dbHelper.getUserIdByMostRecentLogin();
         ArrayList<String> dates = getDateRange(startDate, endDate);
 
         // Prepare BarChart entries and x-axis labels

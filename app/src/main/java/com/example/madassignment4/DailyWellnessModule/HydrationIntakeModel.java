@@ -19,10 +19,6 @@ public class HydrationIntakeModel {
         return quantityOfWater;
     }
 
-    // Setters (if needed)
-    public void setIntakeTimestamp(String intakeTimestamp) {
-        this.intakeTimestamp = intakeTimestamp;
-    }
 
     public void setQuantityOfWater(int quantityOfWater) {
         this.quantityOfWater = quantityOfWater;

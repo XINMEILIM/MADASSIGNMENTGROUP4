@@ -37,7 +37,14 @@ public class PrivacyPolicy extends Fragment {
         Cursor cursor = dbHelper.getPrivacyPolicy();
 
         if (cursor == null || !cursor.moveToFirst()) {
-            dbHelper.saveOrUpdatePrivacyPolicy("1", getString(R.string.default_privacy_policy));
+            dbHelper.saveOrUpdatePrivacyPolicy("1", getString(R.string.privacy_policy_content));
+        } else {
+            String existingContent = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PRIVACY_POLICY_CONTENT));
+            String newContent = getString(R.string.privacy_policy_content);
+
+            if (!existingContent.equals(newContent)) {
+                dbHelper.saveOrUpdatePrivacyPolicy("1", newContent);
+            }
         }
 
         if (cursor != null) cursor.close();

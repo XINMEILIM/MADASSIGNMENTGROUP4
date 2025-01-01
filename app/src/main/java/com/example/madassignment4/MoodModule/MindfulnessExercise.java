@@ -30,7 +30,6 @@ public class MindfulnessExercise extends Fragment {
     private long selectedTime = 0;
 
     public MindfulnessExercise() {
-        // Required empty public constructor
     }
 
     @Override

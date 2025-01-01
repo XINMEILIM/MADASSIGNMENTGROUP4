@@ -37,10 +37,8 @@ public class HydrationHistory extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_hydration_history, container, false);
 
-        // Initialize BarChart and DatabaseHelper
         barChart = view.findViewById(R.id.barChart);
         dbHelper = new DatabaseHelper(getActivity());
 
@@ -52,7 +50,7 @@ public class HydrationHistory extends Fragment {
         String startDate = sdf.format(calendar.getTime());  // Date 6 days ago
 
         // Retrieve daily intake data as a Map<Date, TotalIntake>
-        String userId = dbHelper.getUserIdByMostRecentLogin();  // Replace with dynamic user ID or param if needed
+        String userId = dbHelper.getUserIdByMostRecentLogin();
         Map<String, Integer> dailyIntake = dbHelper.getTotalWaterIntakeByDay(userId, startDate, endDate);
 
         // Prepare BarChart entries and x-axis labels
@@ -74,7 +72,7 @@ public class HydrationHistory extends Fragment {
 
         // Create BarData and set it to the chart
         BarData barData = new BarData(dataSet);
-        barData.setBarWidth(0.7f);  // Adjust bar width for better appearance
+        barData.setBarWidth(0.7f);
         barChart.setData(barData);
 
         // Customize Y-Axis values
@@ -92,7 +90,7 @@ public class HydrationHistory extends Fragment {
         xAxis.setDrawGridLines(false);
 
         // Additional chart customization
-        barChart.getDescription().setEnabled(false);  // Remove description
+        barChart.getDescription().setEnabled(false);
         barChart.setTouchEnabled(true);
         barChart.animateY(1000);  // Animate bars
         barChart.invalidate();  // Refresh the chart

@@ -47,7 +47,6 @@ public class Journal extends Fragment {
     private DatabaseHelper databaseHelper;
 
     public Journal() {
-        // Default empty constructor
     }
 
     @Override

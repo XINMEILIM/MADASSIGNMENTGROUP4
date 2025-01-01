@@ -16,14 +16,8 @@
             android:name=".FoodModule.FoodActivity"
             android:exported="false" />
         <activity
-            android:name=".TrackerMainActivity"
-            android:exported="false" />
-        <activity
             android:name=".UserModule.UserAcitivity"
             android:exported="false" />
-        <activity
-            android:name=".ExerciseModule.ExerciseActivityMain"
-            android:exported="false" /> <!-- MainActivity is now the launcher activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -33,12 +27,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".DailyWellnessModule.DailyWellnessActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MoodModule.MoodMainActivity"
-            android:exported="true" />
     </application>
 
 </manifest>

@@ -47,7 +47,6 @@ public class StepTracking extends Fragment implements SensorEventListener {
     private long lastStepTime = 0;
     private static final long DEBOUNCE_TIME = 300;
     private DatabaseHelper dbHelper;
-     // Replace with actual user logic
     private String currentDate;
 
     @Override
@@ -76,7 +75,6 @@ public class StepTracking extends Fragment implements SensorEventListener {
         btnStart.setOnClickListener(v -> startTracking());
         btnStop.setOnClickListener(v -> stopTracking());
 
-        //Set up HydrationHistory button
         View.OnClickListener StepHistory = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,7 +110,7 @@ public class StepTracking extends Fragment implements SensorEventListener {
 
         // If no goal exists, show the dialog for input
         Dialog dialog = new Dialog(requireContext());
-        dialog.setContentView(R.layout.dialog_steps_goal); // Custom layout for input
+        dialog.setContentView(R.layout.dialog_steps_goal);
         dialog.setCancelable(false);
         EditText goalInputField = dialog.findViewById(R.id.ETStepsInput);
         Button btnSetGoal = dialog.findViewById(R.id.BtnSetGoal);

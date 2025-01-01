@@ -24,7 +24,6 @@ public class ExerciseHomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_exercise_home, container, false);
 
         // Calculate and update progress
@@ -65,7 +64,6 @@ public class ExerciseHomeFragment extends Fragment {
 
         db.close();
 
-        // Set the formatted description to the TextView
         TextView tvPGDescription = view.findViewById(R.id.TVPGDescription);
         tvPGDescription.setText(descriptionBuilder.toString());
 

@@ -18,13 +18,12 @@ public class DailyWellnessMain extends Fragment {
 
 
     public DailyWellnessMain() {
-        // Required empty public constructor
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_daily_wellness_main, container, false);
     }
 
@@ -46,7 +45,6 @@ public class DailyWellnessMain extends Fragment {
         BtnBack.setOnClickListener(Back);
 
 
-        // Set click listeners for navigation
         View.OnClickListener HydrationTracking = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
