@@ -46,25 +46,6 @@
         app:layout_constraintStart_toStartOf="@id/guideline"
         app:layout_constraintTop_toTopOf="@+id/calendar_bg" />
 
-    <TextView
-        android:id="@+id/calendarday_tv"
-        android:layout_width="348dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="96dp"
-        android:layout_marginEnd="5dp"
-        android:background="#FCB56F"
-        android:backgroundTint="#FCB56F"
-        android:fontFamily="@font/poppins_bold"
-        android:text="@string/days_of_week"
-        android:textAlignment="viewStart"
-        android:textColor="#000000"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.482"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/calendar_bg" />
-
 
     <ImageView
         android:id="@+id/smallbox_iv"
