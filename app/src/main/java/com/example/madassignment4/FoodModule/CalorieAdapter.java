@@ -31,7 +31,7 @@ public class CalorieAdapter extends RecyclerView.Adapter<CalorieAdapter.ViewHold
         mOnTextChangeListener = onTextChangeListener;
     }
 
-    // 定义点击事件接口
+    
     public interface OnItemClickListener {
         void add(int position);
 
