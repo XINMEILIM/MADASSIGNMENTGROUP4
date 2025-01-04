@@ -79,7 +79,7 @@ public class Home extends Fragment {
 
         // Set the selected date
         selectedDate = getArguments() != null ? getArguments().getString("selectedDate") :
-                new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+                new SimpleDateFormat("yyyy-M-d", Locale.getDefault()).format(new Date());
 
         // Set the calendar view to the selected date
         setCalendarViewToSelectedDate();
@@ -109,7 +109,7 @@ public class Home extends Fragment {
     // Set calendar to the selected date
     private void setCalendarViewToSelectedDate() {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
             Date date = sdf.parse(selectedDate);
             if (date != null) {
                 calendarView.setDate(date.getTime(), true, true);
