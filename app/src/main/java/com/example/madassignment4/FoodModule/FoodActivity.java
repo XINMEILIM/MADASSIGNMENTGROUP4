@@ -2,7 +2,11 @@ package com.example.madassignment4.FoodModule;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -45,6 +49,7 @@ public class FoodActivity extends AppCompatActivity {
     private FoodListAdapter mFoodListAdapter;
     private CalorieResultAdapter mCalorieResultAdapter;
     private List<FoodBean> foods0 = new ArrayList<>();
+    private List<FoodBean> foods4 = new ArrayList<>();
     private List<FoodBean> foods1 = new ArrayList<>();
     private List<FoodBean> foods2 = new ArrayList<>();
     private List<FoodBean> foods3 = new ArrayList<>();
@@ -87,14 +92,48 @@ public class FoodActivity extends AppCompatActivity {
         tvCalculate = findViewById(R.id.tv_calculate);
         iv_back.setOnClickListener(v -> {
             if (!isMain) {
-                tv_title.setText("");
-                layout_weekly_recipes.setVisibility(View.GONE);
-                layout_food_list.setVisibility(View.GONE);
-                layout_food_detail.setVisibility(View.GONE);
-                layout_weekly_recipes.setVisibility(View.GONE);
-                layout_input_food.setVisibility(View.GONE);
+                if (layout_food_detail.getVisibility()==View.VISIBLE){
+                    layout_food_detail.setVisibility(View.GONE);
+                    layout_food_list.setVisibility(View.VISIBLE);
+                }else {
+                    tv_title.setText("");
+                    layout_weekly_recipes.setVisibility(View.GONE);
+                    layout_food_list.setVisibility(View.GONE);
+                    layout_food_detail.setVisibility(View.GONE);
+                    layout_weekly_recipes.setVisibility(View.GONE);
+                    layout_input_food.setVisibility(View.GONE);
+                }
             }
         });
+        EditText searchBar = findViewById(R.id.search_bar);
+        searchBar.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String keyWord = s.toString();
+                if (TextUtils.isEmpty(keyWord)) {
+                    foods4.clear();
+                    foods4.addAll(foods0);
+                    mFoodListAdapter.notifyDataSetChanged();
+                } else {
+                    foods4.clear();
+                    for (FoodBean foodBean : foods0) {
+                        String name = foodBean.getName();
+                        if (name.contains(keyWord)) {
+                            foods4.add(foodBean);
+                        }
+                    }
+                    mFoodListAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView2 = findViewById(R.id.rv_breakfast);
         recyclerView3 = findViewById(R.id.rv_lunch);
@@ -133,14 +172,14 @@ public class FoodActivity extends AppCompatActivity {
         mFoodAdapter1.notifyDataSetChanged();
         mFoodAdapter2.notifyDataSetChanged();
         mFoodAdapter3.notifyDataSetChanged();
-
-        mFoodListAdapter = new FoodListAdapter(this, foods0);
+        foods4.addAll(foods0);
+        mFoodListAdapter=new FoodListAdapter(this,foods4);
         mFoodListAdapter.setListener(new FoodListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 layout_food_detail.setVisibility(View.VISIBLE);
                 layout_food_list.setVisibility(View.GONE);
-                FoodBean foodBean = foods0.get(position);
+                FoodBean foodBean = foods4.get(position);
                 tv_title.setText(foodBean.getDetail());
                 ivImage.setImageResource(foodBean.getImage());
                 tvDetail.setText(getResources().getString(foodBean.getDetail()));
@@ -162,6 +201,7 @@ public class FoodActivity extends AppCompatActivity {
         rv_calorie_result.setLayoutManager(new LinearLayoutManager(this));
         rv_calorie_result.setAdapter(mCalorieResultAdapter);
         rv_input.setLayoutManager(new LinearLayoutManager(this));
+        mCalorieAdapter.setHasStableIds(true);
         mCalorieAdapter.setListener(new CalorieAdapter.OnItemClickListener() {
             @Override
             public void add(int position) {

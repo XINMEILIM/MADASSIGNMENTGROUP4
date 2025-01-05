@@ -1,5 +1,6 @@
 package com.example.madassignment4.FoodModule;
 
+import android.annotation.SuppressLint;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -31,7 +32,7 @@ public class CalorieAdapter extends RecyclerView.Adapter<CalorieAdapter.ViewHold
         mOnTextChangeListener = onTextChangeListener;
     }
 
-    
+
     public interface OnItemClickListener {
         void add(int position);
 
@@ -55,7 +56,7 @@ public class CalorieAdapter extends RecyclerView.Adapter<CalorieAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         if (mList.size()>1&&position==mList.size()-1||mList.size()==1&&position==0){
             holder.ivdelete.setVisibility(View.GONE);
             holder.ivadd.setVisibility(View.VISIBLE);
@@ -109,7 +110,18 @@ public class CalorieAdapter extends RecyclerView.Adapter<CalorieAdapter.ViewHold
                 }
             }
         });
+        holder.et_name.setText(mList.get(position).getName());
+        holder.et_count.setText(mList.get(position).getCount());
+
     }
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+
+
+
 
     @Override
     public int getItemCount() {
