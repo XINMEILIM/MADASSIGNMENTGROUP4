@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Database Name and Version
     private static final String DATABASE_NAME = "FitJourney.db";
-    private static final int DATABASE_VERSION = 9;
+    private static final int DATABASE_VERSION = 10;
 
     // Table Names
     public static final String TABLE_USER = "User";
@@ -210,12 +210,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + TABLE_HYDRATION_INTAKE + " (" +
                     COLUMN_INTAKE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_USER_ID + " TEXT, " +
-                    COLUMN_GOAL_ID + " INTEGER, " +
                     COLUMN_INTAKE_TIMESTAMP + " TEXT, " +
                     COLUMN_QUANTITY_OF_WATER + " INTEGER, " +
                     COLUMN_GOAL_DATE + " TEXT, " +
-                    "FOREIGN KEY (" + COLUMN_USER_ID + ") REFERENCES " + TABLE_USER + "(" + COLUMN_USER_ID + "), " +
-                    "FOREIGN KEY (" + COLUMN_GOAL_ID + ") REFERENCES " + TABLE_HYDRATION_GOAL + "(" + COLUMN_GOAL_ID + "));";
+                    "FOREIGN KEY (" + COLUMN_USER_ID + ") REFERENCES " + TABLE_USER + "(" + COLUMN_USER_ID + "));";
 
     // SQL for creating StepTracking Table
     private static final String CREATE_STEP_TRACKING_TABLE =
